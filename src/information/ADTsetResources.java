@@ -1,6 +1,7 @@
 package information;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ADTsetResources {
 
@@ -38,5 +39,5 @@ public interface ADTsetResources {
      * Return a list with the resources queried by a user
      * @return
      */
-    String getResourcesFromUser(String name);
+    ArrayList<String> getResourcesFromUser(String name);
 }

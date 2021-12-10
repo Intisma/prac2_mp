@@ -30,7 +30,7 @@ public class Query {
      * @return result
      */
     public String toString(){
-        return ("user: " + alias +" date: " + date + " hour: " + hour);
+        return ("user: " + alias +" date: " + date + " hour: " + hour+" ");
     }
 
 }

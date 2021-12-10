@@ -6,7 +6,7 @@ public class ContResource {
 
     public ContResource(String resource) {
         this.resource = resource;
-        cont = 0;
+        cont = 1;
     }
 
     public int getCont() {
@@ -23,5 +23,9 @@ public class ContResource {
 
     public void setResource(String resource) {
         this.resource = resource;
+    }
+
+    public String toString (){
+        return (resource+" counter: "+cont+" ");
     }
 }

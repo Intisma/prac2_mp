@@ -47,12 +47,19 @@ public class DynamicSetResources implements ADTsetResources{
      */
     @Override
     public void removeQueriesFromResource(String resource) {
+        int i;
+        boolean found=false;
         resources.get(resource).clear();
         //Recorrer mapa
-      /*  for (String clave : users.keySet()) {
-            ArrayList<String> valor = users.get(clave);
-            valor.remove(resource);
-        }*/
+        for (String name: this.users.keySet()){
+            for (i=0; i<users.get(name).size() && !found; i++) {
+                if (users.get(name).get(i).getResource().equals(resource)) {
+                    users.get(name).remove(i);
+                    found = true;
+                }
+            }
+            found = false;
+        }
     }
 
     /**
@@ -61,14 +68,27 @@ public class DynamicSetResources implements ADTsetResources{
     @Override
     public void removeQueriesFromResourceDate(String date, String resource) {
         ArrayList<Query> listQuerys = resources.get(resource);
-        for (Query listQuery : listQuerys) {
-            if (listQuery.getDate().equals(date)) {
-                resources.get(resource).remove(listQuery);
+        ArrayList<Query> delete = new ArrayList<>();
+
+        for (Query query : listQuerys) {
+            if (query.getDate().equals(date)) {
+                //Delete the resource from the list
+                delete.add(query);
+                //Search and delete the resource from the list in users if there is less than 1 query
+                for (int i=0; i<users.get(query.getAlias()).size(); i++) {
+                    if (users.get(query.getAlias()).get(i).getResource().equals(resource)) {
+                        if (users.get(query.getAlias()).get(i).getCont() == 1) {
+                            users.get(query.getAlias()).remove(i);
+                        }
+                        else {
+                            users.get(query.getAlias()).get(i).setCont(users.get(query.getAlias()).get(i).getCont()-1);
+                        }
+                    }
+                }
+
             }
         }
-        //borrar en la hashmap de usuario si solo tiene una consulta a este recurso
-
-
+        resources.get(resource).removeAll(delete);
     }
 
     /**
@@ -109,7 +129,15 @@ public class DynamicSetResources implements ADTsetResources{
      */
     @Override
     public String getMostQueriedResource() {
-        return null;
+        String most=null;
+        int length =0;
+        for (String res : this.resources.keySet()){
+            if (length < resources.get(res).size()){
+                length = resources.get(res).size();
+                most=res;
+            }
+        }
+        return most;
     }
 
 
@@ -118,8 +146,12 @@ public class DynamicSetResources implements ADTsetResources{
      * @return result
      */
     @Override
-    public String getResourcesFromUser(String name) {
-        return ("Name: " + name + "\nResources consulted: " +(users.get(name)));
+    public ArrayList<String> getResourcesFromUser(String name) {
+        ArrayList<String> result = new ArrayList<>();
+        for (int i =0; i<users.get(name).size(); i++){
+            result.add(users.get(name).get(i).getResource());
+        }
+        return result;
     }
 
 
@@ -137,7 +169,7 @@ public class DynamicSetResources implements ADTsetResources{
      * @return result
      */
     public String toStringUsers(){
-        StringBuilder result= new StringBuilder("\n\nUsers: \n");
+        StringBuilder result= new StringBuilder("\n-----------USERS: \n");
         for (String name: this.users.keySet()){
             result.append(name).append(":\n").append(this.users.get(name).toString()).append("\n");
         }
@@ -149,9 +181,9 @@ public class DynamicSetResources implements ADTsetResources{
      * @return result
      */
     public String toStringResources(){
-        StringBuilder result= new StringBuilder("\n\nResources: \n");
+        StringBuilder result= new StringBuilder("\n-----------RESOURCES: \n");
         for (String name: this.resources.keySet()){
-            result.append(name).append(":\n").append(this.resources.get(name).toString()).append("\n\n");
+            result.append(name).append(":\n").append(this.resources.get(name).toString()).append("\n");
         }
         return result.toString();
     }
