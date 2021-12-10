@@ -5,27 +5,27 @@ public interface ADTsetResources {
     /**
      * Add query to the data structure
      */
-    void addQuery();
+    void addQuery(Query query);
 
     /**
      * Remove all the queries of a resource
      */
-    void removeQueriesFromResource();
+    void removeQueriesFromResource(String resource);
 
     /**
      * Remove all the queries of a resource  in a specific date
      */
-    void removeQueriesFromResourceDate();
+    void removeQueriesFromResourceDate(String resource, Date date);
 
     /**
      * Return a list with the users who queried a certain resource
      */
-    String[] getUsersFromResource();
+    String[] getUsersFromResource(String resource);
 
     /**
      * Return a list with the users who queried a certain resource in a specific date
      */
-    void getUsersFromResourceDate();
+    String[] getUsersFromResourceDate(String resource, Date date);
 
     /**
      * Return the most queried resource
@@ -35,5 +35,5 @@ public interface ADTsetResources {
     /**
      * Return a list with the resources queried by a user
      */
-    String[] getResourcesFromUser();
+    Resources getResourcesFromUser(String user);
 }
