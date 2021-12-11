@@ -28,5 +28,4 @@ public class WriteData {
             return false;
         }
     }
-
 }
