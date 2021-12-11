@@ -168,14 +168,14 @@ public class StaticSetResources implements ADTsetResources {
      * Return a list with the resources queried by a user
      */
     @Override
-    public Resources getResourcesFromUser(String user) {
+    public String[] getResourcesFromUser(String user) {
         Resources resources = new Resources();
         for (int index = 0; index < numElements; index++) {
             if (list[index].getUser().equals(user)) {
                 resources.addResource(list[index].getResource());
             }
         }
-        return resources;
+        return resources.getResources();
     }
 
     /**

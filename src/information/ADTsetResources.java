@@ -36,5 +36,5 @@ public interface ADTsetResources {
     /**
      * Return a list with the resources queried by a user
      */
-    Resources getResourcesFromUser(String user);
+    String[] getResourcesFromUser(String user);
 }

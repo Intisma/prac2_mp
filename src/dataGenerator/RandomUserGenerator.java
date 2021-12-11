@@ -53,12 +53,13 @@ public class RandomUserGenerator {
     /**
      * Method to generate random names attained from the text files
      */
-    public Users generateRandomUsers() {
+    public Users generateRandomUsers(int size) {
+        if(size<1||size>Users.maxUsers) size = Users.maxUsers;
         Users users = new Users();
         try{
             this.setFirstNames();
             this.setLastNames();
-            for (int i = 0; i < Users.maxUsers; i++) {
+            for (int i = 0; i < size; i++) {
                 users.addUser(firstNames.get(nameGenerator.nextInt(firstNames.size())) + " " + lastNames.get(nameGenerator.nextInt(lastNames.size())));
             }
         }catch (IOException e){

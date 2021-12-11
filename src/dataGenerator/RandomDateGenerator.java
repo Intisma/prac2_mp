@@ -17,13 +17,15 @@ public class RandomDateGenerator {
 
     /**
      * Method to generate random dates
+     *
      * @return a class containing the generated dates
      */
-    public Dates generateRandomDates() {
+    public Dates generateRandomDates(int size) {
+        if (size < 10 || size > Dates.maxDates) size = Dates.maxDates;
         Dates dates = new Dates();
         char month;
         int maxDay;
-        for (int index = 0; index < Dates.maxDates; index++) {
+        for (int index = 0; index < size; index++) {
             month = (char) dateGenerator.nextInt(1, 12);
             switch (month) {
                 case 1, 3, 5, 7, 8, 10, 12 -> maxDay = 31;

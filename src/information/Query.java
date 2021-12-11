@@ -51,6 +51,6 @@ public class Query {
      * @return String with the information of the class
      */
     public String toString() {
-        return "Query: R-" + resource + " | U-" + user + " | D-" + date.toString();
+        return "Query: Resource-" + resource + " | User-" + user + " | Date-" + date.toString();
     }
 }

@@ -13,6 +13,14 @@ public class Resources {
     }
 
     /**
+     * Get the list of resources
+     * @return list of String with the resources
+     */
+    public String[] getResources() {
+        return resources;
+    }
+
+    /**
      * Get the number of resources in the structure
      *
      * @return the number of resources in the structure
