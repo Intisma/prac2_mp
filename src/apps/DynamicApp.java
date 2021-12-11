@@ -28,6 +28,7 @@ public class DynamicApp {
                 case 6: mostResource(dynamic);
                 case 7: listResources(dynamic);
                 case 8: test();
+                case 9: writeToFile(dynamic);
                 case 0: System.out.println("\tHasta otra!");
             }
         } while (option != 0);
@@ -117,6 +118,7 @@ public class DynamicApp {
 //      String[] info = readData.leer(file);
 //        if (info != null) {
 //            DynamicSetResources dynamic = new DynamicSetResources();
+        //bucle creando DynamicSetResources
 //            System.out.println("\n\tCreating the dynamic resources... ");
 //            dynamic.addQuery(info);
 //            System.out.print("\n\tIntroduce the file's name where do you want to save the info: ");
@@ -151,6 +153,7 @@ public class DynamicApp {
     public static void removeQueriesByDate(DynamicSetResources info){
         String resource = readNum("\nIntroduce the name of the resource: ");
         String date = readNum("\nIntroduce the date: ");
+        //Transformar a date
         info.removeQueriesFromResourceDate(date, resource);
         System.out.println("All the queries from"+resource+"from "+date+"were succefully deleted!");
         System.out.println(info);
@@ -195,6 +198,16 @@ public class DynamicApp {
         String name = readNum("\nIntroduce the alias of the user: ");
         System.out.println("The resources queried by"+name+"were:\n"+info.getResourcesFromUser(name));
         pause();
+    }
+
+    /**
+     * Write the structures in a file
+     * @param info
+     */
+    public static void writeToFile (DynamicSetResources info){
+        //Escribir info en fichero llamar writeData
+        String file = readNum("\nWrite the name of the file: ");
+        //Escribir
     }
 
     /**
