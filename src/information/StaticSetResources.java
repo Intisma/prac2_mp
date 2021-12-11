@@ -1,10 +1,9 @@
 package information;
 
 public class StaticSetResources implements ADTsetResources {
-    static final int size = 100000;
-    static final int maxUsers = 10000;
-    private Query[] list = new Query[size];
-    private int numElems = 0;
+    public static final int size = 100000;
+    private final Query[] list = new Query[size];
+    private int numElements = 0;
 
     /**
      * Constructor
@@ -20,22 +19,30 @@ public class StaticSetResources implements ADTsetResources {
     @Override
     public void addQuery(Query query) {
         int index;
-        if (numElems == 0) {
+        if (numElements == 0) {
             list[0] = query;
-            numElems++;
-        } else if (numElems < size) {
-            index = lowerBinarySearchResource(query.getResource(), 0, numElems - 1);
-            while (index < numElems && list[index].getResource().equals(query.getResource()) && list[index].getDate().moreRecentThan(query.getDate())) {
+            numElements++;
+        } else if (numElements < size) {
+            index = lowerBinarySearchResource(query.getResource(), 0, numElements - 1);
+            while (index < numElements && list[index].getResource().equals(query.getResource()) && list[index].getDate().moreRecentThan(query.getDate())) {
                 index++;
             }
-            for (int shiftIndex = numElems; shiftIndex > index; shiftIndex--) {
+            for (int shiftIndex = numElements; shiftIndex > index; shiftIndex--) {
                 list[shiftIndex] = list[shiftIndex - 1];
             }
-            numElems++;
+            numElements++;
             list[index] = query;
         }
     }
 
+    /**
+     * Binary search to find the lowest index where a resource is located or where it should be inserted.
+     *
+     * @param resource to find
+     * @param lower    index to find
+     * @param higher   index to find
+     * @return found index
+     */
     public int lowerBinarySearchResource(String resource, int lower, int higher) {
         if (lower > higher) return lower;
         int index = lower + (higher - lower) / 2;
@@ -56,17 +63,17 @@ public class StaticSetResources implements ADTsetResources {
     public void removeQueriesFromResource(String resource) {
         int counter = 0;
         int index;
-        if (numElems > 0) {
-            index = lowerBinarySearchResource(resource, 0, numElems - 1);
+        if (numElements > 0) {
+            index = lowerBinarySearchResource(resource, 0, numElements - 1);
             while (list[index].getResource().equals(resource)) {
                 counter++;
                 index++;
             }
-            while (index < numElems) {
+            while (index < numElements) {
                 list[index - counter] = list[index];
                 index++;
             }
-            numElems -= counter;
+            numElements -= counter;
         }
 
     }
@@ -78,8 +85,8 @@ public class StaticSetResources implements ADTsetResources {
     public void removeQueriesFromResourceDate(String resource, Date date) {
         int counter = 0;
         int index;
-        if (numElems > 0) {
-            index = lowerBinarySearchResource(resource, 0, numElems - 1);
+        if (numElements > 0) {
+            index = lowerBinarySearchResource(resource, 0, numElements - 1);
             while (list[index].getResource().equals(resource) && list[index].getDate().moreRecentThan(date)) {
                 index++;
             }
@@ -87,11 +94,11 @@ public class StaticSetResources implements ADTsetResources {
                 index++;
                 counter++;
             }
-            while (index < numElems) {
+            while (index < numElements) {
                 list[index - counter] = list[index];
                 index++;
             }
-            numElems -= counter;
+            numElements -= counter;
         }
     }
 
@@ -101,8 +108,8 @@ public class StaticSetResources implements ADTsetResources {
     @Override
     public String[] getUsersFromResource(String resource) {
         Users users = new Users();
-        if (numElems > 0) {
-            int index = lowerBinarySearchResource(resource, 0, numElems);
+        if (numElements > 0) {
+            int index = lowerBinarySearchResource(resource, 0, numElements);
             while (list[index].getResource().equals(resource)) {
                 users.addUser(list[index].getUser());
                 index++;
@@ -117,8 +124,8 @@ public class StaticSetResources implements ADTsetResources {
     @Override
     public String[] getUsersFromResourceDate(String resource, Date date) {
         Users users = new Users();
-        if (numElems > 0) {
-            int index = lowerBinarySearchResource(resource, 0, numElems);
+        if (numElements > 0) {
+            int index = lowerBinarySearchResource(resource, 0, numElements);
             while (list[index].getResource().equals(resource) && list[index].getDate().moreRecentThan(date)) {
                 index++;
             }
@@ -136,14 +143,14 @@ public class StaticSetResources implements ADTsetResources {
     @Override
     public String getMostQueriedResource() {
         int index = 0;
-        if (numElems > 0) {
+        if (numElements > 0) {
             String max = list[0].getResource();
             int maxCounter = 0;
             int counter;
             do {
                 String current = list[index].getResource();
                 counter = 0;
-                while (index < numElems && list[index].getResource().equals(current)) {
+                while (index < numElements && list[index].getResource().equals(current)) {
                     index++;
                     counter++;
                 }
@@ -152,7 +159,7 @@ public class StaticSetResources implements ADTsetResources {
                     maxCounter = counter;
                 }
 
-            } while (index < numElems);
+            } while (index < numElements);
             return max;
         } else return null;
     }
@@ -163,7 +170,7 @@ public class StaticSetResources implements ADTsetResources {
     @Override
     public Resources getResourcesFromUser(String user) {
         Resources resources = new Resources();
-        for (int index = 0; index < numElems; index++) {
+        for (int index = 0; index < numElements; index++) {
             if (list[index].getUser().equals(user)) {
                 resources.addResource(list[index].getResource());
             }
@@ -171,9 +178,14 @@ public class StaticSetResources implements ADTsetResources {
         return resources;
     }
 
+    /**
+     * Method toString
+     *
+     * @return String with the class information
+     */
     public String toString() {
         StringBuilder total = new StringBuilder();
-        for (int index = 0; index < numElems; index++) {
+        for (int index = 0; index < numElements; index++) {
             total.append(list[index].toString());
             total.append("\n");
         }

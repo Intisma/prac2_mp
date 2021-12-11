@@ -1,18 +1,44 @@
 package information;
 
 public class Resources {
-    static final int maxResources = 10000;
-    private String[] resources = new String[maxResources];
+    public static final int maxResources = 100000;
+    private final String[] resources = new String[maxResources];
     private int numResources = 0;
 
+    /**
+     * Constructor
+     */
     public Resources() {
 
     }
 
-    public String[] getResources() {
-        return resources;
+    /**
+     * Get the number of resources in the structure
+     *
+     * @return the number of resources in the structure
+     */
+    public int getNumResources() {
+        return numResources;
     }
 
+    /**
+     * Get the resource at the given index
+     *
+     * @param index of the resource to return
+     * @return the resource or null if there isn't one at the index
+     */
+    public String getResourceAtIndex(int index) {
+        if (index < numResources) {
+            return resources[index];
+        }
+        return null;
+    }
+
+    /**
+     * Method to add a new resource to the list. The list is ordered and does not contain duplicates.
+     *
+     * @param resource to add
+     */
     public void addResource(String resource) {
         if (numResources == 0) {
             resources[0] = resource;
@@ -35,11 +61,17 @@ public class Resources {
 
     }
 
-    public int binarySearch(String user) {
+    /**
+     * Method to found the position of a resource on the list. If not already in the list, finds the position to insert it.
+     *
+     * @param resource to find
+     * @return index where the resource is or where it should be inserted.
+     */
+    public int binarySearch(String resource) {
         int start = 0, index, end = numResources - 1, compare;
         while (start <= end) {
             index = start + (end - start) / 2;
-            compare = resources[index].compareTo(user);
+            compare = resources[index].compareTo(resource);
             if (compare == 0) return index;
             if (compare < 0) start = index + 1;
             else end = index - 1;
@@ -47,6 +79,11 @@ public class Resources {
         return start;
     }
 
+    /**
+     * Method toString
+     *
+     * @return String with the class information
+     */
     @Override
     public String toString() {
         StringBuilder total = new StringBuilder();

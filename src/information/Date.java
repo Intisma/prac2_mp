@@ -29,30 +29,66 @@ public class Date {
 
     }
 
+    /**
+     * Get the year of the date
+     *
+     * @return year of the date
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * Get the month of the date
+     *
+     * @return month of the date
+     */
     public char getMonth() {
         return month;
     }
 
+    /**
+     * Get the day of the date
+     *
+     * @return day of the date
+     */
     public char getDay() {
         return day;
     }
 
+    /**
+     * Get the hour of the date
+     *
+     * @return hour of the date
+     */
     public char getHour() {
         return hour;
     }
 
+    /**
+     * Get the minute of the date
+     *
+     * @return minute of the date
+     */
     public char getMinute() {
         return minute;
     }
 
+    /**
+     * Get the second of the date
+     *
+     * @return second of the date
+     */
     public char getSecond() {
         return second;
     }
 
+    /**
+     * Compare which date is more recent
+     *
+     * @param compare date to compare
+     * @return boolean indicating if the date who called the method is more recent than the one introduced as an argument
+     */
     public boolean moreRecentThan(Date compare) {
         if (year > compare.getYear()) return true;
         if (year < compare.getYear()) return false;
@@ -68,10 +104,21 @@ public class Date {
 
     }
 
+    /**
+     * Compares if two dates are equals
+     *
+     * @param compare date to compare
+     * @return boolean indicating if two dates are equal
+     */
     public boolean equals(Date compare) {
         return (year == compare.getYear() && month == compare.getMonth() && day == compare.getDay() && hour == compare.getHour() && minute == compare.getMinute() && second == compare.getSecond());
     }
 
+    /**
+     * Method toString
+     *
+     * @return String with the class information
+     */
     public String toString() {
         return (day + 0) + "/" + (month + 0) + "/" + year + "  " + (hour + 0) + ":" + (minute + 0) + ":" + (second + 0);
     }

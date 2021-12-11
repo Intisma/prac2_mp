@@ -1,6 +1,7 @@
 package information;
 
 public interface ADTsetResources {
+    int size = 100000;
 
     /**
      * Add query to the data structure
