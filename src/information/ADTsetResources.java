@@ -1,5 +1,7 @@
 package information;
 
+import java.util.ArrayList;
+
 public interface ADTsetResources {
     int size = 100000;
 
