@@ -10,17 +10,19 @@ import information.Resources;
 import information.Users;
 
 public class TimeMeasurer {
-    public static void time(int size){
+    public static void time(int size, boolean dynamic){
         if(size<100 || size> ADTsetResources.size) size = ADTsetResources.size;
         RandomUserGenerator userGenerator = new RandomUserGenerator();
         Users users = userGenerator.generateRandomUsers(size/100);
         RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
-        Resources resources = resourceGenerator.generateRandomResources(size/100);
+        Resources resources = resourceGenerator.generateRandomResources(size/10);
         RandomDateGenerator dateGenerator = new RandomDateGenerator();
         Dates dates = dateGenerator.generateRandomDates(size/50);
         RandomSetGenerator setGenerator = new RandomSetGenerator();
+
         long start = System.currentTimeMillis();
-        ADTsetResources set = setGenerator.generateSet(false, users, resources, dates, size);
+        ADTsetResources set = setGenerator.generateSet(dynamic, users, resources, dates, size);
         long end = System.currentTimeMillis();
+
     }
 }

@@ -17,7 +17,7 @@ public class RandomSetGenerator {
     public ADTsetResources generateSet(boolean dynamic, Users users, Resources resources, Dates dates, int size){
         if(size<1 || size>ADTsetResources.size) size = ADTsetResources.size;
         ADTsetResources set;
-        if(dynamic) set = new StaticSetResources();             //ADD DYNAMIC WHEN MERGED
+        if(dynamic) set = new DynamicSetResources();
         else set = new StaticSetResources();
 
         for(int index=0; index < size; index++){

@@ -1,7 +1,5 @@
 package information;
 
-import java.util.ArrayList;
-
 public interface ADTsetResources {
     int size = 100000;
 
@@ -39,4 +37,10 @@ public interface ADTsetResources {
      * Return a list with the resources queried by a user
      */
     String[] getResourcesFromUser(String user);
+
+    /**
+     * Return a String to write in the file
+     * @return String with the information
+     */
+    String toStringFile();
 }

@@ -191,4 +191,8 @@ public class StaticSetResources implements ADTsetResources {
         }
         return total.toString();
     }
+
+    public String toStringFile(){
+        return "";
+    }
 }

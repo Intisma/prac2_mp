@@ -186,4 +186,8 @@ public class DynamicSetResources implements ADTsetResources{
         }
         return result.toString();
     }
+
+    public String toStringFile(){
+        return "";
+    }
 }
