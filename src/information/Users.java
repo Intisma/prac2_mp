@@ -37,7 +37,7 @@ public class Users {
      * @return the user or null if there isn't one at the index
      */
     public String getUserAtIndex(int index) {
-        if (index < numUsers) {
+        if (index < numUsers && index>=0) {
             return users[index];
         }
         return null;
