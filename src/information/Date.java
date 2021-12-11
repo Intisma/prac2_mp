@@ -1,0 +1,80 @@
+package information;
+
+public class Date {
+    private final int year;
+    private final char month;
+    private final char day;
+    private final char hour;
+    private final char minute;
+    private final char second;
+
+    /**
+     * Constructor
+     *
+     * @param year   of the date
+     * @param month  of the date
+     * @param day    of the date
+     * @param hour   of the date
+     * @param minute of the date
+     * @param second of the date
+     */
+    public Date(int year, char month, char day, char hour, char minute, char second) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
+
+
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public char getMonth() {
+        return month;
+    }
+
+    public char getDay() {
+        return day;
+    }
+
+    public char getHour() {
+        return hour;
+    }
+
+    public char getMinute() {
+        return minute;
+    }
+
+    public char getSecond() {
+        return second;
+    }
+
+    public boolean moreRecentThan(Date compare) {
+        if (year > compare.getYear()) return true;
+        if (year < compare.getYear()) return false;
+        if (month > compare.getMonth()) return true;
+        if (month < compare.getMonth()) return false;
+        if (day > compare.getDay()) return true;
+        if (day < compare.getDay()) return false;
+        if (hour > compare.getHour()) return true;
+        if (hour < compare.getHour()) return false;
+        if (minute > compare.getMinute()) return true;
+        if (minute < compare.getMinute()) return false;
+        return second > compare.getSecond();
+
+    }
+
+    public boolean equals(Date compare) {
+        return (year == compare.getYear() && month == compare.getMonth() && day == compare.getDay() && hour == compare.getHour() && minute == compare.getMinute() && second == compare.getSecond());
+    }
+
+    public String toString() {
+        return (day + 0) + "/" + (month + 0) + "/" + year + "  " + (hour + 0) + ":" + (minute + 0) + ":" + (second + 0);
+    }
+
+
+}

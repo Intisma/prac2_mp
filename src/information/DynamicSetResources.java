@@ -18,26 +18,25 @@ public class DynamicSetResources implements ADTsetResources{
      * Add query to the data structure
      */
     @Override
-    public void addQuery(String date, String hour, String alias, String resource) {
+    public void addQuery(Query query) {
         boolean found = false;
-        Query query = new Query (date, hour, alias);
 
         //para añadir si no existe
-        resources.putIfAbsent(resource, new ArrayList<>());
+        resources.putIfAbsent(query.getResource(), new ArrayList<>());
         //si ya existe el recurso
-        resources.get(resource).add(query);
+        resources.get(query.getResource()).add(query);
 
         //para añadir si no existe este usuario
-        users.putIfAbsent(alias, new ArrayList<>());
+        users.putIfAbsent(query.getUser(), new ArrayList<>());
         //si ya existe el usuario y el recurso no está añadido previamente
-        for (int i=0; i<users.get(alias).size() && !found; i++) {
+        for (int i=0; i<users.get(query.getUser()).size() && !found; i++) {
             //aumentamos contador de consultas a un recurso
-            if (users.get(alias).get(i).getResource().equals(resource)) {
-                users.get(alias).get(i).setCont(users.get(alias).get(i).getCont()+1);
+            if (users.get(query.getUser()).get(i).getResource().equals(query.getResource())) {
+                users.get(query.getUser()).get(i).setCont(users.get(query.getUser()).get(i).getCont()+1);
                 found = true;
             }
         }
-        if (!found) users.get(alias).add(new ContResource(resource));
+        if (!found) users.get(query.getUser()).add(new ContResource(query.getResource()));
 
     }
 
@@ -66,26 +65,25 @@ public class DynamicSetResources implements ADTsetResources{
      * Remove all the queries of a resource  in a specific date
      */
     @Override
-    public void removeQueriesFromResourceDate(String date, String resource) {
-        ArrayList<Query> listQuerys = resources.get(resource);
+    public void removeQueriesFromResourceDate(String resource, Date date) {
+        ArrayList<Query> listQueries = resources.get(resource);
         ArrayList<Query> delete = new ArrayList<>();
 
-        for (Query query : listQuerys) {
+        for (Query query : listQueries) {
             if (query.getDate().equals(date)) {
                 //Delete the resource from the list
                 delete.add(query);
                 //Search and delete the resource from the list in users if there is less than 1 query
-                for (int i=0; i<users.get(query.getAlias()).size(); i++) {
-                    if (users.get(query.getAlias()).get(i).getResource().equals(resource)) {
-                        if (users.get(query.getAlias()).get(i).getCont() == 1) {
-                            users.get(query.getAlias()).remove(i);
+                for (int i=0; i<users.get(query.getUser()).size(); i++) {
+                    if (users.get(query.getUser()).get(i).getResource().equals(resource)) {
+                        if (users.get(query.getUser()).get(i).getCont() == 1) {
+                            users.get(query.getUser()).remove(i);
                         }
                         else {
-                            users.get(query.getAlias()).get(i).setCont(users.get(query.getAlias()).get(i).getCont()-1);
+                            users.get(query.getUser()).get(i).setCont(users.get(query.getUser()).get(i).getCont()-1);
                         }
                     }
                 }
-
             }
         }
         resources.get(resource).removeAll(delete);
@@ -93,17 +91,18 @@ public class DynamicSetResources implements ADTsetResources{
 
     /**
      * Return a list with the users who queried a certain resource
+     * @return a String[] with the users
      */
     @Override
-    public ArrayList<String> getUsersFromResource(String resource) {
-        ArrayList<Query> listQuerys = resources.get(resource);
+    public String[] getUsersFromResource(String resource) {
+        ArrayList<Query> listQueries = resources.get(resource);
         ArrayList<String> usersResource = new ArrayList<>();
-        for (Query listQuery : listQuerys) {
-            if (!usersResource.contains(listQuery.getAlias())) {
-                usersResource.add(listQuery.getAlias());
+        for (Query listQuery : listQueries) {
+            if (!usersResource.contains(listQuery.getUser())) {
+                usersResource.add(listQuery.getUser());
             }
         }
-        return usersResource;
+        return usersResource.toArray(new String[0]); //es que era una ArrayList
     }
 
 
@@ -111,17 +110,17 @@ public class DynamicSetResources implements ADTsetResources{
      * Return a list with the users who queried a certain resource in a specific date
      */
     @Override
-    public ArrayList<String> getUsersFromResourceDate(String date, String resource) {
+    public String[] getUsersFromResourceDate(String resource, Date date) {
         ArrayList<String> usersResourceDate = new ArrayList<>();
-        ArrayList<Query> listQuerys = resources.get(resource);
-        for (Query listQuery : listQuerys) {
+        ArrayList<Query> listQueries = resources.get(resource);
+        for (Query listQuery : listQueries) {
             if (listQuery.getDate().equals(date)) {
-                if (!usersResourceDate.contains(listQuery.getAlias())) {
-                    usersResourceDate.add(listQuery.getAlias());
+                if (!usersResourceDate.contains(listQuery.getUser())) {
+                    usersResourceDate.add(listQuery.getUser());
                 }
             }
         }
-        return usersResourceDate;
+        return usersResourceDate.toArray(new String[0]);
     }
 
     /**
@@ -146,12 +145,12 @@ public class DynamicSetResources implements ADTsetResources{
      * @return result
      */
     @Override
-    public ArrayList<String> getResourcesFromUser(String name) {
+    public String[] getResourcesFromUser(String user) {
         ArrayList<String> result = new ArrayList<>();
-        for (int i =0; i<users.get(name).size(); i++){
-            result.add(users.get(name).get(i).getResource());
+        for (int i =0; i<users.get(user).size(); i++){
+            result.add(users.get(user).get(i).getResource());
         }
-        return result;
+        return result.toArray(new String[0]);
     }
 
 

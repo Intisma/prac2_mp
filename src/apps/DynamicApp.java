@@ -18,7 +18,7 @@ public class DynamicApp {
         DynamicSetResources dynamic=null;
         do {
             showMenu();
-            option = readInt("", 0, 8);
+            option = readInt("", 0, 9);
             switch (option) {
                 case 1: dynamic = readFromFile();
                 case 2: removeQueries(dynamic);
@@ -152,10 +152,10 @@ public class DynamicApp {
      */
     public static void removeQueriesByDate(DynamicSetResources info){
         String resource = readNum("\nIntroduce the name of the resource: ");
-        String date = readNum("\nIntroduce the date: ");
+        //Date date = readNum("\nIntroduce the date: ");
         //Transformar a date
-        info.removeQueriesFromResourceDate(date, resource);
-        System.out.println("All the queries from"+resource+"from "+date+"were succefully deleted!");
+        //info.removeQueriesFromResourceDate(resource, date);
+        //System.out.println("All the queries from"+resource+"from "+date+"were succefully deleted!");
         System.out.println(info);
         pause();
     }
@@ -177,7 +177,7 @@ public class DynamicApp {
     public static void listUsersByDate(DynamicSetResources info){
         String resource = readNum("\nIntroduce the name of the resource: ");
         String date = readNum("\nIntroduce the date: ");
-        System.out.println("The users that queried the"+resource+" the"+date+" :\n"+info.getUsersFromResourceDate(date,resource));
+       // System.out.println("The users that queried the"+resource+" the"+date+" :\n"+info.getUsersFromResourceDate(date,resource));
         pause();
     }
 
