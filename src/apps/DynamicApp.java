@@ -5,6 +5,7 @@ import information.DynamicSetResources;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class DynamicApp {
 
     static Scanner key = new Scanner(System.in);
