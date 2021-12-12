@@ -1,7 +1,7 @@
 package information;
 
 public class StaticSetResources implements ADTsetResources {
-    public static final int size = 100000;
+    public static final int size = 200000;
     private final Query[] list = new Query[size];
     private int numElements = 0;
 
@@ -65,7 +65,7 @@ public class StaticSetResources implements ADTsetResources {
         int index;
         if (numElements > 0) {
             index = lowerBinarySearchResource(resource, 0, numElements - 1);
-            while (list[index] != null && list[index].getResource().equals(resource)) {
+            while (index < size && list[index] != null && list[index].getResource().equals(resource)) {
                 counter++;
                 index++;
             }
@@ -87,10 +87,10 @@ public class StaticSetResources implements ADTsetResources {
         int index;
         if (numElements > 0) {
             index = lowerBinarySearchResource(resource, 0, numElements - 1);
-            while (list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().moreRecentThan(date)) {
+            while (index < size && list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().moreRecentThan(date)) {
                 index++;
             }
-            while (list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().equals(date)) {
+            while (index < size && list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().equals(date)) {
                 index++;
                 counter++;
             }
@@ -110,7 +110,7 @@ public class StaticSetResources implements ADTsetResources {
         Users users = new Users();
         if (numElements > 0) {
             int index = lowerBinarySearchResource(resource, 0, numElements);
-            while (list[index] != null && list[index].getResource().equals(resource)) {
+            while (index < size && list[index] != null && list[index].getResource().equals(resource)) {
                 users.addUser(list[index].getUser());
                 index++;
             }
@@ -126,10 +126,10 @@ public class StaticSetResources implements ADTsetResources {
         Users users = new Users();
         if (numElements > 0) {
             int index = lowerBinarySearchResource(resource, 0, numElements);
-            while (list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().moreRecentThan(date)) {
+            while (index < size && list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().moreRecentThan(date)) {
                 index++;
             }
-            while (list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().equals(date)) {
+            while (index < size && list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().equals(date)) {
                 users.addUser(list[index].getUser());
                 index++;
             }

@@ -76,10 +76,10 @@ public class Times {
      * @return String with the information
      */
     public String toString() {
-        String total = "";
+        StringBuilder total = new StringBuilder();
         for (int index = 0; index < numTimes; index++) {
-            total += times[index].toString();
+            total.append(times[index].toString());
         }
-        return total;
+        return total.toString();
     }
 }
