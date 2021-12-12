@@ -6,6 +6,7 @@ import information.Query;
 
 import java.util.Arrays;
 
+
 public class DynamicTest {
     public static void main (String[] args){
 
