@@ -71,7 +71,7 @@ public class GeneralTest {
         System.out.println("\n****TEST 3: Shows the users who consulted a resource ('mp.pdf') on a specific date ('1/10/2021') ****");
         System.out.println("Resource: mp.pdf  Date:" + date + "\nUsers:"+ printStaticString(set.getUsersFromResourceDate("mp.pdf", date)));
 
-        System.out.println("\n****TEST 4: Deleting all the queries of 'mp.pdf' on 10/01/2021 - 4:59:32 ****");
+        System.out.println("\n****TEST 4: Deleting all the queries of 'mp.pdf' on 01/10/2021 - 4:59:32 ****");
         System.out.println(set);
         System.out.println("\t\tRemoving...\n");
         set.removeQueriesFromResourceDate("mp.pdf", date);
@@ -94,7 +94,7 @@ public class GeneralTest {
         System.out.println("\n****TEST 7: Shows the users who consulted a resource ('null') on a specific date ('1/10/2021') ****");
         System.out.println("Resource: null  Date:" + date + "\nUsers:"+ printStaticString(set.getUsersFromResourceDate("null", date)));
 
-        System.out.println("\n****TEST 8: Delete all the queries of 'null' on 10/01/2021 - 4:59:32 ****");
+        System.out.println("\n****TEST 8: Delete all the queries of 'null' on 01/10/2021 - 4:59:32 ****");
         System.out.println(set);
         System.out.println("\t\tRemoving...\n");
         set.removeQueriesFromResourceDate("null", date);

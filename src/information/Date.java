@@ -115,6 +115,42 @@ public class Date {
     }
 
     /**
+     * Method to check if the date is in the given range
+     * @param start of the range
+     * @param end of the range
+     * @return boolean indicanting if its inside of the range
+     */
+    public boolean inRange(Date start, Date end) {
+        if (start.getYear() > end.getYear()) {
+            Date aux = start;
+            start = end;
+            end = aux;
+        }else if(start.getYear()==end.getYear()){
+            if(start.getMonth()>end.getMonth()){
+                Date aux = start;
+                start = end;
+                end = aux;
+            }else if(start.getMonth()==end.getMonth()){
+                if(start.getDay()>end.getDay()){
+                    Date aux = start;
+                    start = end;
+                    end = aux;
+                }
+            }
+        }
+
+        if(year>start.getYear() && year<end.getYear()) return true;
+        if(year== start.getYear()){
+            if(month > start.getMonth()) return true;
+            else if(month==start.getMonth() && day>=start.getDay()) return true;
+        }else if(year==end.getYear()){
+            if(month < end.getMonth()) return true;
+            else if(month==end.getMonth() && day<=start.getDay()) return true;
+        }
+        return false;
+    }
+
+    /**
      * Method toString
      *
      * @return String with the class information
