@@ -14,19 +14,6 @@ public class Times {
     }
 
     /**
-     * Get the time at the given index
-     *
-     * @param index of the time to return
-     * @return the time or null if there isn't one at the index
-     */
-    public Time getTimeAtIndex(int index) {
-        if (index < numTimes && index >= 0) {
-            return times[index];
-        }
-        return null;
-    }
-
-    /**
      * Method to add a new time to the list. The list is ordered and does not contain duplicates.
      *
      * @param time to add

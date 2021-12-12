@@ -1,12 +1,12 @@
 package information;
 
-import java.util.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DynamicSetResources implements ADTsetResources{
+public class DynamicSetResources implements ADTsetResources {
 
-    private final HashMap<String,ArrayList<Query>> resources;
-    private final HashMap<String,ArrayList<ContResource>> users;
+    private final HashMap<String, ArrayList<Query>> resources;
+    private final HashMap<String, ArrayList<ContResource>> users;
 
     public DynamicSetResources() {
         resources = new HashMap<>();
@@ -29,10 +29,10 @@ public class DynamicSetResources implements ADTsetResources{
         //para añadir si no existe este usuario
         users.putIfAbsent(query.getUser(), new ArrayList<>());
         //si ya existe el usuario y el recurso no está añadido previamente
-        for (int i=0; i<users.get(query.getUser()).size() && !found; i++) {
+        for (int i = 0; i < users.get(query.getUser()).size() && !found; i++) {
             //aumentamos contador de consultas a un recurso
             if (users.get(query.getUser()).get(i).getResource().equals(query.getResource())) {
-                users.get(query.getUser()).get(i).setCont(users.get(query.getUser()).get(i).getCont()+1);
+                users.get(query.getUser()).get(i).setCont(users.get(query.getUser()).get(i).getCont() + 1);
                 found = true;
             }
         }
@@ -47,12 +47,12 @@ public class DynamicSetResources implements ADTsetResources{
     @Override
     public void removeQueriesFromResource(String resource) {
         int i;
-        boolean found=false;
+        boolean found = false;
         try {
             resources.get(resource).clear(); //MIRAR DE HACER UN POCO MEJOR
             //Recorrer mapa
-            for (String name: this.users.keySet()){
-                for (i=0; i<users.get(name).size() && !found; i++) {
+            for (String name : this.users.keySet()) {
+                for (i = 0; i < users.get(name).size() && !found; i++) {
                     if (users.get(name).get(i).getResource().equals(resource)) {
                         users.get(name).remove(i);
                         found = true;
@@ -60,8 +60,7 @@ public class DynamicSetResources implements ADTsetResources{
                 }
                 found = false;
             }
-        }
-        catch (NullPointerException exception) {
+        } catch (NullPointerException exception) {
             System.out.println("Resource doesn't exist yet");
         }
 
@@ -80,27 +79,26 @@ public class DynamicSetResources implements ADTsetResources{
                     //Delete the resource from the list
                     delete.add(query);
                     //Search and delete the resource from the list in users if there is less than 1 query
-                    for (int i=0; i<users.get(query.getUser()).size(); i++) {
+                    for (int i = 0; i < users.get(query.getUser()).size(); i++) {
                         if (users.get(query.getUser()).get(i).getResource().equals(resource)) {
                             if (users.get(query.getUser()).get(i).getCont() == 1) {
                                 users.get(query.getUser()).remove(i);
-                            }
-                            else {
-                                users.get(query.getUser()).get(i).setCont(users.get(query.getUser()).get(i).getCont()-1);
+                            } else {
+                                users.get(query.getUser()).get(i).setCont(users.get(query.getUser()).get(i).getCont() - 1);
                             }
                         }
                     }
                 }
             }
             resources.get(resource).removeAll(delete);
-        }
-        catch (NullPointerException excepcion) {
+        } catch (NullPointerException excepcion) {
             System.out.println("Resource doesn't exist yet");
         }
     }
 
     /**
      * Return a list with the users who queried a certain resource
+     *
      * @return a String[] with the users
      */
     @Override
@@ -113,8 +111,7 @@ public class DynamicSetResources implements ADTsetResources{
                     usersResource.add(listQuery.getUser());
                 }
             }
-        }
-        catch (NullPointerException excepcion) {
+        } catch (NullPointerException excepcion) {
             System.out.println("Resource doesn't exist yet");
         }
         return usersResource.toArray(new String[0]); //es que era una ArrayList
@@ -136,8 +133,7 @@ public class DynamicSetResources implements ADTsetResources{
                     }
                 }
             }
-        }
-        catch (NullPointerException excepcion) {
+        } catch (NullPointerException excepcion) {
             System.out.println("Resource doesn't exist yet");
         }
 
@@ -149,12 +145,12 @@ public class DynamicSetResources implements ADTsetResources{
      */
     @Override
     public String getMostQueriedResource() {
-        String most=null;
-        int length =0;
-        for (String res : this.resources.keySet()){
-            if (length < resources.get(res).size()){
+        String most = null;
+        int length = 0;
+        for (String res : this.resources.keySet()) {
+            if (length < resources.get(res).size()) {
                 length = resources.get(res).size();
-                most=res;
+                most = res;
             }
         }
         return most;
@@ -163,17 +159,17 @@ public class DynamicSetResources implements ADTsetResources{
 
     /**
      * Return a list with the resources queried by a user
+     *
      * @return result
      */
     @Override
     public String[] getResourcesFromUser(String user) {
         ArrayList<String> result = new ArrayList<>();
         try {
-            for (int i =0; i<users.get(user).size(); i++){
+            for (int i = 0; i < users.get(user).size(); i++) {
                 result.add(users.get(user).get(i).getResource());
             }
-        }
-        catch (NullPointerException exception) {
+        } catch (NullPointerException exception) {
             System.out.println("This user doesn't exist yet");
         }
 
@@ -181,12 +177,11 @@ public class DynamicSetResources implements ADTsetResources{
     }
 
     /**
-     *
      * @return result
      */
-    public String toString(){
-        StringBuilder result= new StringBuilder();
-        for (String name: this.resources.keySet()){
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (String name : this.resources.keySet()) {
             result.append(this.resources.get(name).toString()).append("\n");
         }
         return result.toString();
@@ -194,21 +189,21 @@ public class DynamicSetResources implements ADTsetResources{
 
 
     /**
-     *
      * @return result
      */
-    public String toStringUsersAndResources(){
-        return toStringResources()+toStringUsers();
+    public String toStringUsersAndResources() {
+        return toStringResources() + toStringUsers();
     }
 
 
     /**
      * ToString
+     *
      * @return result
      */
-    public String toStringUsers(){
-        StringBuilder result= new StringBuilder("\n-----------USERS: \n");
-        for (String name: this.users.keySet()){
+    public String toStringUsers() {
+        StringBuilder result = new StringBuilder("\n-----------USERS: \n");
+        for (String name : this.users.keySet()) {
             result.append(name).append(":\n").append(this.users.get(name).toString()).append("\n");
         }
         return result.toString();
@@ -216,28 +211,30 @@ public class DynamicSetResources implements ADTsetResources{
 
     /**
      * Return a list with the user who queried a resource in a given date range
-     * @param resource  to check
-     * @param start date of the range
-     * @param end date of the range
+     *
+     * @param resource to check
+     * @param start    date of the range
+     * @param end      date of the range
      * @return String[] with the resources
      */
-    public String[] getUsersFromResourceDateRange(String resource, Date start, Date end){
+    public String[] getUsersFromResourceDateRange(String resource, Date start, Date end) {
         return new String[1];
     }
 
     /**
      * ToString resources
+     *
      * @return result
      */
-    public String toStringResources(){
-        StringBuilder result= new StringBuilder("\n-----------RESOURCES: \n");
-        for (String name: this.resources.keySet()){
+    public String toStringResources() {
+        StringBuilder result = new StringBuilder("\n-----------RESOURCES: \n");
+        for (String name : this.resources.keySet()) {
             result.append(name).append(":\n").append(this.resources.get(name).toString()).append("\n");
         }
         return result.toString();
     }
 
-    public String toStringFile(){
+    public String toStringFile() {
         return "";
     }
 }

@@ -2,7 +2,9 @@ package inputOutput;
 
 import information.ADTsetResources;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class WriteData {
 
@@ -14,8 +16,9 @@ public class WriteData {
 
     /**
      * Write the data in a result file
+     *
      * @param information to save in the file
-     * @param file name of the file
+     * @param file        name of the file
      * @return boolean to know if the writing gone correctly
      */
     public boolean write(ADTsetResources information, String file) {

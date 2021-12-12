@@ -12,25 +12,36 @@ public class DynamicApp {
 
     /**
      * Main application for dynamic
+     *
      * @param args not used
      */
-    public static void main (String[] args){
+    public static void main(String[] args) {
         int option;
-        DynamicSetResources dynamic=null;
+        DynamicSetResources dynamic = null;
         do {
             showMenu();
             option = readInt("", 0, 9);
             switch (option) {
-                case 1: dynamic = readFromFile();
-                case 2: removeQueries(dynamic);
-                case 3: removeQueriesByDate(dynamic);
-                case 4: listUsers(dynamic);
-                case 5: listUsersByDate(dynamic);
-                case 6: mostResource(dynamic);
-                case 7: listResources(dynamic);
-                case 8: test();
-                case 9: writeToFile(dynamic);
-                case 0: System.out.println("\tHasta otra!");
+                case 1:
+                    dynamic = readFromFile();
+                case 2:
+                    removeQueries(dynamic);
+                case 3:
+                    removeQueriesByDate(dynamic);
+                case 4:
+                    listUsers(dynamic);
+                case 5:
+                    listUsersByDate(dynamic);
+                case 6:
+                    mostResource(dynamic);
+                case 7:
+                    listResources(dynamic);
+                case 8:
+                    test();
+                case 9:
+                    writeToFile(dynamic);
+                case 0:
+                    System.out.println("\tHasta otra!");
             }
         } while (option != 0);
         key.close();
@@ -55,9 +66,10 @@ public class DynamicApp {
 
     /**
      * Method control exceptions
+     *
      * @param message to show
-     * @param min minimum number
-     * @param max maximum number
+     * @param min     minimum number
+     * @param max     maximum number
      * @return the correct number
      */
     public static int readInt(String message, int min, int max) {
@@ -82,6 +94,7 @@ public class DynamicApp {
 
     /**
      * Read a number in String format
+     *
      * @param message to show in terminal
      * @return the read number
      */
@@ -112,7 +125,7 @@ public class DynamicApp {
     /**
      * Read the info of a file and creates a DynamicSetResources
      */
-    public static DynamicSetResources readFromFile(){
+    public static DynamicSetResources readFromFile() {
 //      ReadData
 //        System.out.print("\n\tIntroduce the file's name: ");
 //        String file = teclado.next();
@@ -137,21 +150,23 @@ public class DynamicApp {
 
     /**
      * Removes all the queries from a resource
+     *
      * @param info where to delete
      */
-    public static void removeQueries(DynamicSetResources info){
+    public static void removeQueries(DynamicSetResources info) {
         String resource = readNum("\nIntroduce the name of the resource: ");
         info.removeQueriesFromResource(resource);
-        System.out.println("All the queries from"+resource+"deleted!");
+        System.out.println("All the queries from" + resource + "deleted!");
         System.out.println(info);
         pause();
     }
 
     /**
      * Removes all the queries from a resource of a specific date
+     *
      * @param info where to delete
      */
-    public static void removeQueriesByDate(DynamicSetResources info){
+    public static void removeQueriesByDate(DynamicSetResources info) {
         String resource = readNum("\nIntroduce the name of the resource: ");
         //Date date = readNum("\nIntroduce the date: ");
         //Transformar a date
@@ -163,49 +178,54 @@ public class DynamicApp {
 
     /**
      * List of users that queried a resource
+     *
      * @param info to find
      */
-    public static void listUsers(DynamicSetResources info){
+    public static void listUsers(DynamicSetResources info) {
         String resource = readNum("\nIntroduce the name of the resource: ");
-        System.out.println("The users that queried the"+resource+"were:\n"+info.getUsersFromResource(resource));
+        System.out.println("The users that queried the" + resource + "were:\n" + info.getUsersFromResource(resource));
         pause();
     }
 
     /**
      * Shows a list of users that queried a resource on a specific date
+     *
      * @param info information
      */
-    public static void listUsersByDate(DynamicSetResources info){
+    public static void listUsersByDate(DynamicSetResources info) {
         String resource = readNum("\nIntroduce the name of the resource: ");
         String date = readNum("\nIntroduce the date: ");
-       // System.out.println("The users that queried the"+resource+" the"+date+" :\n"+info.getUsersFromResourceDate(date,resource));
+        // System.out.println("The users that queried the"+resource+" the"+date+" :\n"+info.getUsersFromResourceDate(date,resource));
         pause();
     }
 
     /**
      * The most queried resource
+     *
      * @param info information
      */
-    public static void  mostResource(DynamicSetResources info){
-        System.out.println("The most queried resource is"+info.getMostQueriedResource());
+    public static void mostResource(DynamicSetResources info) {
+        System.out.println("The most queried resource is" + info.getMostQueriedResource());
         pause();
     }
 
     /**
      * The resources queried by an user
+     *
      * @param info information
      */
-    public static void listResources(DynamicSetResources info){
+    public static void listResources(DynamicSetResources info) {
         String name = readNum("\nIntroduce the alias of the user: ");
-        System.out.println("The resources queried by"+name+"were:\n"+info.getResourcesFromUser(name));
+        System.out.println("The resources queried by" + name + "were:\n" + info.getResourcesFromUser(name));
         pause();
     }
 
     /**
      * Write the structures in a file
+     *
      * @param info
      */
-    public static void writeToFile (DynamicSetResources info){
+    public static void writeToFile(DynamicSetResources info) {
         //Escribir info en fichero llamar writeData
         String file = readNum("\nWrite the name of the file: ");
         //Escribir
@@ -214,7 +234,7 @@ public class DynamicApp {
     /**
      * Test for dynamic
      */
-    public static void test(){
+    public static void test() {
 
     }
 
