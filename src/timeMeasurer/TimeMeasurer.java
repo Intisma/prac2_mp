@@ -89,7 +89,7 @@ public class TimeMeasurer {
     }
 
     /**
-     * Method to study how an incresing size impacts the time
+     * Method to study how an increasing size impacts the time
      *
      * @param repeats number of repeats
      * @param dynamic boolean indicating if the set should be dynamic or static
