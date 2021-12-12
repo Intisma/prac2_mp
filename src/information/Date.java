@@ -87,7 +87,7 @@ public class Date {
      * Compare which date is more recent
      *
      * @param compare date to compare
-     * @return boolean indicating if the date who called the method is more recent than the one introduced as an argument
+     * @return boolean indicating if the date who called the method is more recent than the one introduced as an argument. If equals return false
      */
     public boolean moreRecentThan(Date compare) {
         if (year > compare.getYear()) return true;

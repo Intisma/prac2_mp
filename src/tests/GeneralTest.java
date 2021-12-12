@@ -33,7 +33,7 @@ public class GeneralTest {
         }
         key.close();
         dynamic = result != 1;
-        ADTsetResources set = setGenerator.generateSet(dynamic, users, resources, dates, 5);
+        ADTsetResources set = setGenerator.generateSet(dynamic, users, resources, dates, 5, new Queries());
         test(set, dynamic, users, resources, dates);
         System.out.println("\n\n\t************END OF THE TEST************\n");
     }

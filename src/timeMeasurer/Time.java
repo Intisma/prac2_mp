@@ -33,6 +33,15 @@ public class Time {
     }
 
     /**
+     * Get size of the set used to calculate the times
+     *
+     * @return size of the set used to calculate the times
+     */
+    public long getSize() {
+        return size;
+    }
+
+    /**
      * Get String with the info of the class to write in file
      *
      * @return String with the information

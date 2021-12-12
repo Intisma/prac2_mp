@@ -52,6 +52,27 @@ public class Query {
      */
     public String toString() {
         return "Query: Resource-" + resource + " | User-" + user + " | Date-" + date.toString();
+    }
 
+    /**
+     * Method to compare 2 queries by their date
+     *
+     * @param query to compare
+     * @return 0 if equal date, -1 if this object date is more recent and 1 in all others cases
+     */
+    public int compareTo(Query query) {
+        if (date.equals(query.getDate())) return 0;
+        if (date.moreRecentThan(query.getDate())) return -1;
+        return 1;
+    }
+
+    /**
+     * Method to say if 2 queries are the same
+     *
+     * @param query to compare
+     * @return true if equal, false if not
+     */
+    public boolean equals(Query query) {
+        return resource.equals(query.getResource()) && user.equals(query.getUser()) && date.equals(query.getDate());
     }
 }
