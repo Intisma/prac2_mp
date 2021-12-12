@@ -36,7 +36,7 @@ public class Resources {
      * @return the resource or null if there isn't one at the index
      */
     public String getResourceAtIndex(int index) {
-        if (index < numResources) {
+        if (index < numResources && index>=0) {
             return resources[index];
         }
         return null;
