@@ -99,6 +99,11 @@ public class ResourceQueries {
         return users.getUsers();
     }
 
+    /**
+     * Method to get the number of queries
+     *
+     * @return integer with the number of queries
+     */
     public int getNumQueries() {
         return numQueries;
     }
@@ -110,6 +115,13 @@ public class ResourceQueries {
         return false;
     }
 
+    /**
+     * Method to get the users who queried the resource in a given date range
+     *
+     * @param start of the range
+     * @param end   of the range
+     * @return list of users
+     */
     public String[] getUsersDateRange(Date start, Date end) {
         Users users = new Users();
         int index = lowerBinarySearchResource(end, 0, numQueries);
@@ -120,6 +132,11 @@ public class ResourceQueries {
         return users.getUsers();
     }
 
+    /**
+     * Method toString
+     *
+     * @return String with the information
+     */
     @Override
     public String toString() {
         StringBuilder total = new StringBuilder();

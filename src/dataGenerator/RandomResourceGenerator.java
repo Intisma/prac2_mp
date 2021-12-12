@@ -49,7 +49,7 @@ public class RandomResourceGenerator {
      * Method to generate random names attained from the text files
      */
     public Resources generateRandomResources(int size) {
-        if(size<10||size>Resources.maxResources) size = Resources.maxResources;
+        if (size < 10 || size > Resources.maxResources) size = Resources.maxResources;
         Resources resources = new Resources();
         try {
             this.setResource();
