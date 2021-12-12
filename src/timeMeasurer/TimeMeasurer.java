@@ -33,7 +33,7 @@ public class TimeMeasurer {
 
         // Time to add the queries to the data set
         start = System.currentTimeMillis();
-        for(int index=0; index<1000; index++){
+        for (int index = 0; index < 1000; index++) {
             set.addQuery(new Query(newResources.getResourceAtIndex(numGenerator.nextInt(newResources.getNumResources())), newUsers.getUserAtIndex(numGenerator.nextInt(newUsers.getNumUsers())), newDates.getDateAtIndex(numGenerator.nextInt(newDates.getNumDates()))));
         }
         end = System.currentTimeMillis();
@@ -57,7 +57,9 @@ public class TimeMeasurer {
 
         // Time to get the resource queried most times
         start = System.currentTimeMillis();
-        set.getMostQueriedResource();
+        for (int index = 0; index < 1000; index++) {
+            set.getMostQueriedResource();
+        }
         end = System.currentTimeMillis();
         long timeMostQueriedResource = end - start;
 
@@ -96,11 +98,11 @@ public class TimeMeasurer {
      * @return list of times
      */
     public static Times sizeEvolution(int maxSize, int repeats, boolean dynamic) {
-        if(maxSize<=5000 || maxSize>=ADTsetResources.size) maxSize=ADTsetResources.size-5000;
+        if (maxSize <= 5000 || maxSize >= ADTsetResources.size) maxSize = ADTsetResources.size - 5000;
         if (repeats < 1) repeats = 5;
         Times times = new Times();
         for (int size = 5000; size <= maxSize; size += 5000) {
-            System.out.println("Measuring time for size: "+size);
+            System.out.println("Measuring time for size: " + size);
             for (int rep = 0; rep < repeats; rep++) {
                 times.addTime(getTime(size, dynamic));
             }

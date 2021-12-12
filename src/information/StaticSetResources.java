@@ -179,6 +179,28 @@ public class StaticSetResources implements ADTsetResources {
     }
 
     /**
+     * Return a list with the user who queried a resource in a given date range
+     * @param resource  to check
+     * @param start date of the range
+     * @param end date of the range
+     * @return String[] with the resources
+     */
+    public String[] getUsersFromResourceDateRange(String resource, Date start, Date end){
+        Users users = new Users();
+        if (numElements > 0) {
+            int index = lowerBinarySearchResource(resource, 0, numElements);
+            while (index < size && list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().moreRecentThan(end)) {
+                index++;
+            }
+            while (index < size && list[index] != null && list[index].getResource().equals(resource) && list[index].getDate().inRange(start, end)) {
+                users.addUser(list[index].getUser());
+                index++;
+            }
+        }
+        return users.getUsers();
+    }
+
+    /**
      * Method toString
      *
      * @return String with the class information

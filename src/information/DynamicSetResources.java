@@ -215,6 +215,17 @@ public class DynamicSetResources implements ADTsetResources{
     }
 
     /**
+     * Return a list with the user who queried a resource in a given date range
+     * @param resource  to check
+     * @param start date of the range
+     * @param end date of the range
+     * @return String[] with the resources
+     */
+    public String[] getUsersFromResourceDateRange(String resource, Date start, Date end){
+        return new String[1];
+    }
+
+    /**
      * ToString resources
      * @return result
      */

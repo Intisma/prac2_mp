@@ -39,6 +39,15 @@ public interface ADTsetResources {
     String[] getResourcesFromUser(String user);
 
     /**
+     * Return a list with the user who queried a resource in a given date range
+     * @param resource  to check
+     * @param start date of the range
+     * @param end date of the range
+     * @return String[] with the resources
+     */
+    String[] getUsersFromResourceDateRange(String resource, Date start, Date end);
+
+    /**
      * Return a String to write in the file
      * @return String with the information
      */
