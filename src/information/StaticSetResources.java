@@ -52,10 +52,6 @@ public class StaticSetResources implements ADTsetResources {
         return lowerBinarySearchResource(resource, lower, index - 1);
     }
 
-    public int binarySearchDate(int posIni, int posFin, Date date) {
-        return 0;
-    }
-
     /**
      * Remove all the queries of a resource
      */
@@ -180,12 +176,13 @@ public class StaticSetResources implements ADTsetResources {
 
     /**
      * Return a list with the user who queried a resource in a given date range
-     * @param resource  to check
-     * @param start date of the range
-     * @param end date of the range
+     *
+     * @param resource to check
+     * @param start    date of the range
+     * @param end      date of the range
      * @return String[] with the resources
      */
-    public String[] getUsersFromResourceDateRange(String resource, Date start, Date end){
+    public String[] getUsersFromResourceDateRange(String resource, Date start, Date end) {
         Users users = new Users();
         if (numElements > 0) {
             int index = lowerBinarySearchResource(resource, 0, numElements);

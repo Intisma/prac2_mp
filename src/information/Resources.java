@@ -14,6 +14,7 @@ public class Resources {
 
     /**
      * Get the list of resources
+     *
      * @return list of String with the resources
      */
     public String[] getResources() {
@@ -36,7 +37,7 @@ public class Resources {
      * @return the resource or null if there isn't one at the index
      */
     public String getResourceAtIndex(int index) {
-        if (index < numResources && index>=0) {
+        if (index < numResources && index >= 0) {
             return resources[index];
         }
         return null;

@@ -1,8 +1,9 @@
 package inputOutput;
 
-import information.ADTsetResources;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -15,11 +16,12 @@ public class ReadData {
 
     /**
      * Read the information from a file
+     *
      * @param file name of the file that contains the info
      * @return an array of Strings with all the information
      */
     public String[] read(String file) {
-        int cont=0, j=0;
+        int cont = 0, j = 0;
         try {
             BufferedReader f = new BufferedReader(new FileReader(file));
             int numLines = (int) f.lines().count();

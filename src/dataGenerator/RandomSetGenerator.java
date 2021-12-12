@@ -18,7 +18,7 @@ public class RandomSetGenerator {
         if(size<1 || size>ADTsetResources.size) size = ADTsetResources.size;
         ADTsetResources set;
         if(dynamic) set = new DynamicSetResources();
-        else set = new StaticSetResources();
+        else set = new StaticSecondSetResources();
 
         for(int index=0; index < size; index++){
             set.addQuery(new Query(resources.getResourceAtIndex(numGenerator.nextInt(resources.getNumResources())), users.getUserAtIndex(numGenerator.nextInt(users.getNumUsers())), dates.getDateAtIndex(numGenerator.nextInt(dates.getNumDates()))));
