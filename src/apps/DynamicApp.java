@@ -1,5 +1,6 @@
 package apps;
 
+import information.Date;
 import information.DynamicSetResources;
 import inputOutput.WriteData;
 import inputOutput.ReadData;
@@ -142,11 +143,18 @@ public class DynamicApp {
      * @param info where to delete
      */
     public static void removeQueriesByDate(DynamicSetResources info){
+        int year;
+        char month, day, hour, minute, second;
         String resource = readNum("\nIntroduce the name of the resource: ");
-        //Date date = readNum("\nIntroduce the date: ");
-        //Transformar a date
-        //info.removeQueriesFromResourceDate(resource, date);
-        //System.out.println("All the queries from "+resource+" from "+date+"were succefully deleted!");
+        year = Integer.parseInt(readNum("\nIntroduce the year: "));
+        month = (char) Integer.parseInt(readNum("\nIntroduce the month: "));
+        day = (char) Integer.parseInt(readNum("\nIntroduce the day: "));
+        hour = (char) Integer.parseInt(readNum("\nIntroduce the hour: "));
+        minute = (char) Integer.parseInt(readNum("\nIntroduce the minute: "));
+        second = (char) Integer.parseInt(readNum("\nIntroduce the second: "));
+        Date date = new Date(year,month,day,hour,minute,second);
+        info.removeQueriesFromResourceDate(resource, date);
+        System.out.println("All the queries from "+resource+" from "+date+" were successfully deleted!");
         System.out.println(info);
         pause();
     }
@@ -166,9 +174,17 @@ public class DynamicApp {
      * @param info information
      */
     public static void listUsersByDate(DynamicSetResources info){
-        //String resource = readNum("\nIntroduce the name of the resource: ");
-        //String date = readNum("\nIntroduce the date: ");
-        //System.out.println("The users that queried the "+resource+" the"+date+" :\n"+info.getUsersFromResourceDate(date,resource));
+        int year;
+        char month, day, hour, minute, second;
+        String resource = readNum("\nIntroduce the name of the resource: ");
+        year = Integer.parseInt(readNum("\nIntroduce the year: "));
+        month = (char) Integer.parseInt(readNum("\nIntroduce the month: "));
+        day = (char) Integer.parseInt(readNum("\nIntroduce the day: "));
+        hour = (char) Integer.parseInt(readNum("\nIntroduce the hour: "));
+        minute = (char) Integer.parseInt(readNum("\nIntroduce the minute: "));
+        second = (char) Integer.parseInt(readNum("\nIntroduce the second: "));
+        Date date = new Date(year,month,day,hour,minute,second);
+        System.out.println("The users that queried the "+resource+" the "+date+" :\n"+info.getUsersFromResourceDate(resource,date));
         pause();
     }
 
