@@ -87,7 +87,7 @@ public class Date {
      * Compare which date is more recent
      *
      * @param compare date to compare
-     * @return boolean indicating if the date who called the method is more recent than the one introduced as an argument
+     * @return boolean indicating if the date who called the method is more recent than the one introduced as an argument. If equals return false
      */
     public boolean moreRecentThan(Date compare) {
         if (year > compare.getYear()) return true;
@@ -116,8 +116,9 @@ public class Date {
 
     /**
      * Method to check if the date is in the given range
+     *
      * @param start of the range
-     * @param end of the range
+     * @param end   of the range
      * @return boolean indicanting if its inside of the range
      */
     public boolean inRange(Date start, Date end) {
@@ -125,13 +126,13 @@ public class Date {
             Date aux = start;
             start = end;
             end = aux;
-        }else if(start.getYear()==end.getYear()){
-            if(start.getMonth()>end.getMonth()){
+        } else if (start.getYear() == end.getYear()) {
+            if (start.getMonth() > end.getMonth()) {
                 Date aux = start;
                 start = end;
                 end = aux;
-            }else if(start.getMonth()==end.getMonth()){
-                if(start.getDay()>end.getDay()){
+            } else if (start.getMonth() == end.getMonth()) {
+                if (start.getDay() > end.getDay()) {
                     Date aux = start;
                     start = end;
                     end = aux;
@@ -139,13 +140,13 @@ public class Date {
             }
         }
 
-        if(year>start.getYear() && year<end.getYear()) return true;
-        if(year== start.getYear()){
-            if(month > start.getMonth()) return true;
-            else if(month==start.getMonth() && day>=start.getDay()) return true;
-        }else if(year==end.getYear()){
-            if(month < end.getMonth()) return true;
-            else if(month==end.getMonth() && day<=start.getDay()) return true;
+        if (year > start.getYear() && year < end.getYear()) return true;
+        if (year == start.getYear()) {
+            if (month > start.getMonth()) return true;
+            else if (month == start.getMonth() && day >= start.getDay()) return true;
+        } else if (year == end.getYear()) {
+            if (month < end.getMonth()) return true;
+            else if (month == end.getMonth() && day <= start.getDay()) return true;
         }
         return false;
     }

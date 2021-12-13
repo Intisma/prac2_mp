@@ -28,7 +28,7 @@ public class Dates {
      * @return the date or null if there isn't one at the index
      */
     public Date getDateAtIndex(int index) {
-        if (index < numDates && index>=0) {
+        if (index < numDates && index >= 0) {
             return dates[index];
         }
         return null;

@@ -25,7 +25,7 @@ public class ContResource {
         this.resource = resource;
     }
 
-    public String toString (){
-        return (resource+" counter: "+cont+" ");
+    public String toString() {
+        return (resource + " counter: " + cont + " ");
     }
 }

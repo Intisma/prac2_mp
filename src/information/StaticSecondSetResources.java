@@ -171,6 +171,12 @@ public class StaticSecondSetResources implements ADTsetResources {
         return null;
     }
 
+
+    /**
+     * toString method to print the data
+     *
+     * @return String with the data
+     */
     public String toString() {
         StringBuilder total = new StringBuilder();
         for (int index = 0; index < numResources; index++) {

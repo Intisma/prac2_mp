@@ -42,69 +42,6 @@ public class Time {
     }
 
     /**
-     * Get time used to add queries
-     *
-     * @return time add query
-     */
-    public long getTimeAddQuery() {
-        return timeAddQuery;
-    }
-
-    /**
-     * Get time used to remove a resource queries
-     *
-     * @return time to remove a resource queries
-     */
-    public long getTimeRemoveResource() {
-        return timeRemoveResource;
-    }
-
-    /**
-     * Get time used to remove a resource queries in a given date
-     *
-     * @return time to remove a resource queries in a given date
-     */
-    public long getTimeRemoveResourceDate() {
-        return timeRemoveResourceDate;
-    }
-
-    /**
-     * Get time used to get the users who queried a resource
-     *
-     * @return time to get the users who queried a resource
-     */
-    public long getTimeUsersFromResource() {
-        return timeUsersFromResource;
-    }
-
-    /**
-     * Get time used to get the users who queried a resource in a given date
-     *
-     * @return time to get the users who queried a resource in a given date
-     */
-    public long getTimeUsersFromResourceDate() {
-        return timeUsersFromResourceDate;
-    }
-
-    /**
-     * Get time used to get the most queried resource
-     *
-     * @return time to get the most queried resource
-     */
-    public long getTimeMostQueriedResource() {
-        return timeMostQueriedResource;
-    }
-
-    /**
-     * Get time used to get the resources a user has queried
-     *
-     * @return time to get the resources a user has queried
-     */
-    public long getTimeResourcesFromUser() {
-        return timeResourcesFromUser;
-    }
-
-    /**
      * Get String with the info of the class to write in file
      *
      * @return String with the information

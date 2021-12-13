@@ -11,6 +11,8 @@ import java.util.Random;
 public class TimeMeasurer {
     public static Time getTime(int size, boolean dynamic) {
         Random numGenerator = new Random();
+        Queries queries = new Queries();
+        Queries queries2 = new Queries();
 
         // Generate Sets
         if (size < 100 || size > ADTsetResources.size) size = ADTsetResources.size;
@@ -21,8 +23,8 @@ public class TimeMeasurer {
         RandomDateGenerator dateGenerator = new RandomDateGenerator();
         Dates dates = dateGenerator.generateRandomDates(size / 50);
         RandomSetGenerator setGenerator = new RandomSetGenerator();
-        ADTsetResources set = setGenerator.generateSet(dynamic, users, resources, dates, size);
-        ADTsetResources set2 = setGenerator.generateSet(dynamic, users, resources, dates, size);
+        ADTsetResources set = setGenerator.generateSet(dynamic, users, resources, dates, size, queries);
+        ADTsetResources set2 = setGenerator.generateSet(dynamic, users, resources, dates, size, queries2);
 
         // Generate new users, resources and dates to measure time to add new queries
         Users newUsers = userGenerator.generateRandomUsers(1000);
@@ -42,7 +44,8 @@ public class TimeMeasurer {
         // Time to get the users who queried a resource
         start = System.currentTimeMillis();
         for (int index = 0; index < 1000; index++) {
-            set.getUsersFromResource(resources.getResourceAtIndex(numGenerator.nextInt(resources.getNumResources())));
+            int random = numGenerator.nextInt(queries.getNumQueries());
+            set.getUsersFromResource(queries.getQueryAtIndex(random).getResource());
         }
         end = System.currentTimeMillis();
         long timeUsersFromResource = end - start;
@@ -50,7 +53,8 @@ public class TimeMeasurer {
         // Time to get the users who queried 1000 resources on a specified date
         start = System.currentTimeMillis();
         for (int index = 0; index < 1000; index++) {
-            set.getUsersFromResourceDate(resources.getResourceAtIndex(numGenerator.nextInt(resources.getNumResources())), dates.getDateAtIndex(numGenerator.nextInt(dates.getNumDates())));
+            int random = numGenerator.nextInt(queries.getNumQueries());
+            set.getUsersFromResourceDate(queries.getQueryAtIndex(random).getResource(), queries.getQueryAtIndex(random).getDate());
         }
         end = System.currentTimeMillis();
         long timeUsersFromResourceDate = end - start;
@@ -66,7 +70,8 @@ public class TimeMeasurer {
         // Time to get resources queried by 1000 users
         start = System.currentTimeMillis();
         for (int index = 0; index < 1000; index++) {
-            set.getResourcesFromUser(users.getUserAtIndex(numGenerator.nextInt(users.getNumUsers())));
+            int random = numGenerator.nextInt(queries.getNumQueries());
+            set.getResourcesFromUser(queries.getQueryAtIndex(random).getUser());
         }
         end = System.currentTimeMillis();
         long timeResourcesFromUser = end - start;
@@ -74,7 +79,8 @@ public class TimeMeasurer {
         //Time to remove queries of 1000 resources
         start = System.currentTimeMillis();
         for (int index = 0; index < 1000; index++) {
-            set.removeQueriesFromResource(resources.getResourceAtIndex(numGenerator.nextInt(resources.getNumResources())));
+            int random = numGenerator.nextInt(queries.getNumQueries());
+            set.removeQueriesFromResource(queries.getQueryAtIndex(random).getResource());
         }
         end = System.currentTimeMillis();
         long timeRemoveResource = end - start;
@@ -82,7 +88,8 @@ public class TimeMeasurer {
         // Time to remove queries of 1000 resources in specified dates
         start = System.currentTimeMillis();
         for (int index = 0; index < 1000; index++) {
-            set2.removeQueriesFromResourceDate(resources.getResourceAtIndex(numGenerator.nextInt(resources.getNumResources())), dates.getDateAtIndex(numGenerator.nextInt(dates.getNumDates())));
+            int random = numGenerator.nextInt(queries2.getNumQueries());
+            set2.getUsersFromResourceDate(queries2.getQueryAtIndex(random).getResource(), queries2.getQueryAtIndex(random).getDate());
         }
         end = System.currentTimeMillis();
         long timeRemoveResourceDate = end - start;
