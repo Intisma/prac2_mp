@@ -234,6 +234,18 @@ public class DynamicSetResources implements ADTsetResources {
         return result.toString();
     }
 
+    /**
+     * Method to check if a user has consulted a resource
+     *
+     * @param resource to check
+     * @param user     to check
+     * @return true if the user has consulted the resource, false if not
+     */
+    @Override
+    public boolean userHasConsultedResource(String resource, String user) {
+        return false;
+    }
+
     public String toStringFile() {
         return "";
     }

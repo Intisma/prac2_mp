@@ -1,6 +1,6 @@
 package information;
 
-public class DynamicSecondSetResouces implements ADTsetResources{
+public class DynamicSecondSetResouces implements ADTsetResources {
 
     private NodeResource firstRes;
     private NodeUsers firstUser;
@@ -26,60 +26,58 @@ public class DynamicSecondSetResouces implements ADTsetResources{
     @Override
     public void addQuery(Query query) {
 
-        boolean foundU=false, foundR=false;
+        boolean foundU = false, foundR = false;
         NodeQueries q = new NodeQueries(query);
         NodeUsers user;
         NodeResource resource;
-        if (numUsers == 0){
-             user = new NodeUsers(query.getUser(),q);
+        if (numUsers == 0) {
+            user = new NodeUsers(query.getUser(), q);
             numUsers++;
             firstUser = user;
             lastUser = user;
-        }
-        else {
+        } else {
             user = firstUser;
-            for (int i = 0; i<numUsers && !foundU; i++){
-                if(user.getUser().equals(query.getUser())) foundU =true;
-                else user=user.getNextUser();
+            for (int i = 0; i < numUsers && !foundU; i++) {
+                if (user.getUser().equals(query.getUser())) foundU = true;
+                else user = user.getNextUser();
             }
-            if (!foundU){
-                user = new NodeUsers(query.getUser(),q);
+            if (!foundU) {
+                user = new NodeUsers(query.getUser(), q);
                 lastUser.setNextUser(user);
                 lastUser = user;
                 numUsers++;
             }
         }
-        if (numRes == 0){
+        if (numRes == 0) {
             resource = new NodeResource(query.getResource(), q);
             numRes++;
             firstRes = resource;
             lastRes = resource;
-        }
-        else {
+        } else {
             resource = firstRes;
-            for (int i = 0; i<numRes && !foundR; i++){
-                if(resource.getResource().equals(query.getResource())) foundR =true;
-                else resource=resource.getNextRes();
+            for (int i = 0; i < numRes && !foundR; i++) {
+                if (resource.getResource().equals(query.getResource())) foundR = true;
+                else resource = resource.getNextRes();
             }
-            if (!foundR){
-                resource= new NodeResource(query.getResource(), q);
+            if (!foundR) {
+                resource = new NodeResource(query.getResource(), q);
                 lastRes.setNextRes(resource);
                 lastRes = resource;
                 numRes++;
             }
         }
 
-        if (foundU){
+        if (foundU) {
             NodeQueries aux = user.getFirstQuery();
-            while (aux.getQuery().getDate().moreRecentThan(query.getDate()) && (aux.getNextQueryUser()!=null)){
-               aux = aux.getNextQueryUser();
+            while (aux.getQuery().getDate().moreRecentThan(query.getDate()) && (aux.getNextQueryUser() != null)) {
+                aux = aux.getNextQueryUser();
             }
             q.setNextQueryUser(aux.getNextQueryUser());
             aux.setNextQueryUser(q);
         }
-        if (foundR){
+        if (foundR) {
             NodeQueries aux2 = resource.getFirstRes();
-            while (aux2.getQuery().getDate().moreRecentThan(query.getDate()) && (aux2.getNextQueryRes()!=null)){
+            while (aux2.getQuery().getDate().moreRecentThan(query.getDate()) && (aux2.getNextQueryRes() != null)) {
                 aux2 = aux2.getNextQueryRes();
             }
             q.setNextQueryRes(aux2.getNextQueryRes());
@@ -102,7 +100,7 @@ public class DynamicSecondSetResouces implements ADTsetResources{
      * Remove all the queries of a resource  in a specific date
      *
      * @param resource info to remove
-     * @param date info to remove
+     * @param date     info to remove
      */
     @Override
     public void removeQueriesFromResourceDate(String resource, Date date) {
@@ -123,7 +121,7 @@ public class DynamicSecondSetResouces implements ADTsetResources{
      * Return a list with the users who queried a certain resource in a specific date
      *
      * @param resource info to search
-     * @param date info to search
+     * @param date     info to search
      */
     @Override
     public String[] getUsersFromResourceDate(String resource, Date date) {
@@ -171,17 +169,29 @@ public class DynamicSecondSetResouces implements ADTsetResources{
         return null;
     }
 
-    public String toString(){
+    /**
+     * Method to check if a user has consulted a resource
+     *
+     * @param resource to check
+     * @param user     to check
+     * @return true if the user has consulted the resource, false if not
+     */
+    @Override
+    public boolean userHasConsultedResource(String resource, String user) {
+        return false;
+    }
+
+    public String toString() {
         StringBuilder result = new StringBuilder();
         NodeQueries query;
-        NodeUsers user =firstUser;
+        NodeUsers user = firstUser;
         result.append("Estructura Dinamica:");
-        for (int i=0; i<numUsers; i++){
-            result.append("\nUser: "+user.getUser());
+        for (int i = 0; i < numUsers; i++) {
+            result.append("\nUser: " + user.getUser());
             query = user.getFirstQuery();
             result.append("\nQueries: ");
-            while (query != null){
-                result.append(query.getQuery().toString()+"\n");
+            while (query != null) {
+                result.append(query.getQuery().toString() + "\n");
                 query = query.getNextQueryUser();
             }
             user = user.getNextUser();
