@@ -200,6 +200,11 @@ public class StaticSetResources implements ADTsetResources {
         return users.getUsers();
     }
 
+    @Override
+    public boolean userHasConsultedResource(String resource, String user) {
+        return false;
+    }
+
     /**
      * Method toString
      *

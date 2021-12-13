@@ -1,11 +1,11 @@
 package information;
 
 import staticInformation.ResourceAndQueries;
-import staticInformation.Resources;
+import staticInformation.UserQueries;
 
 public class StaticSecondSetResources implements ADTsetResources {
     private final int size = 200000;
-    private final ResourceAndQueries[] resources = new ResourceAndQueries[size];
+    private final ResourceAndQueries[] resources = new ResourceAndQueries[size / 10];
     private int numResources = 0;
 
     /**
@@ -143,11 +143,11 @@ public class StaticSecondSetResources implements ADTsetResources {
      * Return a list with the resources queried by a user
      */
     public String[] getResourcesFromUser(String user) {
-        Resources resources = new Resources();
-        for (int index = 0; index < numResources; index++) {
-            if (this.resources[index].isUser(user)) resources.addResource(this.resources[index].getResource());
-        }
-        return resources.getResources();
+        UserQueries userQueries = new UserQueries();
+        /*for (int index = 0; index < numResources; index++) {
+            if (this.resources[index].isUser(user)) userQueries.addQuery(this.resources[index].getResource(), this.resources[index].g());
+        }*/
+        return userQueries.getResources();
     }
 
     /**
@@ -186,6 +186,22 @@ public class StaticSecondSetResources implements ADTsetResources {
             total.append(resources[index].toString());
         }
         return total.toString();
+    }
+
+    /**
+     * Method to check if a user has consulted a resource
+     *
+     * @param resource to check
+     * @param user     to check
+     * @return true if the user has consulted the resource, false if not
+     */
+    @Override
+    public boolean userHasConsultedResource(String resource, String user) {
+        int index = lowerBinarySearchResource(resource,0,numResources-1);
+        if(index<numResources && resources[index].getResource().equals(resource)){
+            return resources[index].isUser(user);
+        }
+        return false;
     }
 
     /**

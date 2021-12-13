@@ -15,27 +15,15 @@ public class StaticTest {
         Date date4 = new Date(1999, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
         Date dateProba = new Date(1992, (char) 1, (char) 3, (char) 1, (char) 1, (char) 1);
 
-        UserQueries userQueries = new UserQueries();
-        userQueries.addQuery("Cada", date4);
-        userQueries.addQuery("Avion", date2);
-        userQueries.addQuery("Hormiga", date2);
-        System.out.println(userQueries);
-        String[] micasa = userQueries.getResources();
-        int index=0;
-        while(micasa[index]!=null){
-            System.out.println(micasa[index]);
-            index++;
-        }
-
-        /*Queries queries = new Queries();
+        Queries queries = new Queries();
         queries.addQuery(new Query("Casa", "Herminia", date));
         queries.addQuery(new Query("Casa", "Herminia", date));
         queries.addQuery(new Query("Casalona", "Herminia", date));
         queries.addQuery(new Query("Casapera", "Herminia", date2));
         queries.addQuery(new Query("Casaverde", "Herminia", date3));
         queries.addQuery(new Query("Casapera", "Herminia", date));
-        System.out.println(queries);*/
-        /*
+        System.out.println(queries);
+
         ADTsetResources set = new StaticSecondSetResources();
         set.addQuery(new Query("Casa", "Herminia", date));
         set.addQuery(new Query("Casa", "Terelu", date2));
@@ -46,10 +34,11 @@ public class StaticTest {
         set.addQuery(new Query("Hormigon", "Embolicada", date2));
         set.addQuery(new Query("Hormigon", "Herminia", date));
         System.out.println(set);
+        if(set.userHasConsultedResource("Hormigon", "Herminia")) System.out.println("Si que lo ha consultao la tia");
 
-        String[] info = set.getUsersFromResourceDateRange("Hormigon", date3, date2);
+        /*String[] info = set.getUsersFromResourceDateRange("Hormigon", date3, date2);
 
-        for (int index = 0; info[index] != null; index++) System.out.println(info[index] + "  ");*/
+        for (int index = 0; info[index] != null; index++) System.out.println(info[index] + "  ");
 
         /*String[] info = set.getUsersFromResourceDateRange("Hormigon", date2, date3);
         int index=0;
