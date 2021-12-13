@@ -4,14 +4,15 @@ import information.Date;
 
 public class UserQueries {
     public static final int maxQueries = 10000;
+    String user;
     private final UserQuery[] list = new UserQuery[maxQueries];
     private int numQueries = 0;
 
     /**
      * Constructor
      */
-    public UserQueries() {
-
+    public UserQueries(String user) {
+        this.user = user;
     }
 
     /**

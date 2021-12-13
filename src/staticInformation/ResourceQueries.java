@@ -118,6 +118,15 @@ public class ResourceQueries {
     }
 
     /**
+     * Add to a list of resources of a user if the resource has been queried by him
+     */
+    public void getResourcesFromUser(UserQueries userQueries, String resource) {
+        for(int index=0; index<numQueries; index++){
+            if(list[index].getUser().equals(userQueries.user)) userQueries.addQuery(resource, list[index].getDate());
+        }
+    }
+
+    /**
      * Method to get the users who queried the resource in a given date range
      *
      * @param start of the range
