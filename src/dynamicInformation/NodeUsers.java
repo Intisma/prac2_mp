@@ -1,11 +1,11 @@
-package information;
+package dynamicInformation;
 
 public class NodeUsers {
     private final String user;
-    private  NodeQueries firstQuery;
+    private NodeQuery firstQuery;
     private NodeUsers nextUser;
 
-    public NodeUsers(String user, NodeQueries resource) {
+    public NodeUsers(String user, NodeQuery resource) {
         this.user = user;
         this.firstQuery = resource;
         this.nextUser = null;
@@ -15,11 +15,11 @@ public class NodeUsers {
         return user;
     }
 
-    public NodeQueries getFirstQuery() {
+    public NodeQuery getFirstQuery() {
         return firstQuery;
     }
 
-    public void setFirstQuery(NodeQueries firstQuery) {
+    public void setFirstQuery(NodeQuery firstQuery) {
         this.firstQuery = firstQuery;
     }
 

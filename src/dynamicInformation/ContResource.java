@@ -1,4 +1,4 @@
-package information;
+package dynamicInformation;
 
 public class ContResource {
     private int cont;

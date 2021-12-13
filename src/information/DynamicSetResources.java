@@ -1,7 +1,10 @@
 package information;
 
+import dynamicInformation.ContResource;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+
 
 public class DynamicSetResources implements ADTsetResources {
 

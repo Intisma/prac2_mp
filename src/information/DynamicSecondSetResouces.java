@@ -1,5 +1,9 @@
 package information;
 
+import dynamicInformation.NodeQuery;
+import dynamicInformation.NodeResource;
+import dynamicInformation.NodeUsers;
+
 public class DynamicSecondSetResouces implements ADTsetResources {
 
     private NodeResource firstRes;
@@ -27,7 +31,7 @@ public class DynamicSecondSetResouces implements ADTsetResources {
     public void addQuery(Query query) {
 
         boolean foundU = false, foundR = false;
-        NodeQueries q = new NodeQueries(query);
+        NodeQuery q = new NodeQuery(query);
         NodeUsers user;
         NodeResource resource;
         if (numUsers == 0) {
@@ -68,7 +72,7 @@ public class DynamicSecondSetResouces implements ADTsetResources {
         }
 
         if (foundU) {
-            NodeQueries aux = user.getFirstQuery();
+            NodeQuery aux = user.getFirstQuery();
             while (aux.getQuery().getDate().moreRecentThan(query.getDate()) && (aux.getNextQueryUser() != null)) {
                 aux = aux.getNextQueryUser();
             }
@@ -76,7 +80,7 @@ public class DynamicSecondSetResouces implements ADTsetResources {
             aux.setNextQueryUser(q);
         }
         if (foundR) {
-            NodeQueries aux2 = resource.getFirstRes();
+            NodeQuery aux2 = resource.getFirstRes();
             while (aux2.getQuery().getDate().moreRecentThan(query.getDate()) && (aux2.getNextQueryRes() != null)) {
                 aux2 = aux2.getNextQueryRes();
             }
@@ -183,7 +187,7 @@ public class DynamicSecondSetResouces implements ADTsetResources {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
-        NodeQueries query;
+        NodeQuery query;
         NodeUsers user = firstUser;
         result.append("Estructura Dinamica:");
         for (int i = 0; i < numUsers; i++) {
