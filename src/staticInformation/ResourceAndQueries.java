@@ -110,4 +110,6 @@ public class ResourceAndQueries {
     public String toString() {
         return "ResourceAndQueries: " + resource + "\n" + resourceQueries;
     }
+
+    public String toStringFile(){ return "Resource: "+resource+ "\n"+resourceQueries.toStringFile(); }
 }

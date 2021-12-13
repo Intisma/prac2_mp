@@ -36,4 +36,5 @@ public class NodeResource {
     public void setResource(String resource) {
         this.resource = resource;
     }
+
 }

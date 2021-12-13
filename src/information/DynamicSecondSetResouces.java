@@ -98,6 +98,27 @@ public class DynamicSecondSetResouces implements ADTsetResources {
     @Override
     public void removeQueriesFromResource(String resource) {
 
+        NodeResource node = firstRes;
+        NodeQuery queryAux, query = null;
+        String userName;
+        boolean found= numRes == 1 && node.getResource().equals(resource);
+        //Tratar el caso que sea el primer resource
+        while((node.getNextRes() != null) && (!found)){
+            if (node.getNextRes().getResource().equals(resource)) {
+                found = true;
+                query = node.getFirstRes();
+            }
+            node = node.getNextRes();
+        }
+        if (found){
+            while (query.getNextQueryRes() != null) {
+                query.setNextQueryUser(query.getNextQueryUser().getNextQueryUser());
+                query = query.getNextQueryRes();
+            }
+            node.setFirstRes(null);
+        }
+        else System.out.println("Resource doesn't exists yet!");
+
     }
 
     /**
@@ -164,16 +185,6 @@ public class DynamicSecondSetResouces implements ADTsetResources {
     }
 
     /**
-     * Return a String to write in the file
-     *
-     * @return String with the information
-     */
-    @Override
-    public String toStringFile() {
-        return null;
-    }
-
-    /**
      * Method to check if a user has consulted a resource
      *
      * @param resource to check
@@ -191,11 +202,33 @@ public class DynamicSecondSetResouces implements ADTsetResources {
         NodeUsers user = firstUser;
         result.append("Estructura Dinamica:");
         for (int i = 0; i < numUsers; i++) {
-            result.append("\nUser: " + user.getUser());
+            result.append("\nUser: ").append(user.getUser());
             query = user.getFirstQuery();
             result.append("\nQueries: ");
             while (query != null) {
-                result.append(query.getQuery().toString() + "\n");
+                result.append(query.getQuery().toString()).append("\n");
+                query = query.getNextQueryUser();
+            }
+            user = user.getNextUser();
+        }
+        return result.toString();
+    }
+
+    /**
+     * Return a String to write in the file
+     *
+     * @return String with the information
+     */
+    public String toStringFile(){
+        StringBuilder result = new StringBuilder();
+        NodeQuery query;
+        NodeUsers user = firstUser;
+        for (int i = 0; i < numUsers; i++) {
+            result.append("\nUser: " + user.getUser());
+            query = user.getFirstQuery();
+            result.append("\nQueries: \n");
+            while (query != null) {
+                result.append(query.toStringFile() + "\n");
                 query = query.getNextQueryUser();
             }
             user = user.getNextUser();

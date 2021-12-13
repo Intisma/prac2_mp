@@ -156,4 +156,12 @@ public class ResourceQueries {
         }
         return total.toString();
     }
+
+    public String toStringFile() {
+        StringBuilder result = new StringBuilder();
+        for (int index = 0; index < numQueries; index++) {
+            result.append(list[index].getUser()).append("; ").append(list[index].getDate()).append('\n');
+        }
+        return result.toString();
+    }
 }
