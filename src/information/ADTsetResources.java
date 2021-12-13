@@ -49,6 +49,15 @@ public interface ADTsetResources {
     String[] getUsersFromResourceDateRange(String resource, Date start, Date end);
 
     /**
+     * Method to check if a user has consulted a resource
+     *
+     * @param resource to check
+     * @param user     to check
+     * @return true if the user has consulted it, false if not
+     */
+    boolean userHasConsultedResource(String resource, String user);
+
+    /**
      * Return a String to write in the file
      *
      * @return String with the information
