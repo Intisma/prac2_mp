@@ -7,13 +7,22 @@ import dataGenerator.RandomUserGenerator;
 import information.ADTsetResources;
 import information.Query;
 import staticInformation.Dates;
-import staticInformation.Queries;
 import staticInformation.Resources;
 import staticInformation.Users;
 
 import java.util.Random;
 
+/**
+ * Class in charge of measuring time of all types of resource sets.
+ */
 public class TimeMeasurer {
+    /**
+     * Class to get the times corresponding a size and type of resource set
+     *
+     * @param size to assign
+     * @param type of resource set
+     * @return Time with all the times stored
+     */
     public static Time getTime(int size, int type) {
         Random numGenerator = new Random();
         Queries queries = new Queries();
@@ -121,7 +130,8 @@ public class TimeMeasurer {
     }
 
     /**
-     * Method to study how an increasing size impacts the time
+     * Method to gather information on how an increasing size impacts the time cost of the different methods
+     * performed by the resources sets
      *
      * @param repeats number of repeats
      * @param type    boolean indicating if the implementation of the set

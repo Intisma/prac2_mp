@@ -5,6 +5,9 @@ import staticInformation.Dates;
 
 import java.util.Random;
 
+/**
+ * Class to generate random dates
+ */
 public class RandomDateGenerator {
     private final Random dateGenerator;
 

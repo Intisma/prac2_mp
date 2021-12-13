@@ -1,6 +1,9 @@
 package timeMeasurer;
 
-
+/**
+ * Class in charge of keeping a list of times corresponding an execution. It calculates the mean values of all
+ * the repeats.
+ */
 public class Times {
     public static final int maxTimes = 10000;
     private final Time[] times = new Time[maxTimes];

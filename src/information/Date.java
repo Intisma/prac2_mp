@@ -1,5 +1,8 @@
 package information;
 
+/**
+ * Class to store the information of a date and implementing methods to easily compare two dates
+ */
 public class Date {
     private final int year;
     private final char month;
@@ -119,7 +122,7 @@ public class Date {
      *
      * @param start of the range
      * @param end   of the range
-     * @return boolean indicanting if its inside of the range
+     * @return boolean indicating if it's inside the range
      */
     public boolean inRange(Date start, Date end) {
         if (start.getYear() > end.getYear()) {

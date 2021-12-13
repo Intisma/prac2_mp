@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Class to generate random resources
+ */
 public class RandomResourceGenerator {
     private final ArrayList<String> resource;
     private final ArrayList<String> extension;

@@ -2,6 +2,9 @@ package staticInformation;
 
 import information.Date;
 
+/**
+ * Class to store the information of a query to a resource. It stores the resource consulted and the date
+ */
 public class UserQuery {
     private final String resource;
     private final Date date;

@@ -2,6 +2,9 @@ package staticInformation;
 
 import information.Date;
 
+/**
+ * Class that facilitates finding the consulted resources by a user ordered by date
+ */
 public class UserQueries {
     public static final int maxQueries = 10000;
     String user;
@@ -64,15 +67,6 @@ public class UserQueries {
             resources[index] = list[index].getResource();
         }
         return resources;
-    }
-
-    /**
-     * Method to get the number of queries
-     *
-     * @return integer with the number of queries
-     */
-    public int getNumQueries() {
-        return numQueries;
     }
 
     /**

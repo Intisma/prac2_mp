@@ -8,7 +8,7 @@ import information.ADTsetResources;
 import information.Date;
 import information.Query;
 import staticInformation.Dates;
-import staticInformation.Queries;
+import timeMeasurer.Queries;
 import staticInformation.Resources;
 import staticInformation.Users;
 

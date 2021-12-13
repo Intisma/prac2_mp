@@ -2,6 +2,9 @@ package staticInformation;
 
 import information.Date;
 
+/**
+ * List of dates that keeps the order. It does not contain duplicates
+ */
 public class Dates {
     public static final int maxDates = 100000;
     private final Date[] dates = new Date[maxDates];

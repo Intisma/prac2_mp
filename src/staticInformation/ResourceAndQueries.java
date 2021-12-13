@@ -111,5 +111,12 @@ public class ResourceAndQueries {
         return "ResourceAndQueries: " + resource + "\n" + resourceQueries;
     }
 
-    public String toStringFile(){ return "Resource: "+resource+ "\n"+resourceQueries.toStringFile(); }
+    /**
+     * Method to get a String used to write the results in a file
+     *
+     * @return String with the information
+     */
+    public String toStringFile() {
+        return "Resource: " + resource + "\n" + resourceQueries.toStringFile();
+    }
 }

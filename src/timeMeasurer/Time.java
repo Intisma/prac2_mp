@@ -1,5 +1,8 @@
 package timeMeasurer;
 
+/**
+ * Class to store all the values of the time measures. It is capable to perform some operations to facilitate the data analysis
+ */
 public class Time {
     private long size = 0;
     private long timeAddQuery = 0;

@@ -2,12 +2,15 @@ package dataGenerator;
 
 import information.*;
 import staticInformation.Dates;
-import staticInformation.Queries;
 import staticInformation.Resources;
 import staticInformation.Users;
+import timeMeasurer.Queries;
 
 import java.util.Random;
 
+/**
+ * Class to generate random sets
+ */
 public class RandomSetGenerator {
     private final Random numGenerator;
 
@@ -18,6 +21,17 @@ public class RandomSetGenerator {
         numGenerator = new Random();
     }
 
+    /**
+     * Set generator
+     *
+     * @param type      of set
+     * @param users     list to use
+     * @param resources list to use
+     * @param dates     list to use
+     * @param size      of the set
+     * @param queries   list to keep track of all the queries we add to the set
+     * @return ADTsetResources generated
+     */
     public ADTsetResources generateSet(int type, Users users, Resources resources, Dates dates, int size, Queries queries) {
         if (size < 1 || size > ADTsetResources.size) size = ADTsetResources.size;
         ADTsetResources set;

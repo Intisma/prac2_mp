@@ -1,5 +1,8 @@
 package information;
 
+/**
+ * Interface of the resource set
+ */
 public interface ADTsetResources {
     int size = 200000;
 
@@ -47,7 +50,6 @@ public interface ADTsetResources {
      * Return a list with the resources queried by a user
      */
     String[] getResourcesFromUser(String user);
-
 
 
     /**

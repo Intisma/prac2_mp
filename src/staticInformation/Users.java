@@ -1,5 +1,8 @@
 package staticInformation;
 
+/**
+ * Class that facilitates the task of finding a list of users without having duplicates
+ */
 public class Users {
     public static final int maxUsers = 10000;
     private final String[] users = new String[maxUsers];

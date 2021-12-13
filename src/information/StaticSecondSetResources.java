@@ -3,6 +3,9 @@ package information;
 import staticInformation.ResourceAndQueries;
 import staticInformation.UserQueries;
 
+/**
+ * Second implementation of the static resource set
+ */
 public class StaticSecondSetResources implements ADTsetResources {
     private final int size = 200000;
     private final ResourceAndQueries[] resources = new ResourceAndQueries[size / 10];

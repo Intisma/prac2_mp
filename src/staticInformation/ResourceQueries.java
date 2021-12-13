@@ -2,6 +2,9 @@ package staticInformation;
 
 import information.Date;
 
+/**
+ * List of resource queries of a given resource
+ */
 public class ResourceQueries {
     public static final int maxQueries = 10000;
     private final ResourceQuery[] list = new ResourceQuery[maxQueries];

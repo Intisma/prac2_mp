@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Class to generate random users
+ */
 public class RandomUserGenerator {
     private final ArrayList<String> firstNames;
     private final ArrayList<String> lastNames;

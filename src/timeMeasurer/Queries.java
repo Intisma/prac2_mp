@@ -1,13 +1,20 @@
-package staticInformation;
+package timeMeasurer;
 
 import information.ADTsetResources;
 import information.Query;
 
+/**
+ * List of queries to facilitate the time measures. It stores the information of the queries added to a set, allowing
+ * that methods like remove queries from resource, always have a resource that is inside the set.
+ */
 public class Queries {
     private final int size = ADTsetResources.size;
     private final Query[] queries = new Query[size];
     private int numQueries = 0;
 
+    /**
+     * Constructor
+     */
     public Queries() {
 
     }

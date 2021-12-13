@@ -1,5 +1,8 @@
 package staticInformation;
 
+/**
+ * Class to store a list of resources without having duplicates
+ */
 public class Resources {
     public static final int maxResources = 100000;
     private final String[] resources = new String[maxResources];

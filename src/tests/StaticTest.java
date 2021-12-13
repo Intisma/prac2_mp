@@ -4,7 +4,7 @@ import information.ADTsetResources;
 import information.Date;
 import information.Query;
 import information.StaticSecondSetResources;
-import staticInformation.Queries;
+import timeMeasurer.Queries;
 
 public class StaticTest {
     public static void main(String[] args) {

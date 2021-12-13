@@ -1,5 +1,8 @@
 package information;
 
+/**
+ * Class to store the data of a query
+ */
 public class Query {
     private final String resource;
     private final String user;
@@ -76,11 +79,11 @@ public class Query {
         return resource.equals(query.getResource()) && user.equals(query.getUser()) && date.equals(query.getDate());
     }
 
-    public String toStringFile(){
+    public String toStringFile() {
         return resource + "; " + date.toString();
     }
 
-    public String toStringFile2(){
-        return resource + "; " + user +"; "+ date.toString();
+    public String toStringFile2() {
+        return resource + "; " + user + "; " + date.toString();
     }
 }

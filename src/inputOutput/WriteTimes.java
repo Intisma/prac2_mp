@@ -6,6 +6,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Class to write in a file all the time measures performed
+ */
 public class WriteTimes {
 
     /**
