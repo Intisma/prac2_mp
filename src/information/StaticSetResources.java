@@ -1,5 +1,8 @@
 package information;
 
+import staticInformation.Resources;
+import staticInformation.Users;
+
 public class StaticSetResources implements ADTsetResources {
     public static final int size = 200000;
     private final Query[] list = new Query[size];

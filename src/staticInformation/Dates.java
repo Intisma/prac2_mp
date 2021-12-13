@@ -1,4 +1,6 @@
-package information;
+package staticInformation;
+
+import information.Date;
 
 public class Dates {
     public static final int maxDates = 100000;

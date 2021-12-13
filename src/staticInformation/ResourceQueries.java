@@ -1,4 +1,6 @@
-package information;
+package staticInformation;
+
+import information.Date;
 
 public class ResourceQueries {
     public static final int maxQueries = 10000;

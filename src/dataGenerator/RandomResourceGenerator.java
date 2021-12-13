@@ -1,6 +1,6 @@
 package dataGenerator;
 
-import information.Resources;
+import staticInformation.Resources;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package information;
+package staticInformation;
 
 public class Resources {
     public static final int maxResources = 100000;

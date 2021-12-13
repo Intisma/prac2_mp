@@ -1,4 +1,6 @@
-package information;
+package staticInformation;
+
+import information.Date;
 
 public class ResourceQuery {
     private final String user;

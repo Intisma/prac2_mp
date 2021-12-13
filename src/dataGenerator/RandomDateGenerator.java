@@ -1,7 +1,7 @@
 package dataGenerator;
 
 import information.Date;
-import information.Dates;
+import staticInformation.Dates;
 
 import java.util.Random;
 

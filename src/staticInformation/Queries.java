@@ -1,4 +1,7 @@
-package information;
+package staticInformation;
+
+import information.ADTsetResources;
+import information.Query;
 
 public class Queries {
     private final int size = ADTsetResources.size;

@@ -1,6 +1,10 @@
 package dataGenerator;
 
 import information.*;
+import staticInformation.Dates;
+import staticInformation.Queries;
+import staticInformation.Resources;
+import staticInformation.Users;
 
 import java.util.Random;
 

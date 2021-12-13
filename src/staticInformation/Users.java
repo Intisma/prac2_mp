@@ -1,4 +1,4 @@
-package information;
+package staticInformation;
 
 public class Users {
     public static final int maxUsers = 10000;

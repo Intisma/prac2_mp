@@ -1,4 +1,7 @@
-package information;
+package staticInformation;
+
+import information.Date;
+import information.Query;
 
 public class ResourceAndQueries {
     private final String resource;
