@@ -4,7 +4,9 @@ import dataGenerator.RandomDateGenerator;
 import dataGenerator.RandomResourceGenerator;
 import dataGenerator.RandomSetGenerator;
 import dataGenerator.RandomUserGenerator;
-import information.*;
+import information.ADTsetResources;
+import information.Date;
+import information.Query;
 import staticInformation.Dates;
 import staticInformation.Queries;
 import staticInformation.Resources;
@@ -28,24 +30,26 @@ public class GeneralTest {
         RandomSetGenerator setGenerator = new RandomSetGenerator();
 
         //Selection kind of structure (dynamic or static)
-        boolean dynamic;
-        int result = -1;
+        int type = -1;
         System.out.println("\nEnter a number to choose static or dynamic memory'");
-        while (result != 1 && result != 2) {
-            System.out.println("\n\t1 --> 'STATIC MEMORY' | 2 --> 'DYNAMIC MEMORY':  ");
-            result = key.nextInt();
+        while (type < 0 || type > 3) {
+            System.out.println("\n\t0 --> 'STATIC MEMORY FIRST IMPLEMENTATION' | 1 --> 'STATIC MEMORY SECOND IMPLEMENTATION' | 2 --> 'DYNAMIC MEMORY FIRST IMPLEMENTATION' | 3 --> 'DYNAMIC MEMORY SECOND IMPLEMENTATION':  ");
+            type = key.nextInt();
         }
         key.close();
-        dynamic = result != 1;
-        ADTsetResources set = setGenerator.generateSet(dynamic, users, resources, dates, 5, new Queries());
-        test(set, dynamic, users, resources, dates);
+        ADTsetResources set = setGenerator.generateSet(type, users, resources, dates, 5, new Queries());
+        test(set, type, users);
         System.out.println("\n\n\t************END OF THE TEST************\n");
     }
 
 
-    public static void test(ADTsetResources set, boolean dynamic, Users users, Resources resources, Dates dates) {
-        if (dynamic) System.out.println("\n\t************STARTING THE TEST WITH DYNAMIC STRUCTURE************");
-        else System.out.println("\n\t************STARTING THE TEST WITH STATIC STRUCTURE************\n");
+    public static void test(ADTsetResources set, int type, Users users) {
+        switch (type) {
+            case 0 -> System.out.println("\n\t************STARTING THE TEST WITH FIRST IMPLEMENTATION OF STATIC STRUCTURE************\n");
+            case 2 -> System.out.println("\n\t************STARTING THE TEST WITH FIRST IMPLEMENTATION OF DYNAMIC STRUCTURE************\n");
+            case 3 -> System.out.println("\n\t************STARTING THE TEST WITH SECOND IMPLEMENTATION OF DYNAMIC STRUCTURE************\n");
+            default -> System.out.println("\n\t************STARTING THE TEST WITH SECOND IMPLEMENTATION OF STATIC STRUCTURE************\n");
+        }
         System.out.println("\nActual structure:");
         System.out.println(set);
 
@@ -110,7 +114,7 @@ public class GeneralTest {
         System.out.println(set);
 
 
-        System.out.println("\n****TEST 10: Get resources from different ussers... ****");
+        System.out.println("\n****TEST 10: Get resources from different users... ****");
         int i;
         for (i = 0; i < 5; i++) {
             System.out.println("- " + i + ": Get resources from user: " + users.getUserAtIndex(i));

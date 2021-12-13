@@ -15,9 +15,28 @@ public class StaticSecondSetResources implements ADTsetResources {
 
     }
 
+
+    /**
+     * Binary search to find the lowest index where a resource is located or where it should be inserted.
+     *
+     * @param resource to find
+     * @param lower    index to find
+     * @param higher   index to find
+     * @return found index
+     */
+    public int lowerBinarySearchResource(String resource, int lower, int higher) {
+        if (lower > higher) return lower;
+        int index = lower + (higher - lower) / 2;
+        int compare = resources[index].getResource().compareTo(resource);
+        if (compare == 0) return lowerBinarySearchResource(resource, lower, index - 1);
+        if (compare < 0) return lowerBinarySearchResource(resource, index + 1, higher);
+        return lowerBinarySearchResource(resource, lower, index - 1);
+    }
+
     /**
      * Add query to the data structure
      */
+    @Override
     public void addQuery(Query query) {
         int index;
         if (numResources == 0) {
@@ -43,25 +62,9 @@ public class StaticSecondSetResources implements ADTsetResources {
     }
 
     /**
-     * Binary search to find the lowest index where a resource is located or where it should be inserted.
-     *
-     * @param resource to find
-     * @param lower    index to find
-     * @param higher   index to find
-     * @return found index
-     */
-    public int lowerBinarySearchResource(String resource, int lower, int higher) {
-        if (lower > higher) return lower;
-        int index = lower + (higher - lower) / 2;
-        int compare = resources[index].getResource().compareTo(resource);
-        if (compare == 0) return lowerBinarySearchResource(resource, lower, index - 1);
-        if (compare < 0) return lowerBinarySearchResource(resource, index + 1, higher);
-        return lowerBinarySearchResource(resource, lower, index - 1);
-    }
-
-    /**
      * Remove all the queries of a resource
      */
+    @Override
     public void removeQueriesFromResource(String resource) {
         int index;
         if (numResources > 0) {
@@ -78,6 +81,7 @@ public class StaticSecondSetResources implements ADTsetResources {
     /**
      * Remove all the queries of a resource  in a specific date
      */
+    @Override
     public void removeQueriesFromResourceDate(String resource, Date date) {
         int index;
         if (numResources > 0) {
@@ -95,6 +99,7 @@ public class StaticSecondSetResources implements ADTsetResources {
     /**
      * Return a list with the users who queried a certain resource
      */
+    @Override
     public String[] getUsersFromResource(String resource) {
         int index;
         if (numResources > 0) {
@@ -109,6 +114,7 @@ public class StaticSecondSetResources implements ADTsetResources {
     /**
      * Return a list with the users who queried a certain resource in a specific date
      */
+    @Override
     public String[] getUsersFromResourceDate(String resource, Date date) {
         int index;
         if (numResources > 0) {
@@ -123,6 +129,7 @@ public class StaticSecondSetResources implements ADTsetResources {
     /**
      * Return the most queried resource
      */
+    @Override
     public String getMostQueriedResource() {
         if (numResources > 0) {
             int maxQueries = resources[0].getQueries().getNumQueries();
@@ -142,11 +149,12 @@ public class StaticSecondSetResources implements ADTsetResources {
     /**
      * Return a list with the resources queried by a user
      */
+    @Override
     public String[] getResourcesFromUser(String user) {
-        UserQueries userQueries = new UserQueries();
-        /*for (int index = 0; index < numResources; index++) {
-            if (this.resources[index].isUser(user)) userQueries.addQuery(this.resources[index].getResource(), this.resources[index].g());
-        }*/
+        UserQueries userQueries = new UserQueries(user);
+        for (int index = 0; index < numResources; index++) {
+            resources[index].getResourcesFromUser(userQueries);
+        }
         return userQueries.getResources();
     }
 
@@ -158,6 +166,7 @@ public class StaticSecondSetResources implements ADTsetResources {
      * @param end      date of the range
      * @return String[] with the resources
      */
+    @Override
     public String[] getUsersFromResourceDateRange(String resource, Date start, Date end) {
         if (start.moreRecentThan(end)) {
             Date aux = start;
@@ -180,6 +189,7 @@ public class StaticSecondSetResources implements ADTsetResources {
      *
      * @return String with the data
      */
+    @Override
     public String toString() {
         StringBuilder total = new StringBuilder();
         for (int index = 0; index < numResources; index++) {
@@ -197,8 +207,8 @@ public class StaticSecondSetResources implements ADTsetResources {
      */
     @Override
     public boolean userHasConsultedResource(String resource, String user) {
-        int index = lowerBinarySearchResource(resource,0,numResources-1);
-        if(index<numResources && resources[index].getResource().equals(resource)){
+        int index = lowerBinarySearchResource(resource, 0, numResources - 1);
+        if (index < numResources && resources[index].getResource().equals(resource)) {
             return resources[index].isUser(user);
         }
         return false;
@@ -209,6 +219,7 @@ public class StaticSecondSetResources implements ADTsetResources {
      *
      * @return String with the information
      */
+    @Override
     public String toStringFile() {
         StringBuilder result = new StringBuilder();
         for (int index = 0; index < numResources; index++) {

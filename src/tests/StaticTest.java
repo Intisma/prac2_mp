@@ -1,12 +1,13 @@
 package tests;
 
-import information.*;
+import information.ADTsetResources;
+import information.Date;
+import information.Query;
+import information.StaticSecondSetResources;
 import staticInformation.Queries;
-import staticInformation.UserQueries;
 
 public class StaticTest {
     public static void main(String[] args) {
-
 
 
         Date date = new Date(1990, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
@@ -32,9 +33,14 @@ public class StaticTest {
         set.addQuery(new Query("Hormigon", "Terelu", date3));
         set.addQuery(new Query("Hormigon", "Caniche", date2));
         set.addQuery(new Query("Hormigon", "Embolicada", date2));
-        set.addQuery(new Query("Hormigon", "Herminia", date));
+        set.addQuery(new Query("Hormigon", "Herminia", date4));
         System.out.println(set);
-        if(set.userHasConsultedResource("Hormigon", "Herminia")) System.out.println("Si que lo ha consultao la tia");
+        String[] resources = set.getResourcesFromUser("Herminia");
+        for (int index = 0; resources[index] != null; index++) {
+            System.out.println(resources[index]);
+        }
+        /*if(set.userHasConsultedResource("Aormigon", "Terelu")) System.out.println("Si que lo ha consultao la tia");
+        else System.out.println("La tia no lo ha consultado");*/
 
         /*String[] info = set.getUsersFromResourceDateRange("Hormigon", date3, date2);
 

@@ -29,6 +29,16 @@ public interface ADTsetResources {
     String[] getUsersFromResourceDate(String resource, Date date);
 
     /**
+     * Return a list with the user who queried a resource in a given date range
+     *
+     * @param resource to check
+     * @param start    date of the range
+     * @param end      date of the range
+     * @return String[] with the resources
+     */
+    String[] getUsersFromResourceDateRange(String resource, Date start, Date end);
+
+    /**
      * Return the most queried resource
      */
     String getMostQueriedResource();
@@ -38,15 +48,7 @@ public interface ADTsetResources {
      */
     String[] getResourcesFromUser(String user);
 
-    /**
-     * Return a list with the user who queried a resource in a given date range
-     *
-     * @param resource to check
-     * @param start    date of the range
-     * @param end      date of the range
-     * @return String[] with the resources
-     */
-    String[] getUsersFromResourceDateRange(String resource, Date start, Date end);
+
 
     /**
      * Method to check if a user has consulted a resource

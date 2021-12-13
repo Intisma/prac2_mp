@@ -15,6 +15,23 @@ public class StaticSetResources implements ADTsetResources {
 
     }
 
+    /**
+     * Binary search to find the lowest index where a resource is located or where it should be inserted.
+     *
+     * @param resource to find
+     * @param lower    index to find
+     * @param higher   index to find
+     * @return found index
+     */
+    public int lowerBinarySearchResource(String resource, int lower, int higher) {
+        if (lower > higher) return lower;
+        int index = lower + (higher - lower) / 2;
+        int compare = list[index].getResource().compareTo(resource);
+        if (compare == 0) return lowerBinarySearchResource(resource, lower, index - 1);
+        if (compare < 0) return lowerBinarySearchResource(resource, index + 1, higher);
+        return lowerBinarySearchResource(resource, lower, index - 1);
+    }
+
 
     /**
      * Add query to the data structure
@@ -36,23 +53,6 @@ public class StaticSetResources implements ADTsetResources {
             numElements++;
             list[index] = query;
         }
-    }
-
-    /**
-     * Binary search to find the lowest index where a resource is located or where it should be inserted.
-     *
-     * @param resource to find
-     * @param lower    index to find
-     * @param higher   index to find
-     * @return found index
-     */
-    public int lowerBinarySearchResource(String resource, int lower, int higher) {
-        if (lower > higher) return lower;
-        int index = lower + (higher - lower) / 2;
-        int compare = list[index].getResource().compareTo(resource);
-        if (compare == 0) return lowerBinarySearchResource(resource, lower, index - 1);
-        if (compare < 0) return lowerBinarySearchResource(resource, index + 1, higher);
-        return lowerBinarySearchResource(resource, lower, index - 1);
     }
 
     /**
@@ -185,6 +185,7 @@ public class StaticSetResources implements ADTsetResources {
      * @param end      date of the range
      * @return String[] with the resources
      */
+    @Override
     public String[] getUsersFromResourceDateRange(String resource, Date start, Date end) {
         Users users = new Users();
         if (numElements > 0) {
@@ -209,6 +210,15 @@ public class StaticSetResources implements ADTsetResources {
      */
     @Override
     public boolean userHasConsultedResource(String resource, String user) {
+        int index = lowerBinarySearchResource(resource, 0, numElements - 1);
+        if (index < numElements) {
+            while (list[index].getResource().equals(resource)) {
+                if (list[index].getUser().equals(user)) {
+                    return true;
+                }
+                index++;
+            }
+        }
         return false;
     }
 
@@ -217,6 +227,7 @@ public class StaticSetResources implements ADTsetResources {
      *
      * @return String with the class information
      */
+    @Override
     public String toString() {
         StringBuilder total = new StringBuilder();
         for (int index = 0; index < numElements; index++) {
@@ -226,6 +237,12 @@ public class StaticSetResources implements ADTsetResources {
         return total.toString();
     }
 
+    /**
+     * Method to get a String ready to be printed in a file
+     *
+     * @return String with the information
+     */
+    @Override
     public String toStringFile() {
         StringBuilder result = new StringBuilder();
         for (int index = 0; index < numElements; index++) {

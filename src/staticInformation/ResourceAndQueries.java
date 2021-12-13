@@ -96,6 +96,13 @@ public class ResourceAndQueries {
     }
 
     /**
+     * Add to a list of resources of a user if the resource has been queried by him
+     */
+    public void getResourcesFromUser(UserQueries userQueries) {
+        resourceQueries.getResourcesFromUser(userQueries, resource);
+    }
+
+    /**
      * Method toString
      *
      * @return String with the information

@@ -5,12 +5,13 @@ public class Times {
     public static final int maxTimes = 10000;
     private final Time[] times = new Time[maxTimes];
     private int numTimes = 0;
+    private final int repeats;
 
     /**
      * Constructor
      */
-    public Times() {
-
+    public Times(int repeats) {
+        this.repeats = repeats;
     }
 
     /**
@@ -64,8 +65,13 @@ public class Times {
      */
     public String toString() {
         StringBuilder total = new StringBuilder();
-        for (int index = 0; index < numTimes; index++) {
-            total.append(times[index].toString());
+        for (int index = 0; index < numTimes; index += repeats) {
+            Time currentTime = new Time();
+            for (int repeat = 0; repeat < repeats; repeat++) {
+                currentTime = currentTime.add(times[index]);
+            }
+            currentTime = currentTime.divide(repeats);
+            total.append(currentTime.toString());
         }
         return total.toString();
     }
