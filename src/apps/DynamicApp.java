@@ -118,7 +118,7 @@ public class DynamicApp {
       ReadData r = new ReadData();
         System.out.print("\n\tIntroduce the file's name: ");
         String file = key.next();
-        DynamicSetResources info = (DynamicSetResources) r.read(file, 2);
+        DynamicSetResources info = (DynamicSetResources) r.read(file, 3);
         if (info != null) {
             System.out.println("\n\tAll gone fine");
         } else System.out.println("\t\tError, file not found");

@@ -1,7 +1,7 @@
 package information;
 
 public class NodeQueries {
-    private final Query query;
+    private Query query;
     private NodeQueries nextQueryUser;
     private NodeQueries nextQueryRes;
 
@@ -11,5 +11,23 @@ public class NodeQueries {
         nextQueryUser=null;
     }
 
+    public Query getQuery() {
+        return query;
+    }
 
+    public NodeQueries getNextQueryUser() {
+        return nextQueryUser;
+    }
+
+    public void setNextQueryUser(NodeQueries nextQueryUser) {
+        this.nextQueryUser = nextQueryUser;
+    }
+
+    public NodeQueries getNextQueryRes() {
+        return nextQueryRes;
+    }
+
+    public void setNextQueryRes(NodeQueries nextQueryRes) {
+        this.nextQueryRes = nextQueryRes;
+    }
 }

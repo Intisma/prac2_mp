@@ -11,5 +11,27 @@ public class NodeResource {
         this.firstRes = query;
     }
 
+    public NodeQueries getFirstRes() {
+        return firstRes;
+    }
 
+    public void setFirstRes(NodeQueries firstRes) {
+        this.firstRes = firstRes;
+    }
+
+    public NodeResource getNextRes() {
+        return nextRes;
+    }
+
+    public void setNextRes(NodeResource nextRes) {
+        this.nextRes = nextRes;
+    }
+
+    public String getResource() {
+        return resource;
+    }
+
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
 }

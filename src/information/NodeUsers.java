@@ -2,7 +2,7 @@ package information;
 
 public class NodeUsers {
     private final String user;
-    private final NodeQueries firstQuery;
+    private  NodeQueries firstQuery;
     private NodeUsers nextUser;
 
     public NodeUsers(String user, NodeQueries resource) {
@@ -15,4 +15,19 @@ public class NodeUsers {
         return user;
     }
 
+    public NodeQueries getFirstQuery() {
+        return firstQuery;
+    }
+
+    public void setFirstQuery(NodeQueries firstQuery) {
+        this.firstQuery = firstQuery;
+    }
+
+    public NodeUsers getNextUser() {
+        return nextUser;
+    }
+
+    public void setNextUser(NodeUsers nextUser) {
+        this.nextUser = nextUser;
+    }
 }

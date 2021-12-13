@@ -49,7 +49,7 @@ public class ReadData {
             switch (type) {
                 case 0 -> info = new StaticSetResources();
                 case 1 -> info = new StaticSecondSetResources();
-                case 2 -> info = new DynamicSetResources();
+                case 2 -> info = new DynamicSecondSetResouces();
                 default -> info = new DynamicSetResources();
             }
             for (i = 0; i < cont; i++) {
