@@ -1,7 +1,8 @@
 package apps;
 
 import information.DynamicSetResources;
-
+import inputOutput.WriteData;
+import inputOutput.ReadData;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -21,16 +22,16 @@ public class DynamicApp {
             showMenu();
             option = readInt("", 0, 9);
             switch (option) {
-                case 1: dynamic = readFromFile();
-                case 2: removeQueries(dynamic);
-                case 3: removeQueriesByDate(dynamic);
-                case 4: listUsers(dynamic);
-                case 5: listUsersByDate(dynamic);
-                case 6: mostResource(dynamic);
-                case 7: listResources(dynamic);
-                case 8: test();
-                case 9: writeToFile(dynamic);
-                case 0: System.out.println("\tHasta otra!");
+                case 1 -> dynamic = readFromFile();
+                case 2 -> removeQueries(dynamic);
+                case 3 -> removeQueriesByDate(dynamic);
+                case 4 -> listUsers(dynamic);
+                case 5 -> listUsersByDate(dynamic);
+                case 6 -> mostResource(dynamic);
+                case 7 -> listResources(dynamic);
+                case 8 -> test();
+                case 9 -> writeToFile(dynamic);
+                case 0 -> System.out.println("\tHasta otra!");
             }
         } while (option != 0);
         key.close();
@@ -91,7 +92,7 @@ public class DynamicApp {
         do {
             System.out.print(message);
             num = key.next();
-            read = ((!num.equals("")) && (num.matches("[+-]?\\d*(\\.\\d+)?")));
+            read = (!num.equals(""));
         } while (!read);
         return num;
     }
@@ -113,26 +114,15 @@ public class DynamicApp {
      * Read the info of a file and creates a DynamicSetResources
      */
     public static DynamicSetResources readFromFile(){
-//      ReadData
-//        System.out.print("\n\tIntroduce the file's name: ");
-//        String file = teclado.next();
-//      String[] info = readData.leer(file);
-//        if (info != null) {
-//            DynamicSetResources dynamic = new DynamicSetResources();
-        //bucle creando DynamicSetResources
-//            System.out.println("\n\tCreating the dynamic resources... ");
-//            dynamic.addQuery(info);
-//            System.out.print("\n\tIntroduce the file's name where do you want to save the info: ");
-//            file = teclado.next();
-//            if (gestorFicheros.escribir(gestorPrimos, nombreFichero))
-//                System.out.println("\n\tAll gone fine");
-//            else
-//                System.out.println("\n\tError to write in file");
-//        } else
-//            System.out.println("\t\tError, file not found");
-//
+      ReadData r = new ReadData();
+        System.out.print("\n\tIntroduce the file's name: ");
+        String file = key.next();
+        DynamicSetResources info = (DynamicSetResources) r.read(file, 2);
+        if (info != null) {
+            System.out.println("\n\tAll gone fine");
+        } else System.out.println("\t\tError, file not found");
         pause();
-        return null;
+        return info;
     }
 
     /**
@@ -142,7 +132,7 @@ public class DynamicApp {
     public static void removeQueries(DynamicSetResources info){
         String resource = readNum("\nIntroduce the name of the resource: ");
         info.removeQueriesFromResource(resource);
-        System.out.println("All the queries from"+resource+"deleted!");
+        System.out.println("All the queries from "+resource+" deleted!");
         System.out.println(info);
         pause();
     }
@@ -156,7 +146,7 @@ public class DynamicApp {
         //Date date = readNum("\nIntroduce the date: ");
         //Transformar a date
         //info.removeQueriesFromResourceDate(resource, date);
-        //System.out.println("All the queries from"+resource+"from "+date+"were succefully deleted!");
+        //System.out.println("All the queries from "+resource+" from "+date+"were succefully deleted!");
         System.out.println(info);
         pause();
     }
@@ -167,7 +157,7 @@ public class DynamicApp {
      */
     public static void listUsers(DynamicSetResources info){
         String resource = readNum("\nIntroduce the name of the resource: ");
-        System.out.println("The users that queried the"+resource+"were:\n"+info.getUsersFromResource(resource));
+        System.out.println("The users that queried the "+resource+" were:\n"+info.getUsersFromResource(resource));
         pause();
     }
 
@@ -176,9 +166,9 @@ public class DynamicApp {
      * @param info information
      */
     public static void listUsersByDate(DynamicSetResources info){
-        String resource = readNum("\nIntroduce the name of the resource: ");
-        String date = readNum("\nIntroduce the date: ");
-       // System.out.println("The users that queried the"+resource+" the"+date+" :\n"+info.getUsersFromResourceDate(date,resource));
+        //String resource = readNum("\nIntroduce the name of the resource: ");
+        //String date = readNum("\nIntroduce the date: ");
+        //System.out.println("The users that queried the "+resource+" the"+date+" :\n"+info.getUsersFromResourceDate(date,resource));
         pause();
     }
 
@@ -187,7 +177,7 @@ public class DynamicApp {
      * @param info information
      */
     public static void  mostResource(DynamicSetResources info){
-        System.out.println("The most queried resource is"+info.getMostQueriedResource());
+        System.out.println("The most queried resource is  "+info.getMostQueriedResource());
         pause();
     }
 
@@ -197,7 +187,7 @@ public class DynamicApp {
      */
     public static void listResources(DynamicSetResources info){
         String name = readNum("\nIntroduce the alias of the user: ");
-        System.out.println("The resources queried by"+name+"were:\n"+info.getResourcesFromUser(name));
+        System.out.println("The resources queried by "+name+" were:\n"+info.getResourcesFromUser(name).toString());
         pause();
     }
 
@@ -206,9 +196,9 @@ public class DynamicApp {
      * @param info
      */
     public static void writeToFile (DynamicSetResources info){
-        //Escribir info en fichero llamar writeData
+        WriteData write = new WriteData();
         String file = readNum("\nWrite the name of the file: ");
-        //Escribir
+        write.write(info,file);
     }
 
     /**
