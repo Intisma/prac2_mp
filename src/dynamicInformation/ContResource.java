@@ -26,6 +26,6 @@ public class ContResource {
     }
 
     public String toString() {
-        return (resource + " counter: " + cont + " ");
+        return (resource +" "+ cont + " times");
     }
 }

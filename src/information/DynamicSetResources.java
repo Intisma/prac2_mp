@@ -190,28 +190,6 @@ public class DynamicSetResources implements ADTsetResources {
         return result.toString();
     }
 
-
-    /**
-     * @return result
-     */
-    public String toStringUsersAndResources() {
-        return toStringResources() + toStringUsers();
-    }
-
-
-    /**
-     * ToString
-     *
-     * @return result
-     */
-    public String toStringUsers() {
-        StringBuilder result = new StringBuilder("\n-----------USERS: \n");
-        for (String name : this.users.keySet()) {
-            result.append(name).append(":\n").append(this.users.get(name).toString()).append("\n");
-        }
-        return result.toString();
-    }
-
     /**
      * Return a list with the user who queried a resource in a given date range
      *
@@ -222,19 +200,6 @@ public class DynamicSetResources implements ADTsetResources {
      */
     public String[] getUsersFromResourceDateRange(String resource, Date start, Date end) {
         return new String[1];
-    }
-
-    /**
-     * ToString resources
-     *
-     * @return result
-     */
-    public String toStringResources() {
-        StringBuilder result = new StringBuilder("\n-----------RESOURCES: \n");
-        for (String name : this.resources.keySet()) {
-            result.append(name).append(":\n").append(this.resources.get(name).toString()).append("\n");
-        }
-        return result.toString();
     }
 
     /**
@@ -250,6 +215,15 @@ public class DynamicSetResources implements ADTsetResources {
     }
 
     public String toStringFile() {
-        return "";
+        StringBuilder result = new StringBuilder("\nHASHMAP USERS: \n");
+        for (String name : this.users.keySet()) {
+            result.append(name).append(":\n").append(this.users.get(name).toString()).append("\n");
+        }
+        result.append("\nHASHMAP RESOURCES\n");
+        for (String name : this.resources.keySet()) {
+            result.append(name).append(":\n").append(this.resources.get(name).toString()).append("\n");
+        }
+        return result.toString();
     }
+
 }

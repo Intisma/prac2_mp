@@ -30,4 +30,5 @@ public class NodeUsers {
     public void setNextUser(NodeUsers nextUser) {
         this.nextUser = nextUser;
     }
+
 }

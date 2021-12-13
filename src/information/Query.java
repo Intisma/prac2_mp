@@ -75,4 +75,12 @@ public class Query {
     public boolean equals(Query query) {
         return resource.equals(query.getResource()) && user.equals(query.getUser()) && date.equals(query.getDate());
     }
+
+    public String toStringFile(){
+        return resource + "; " + date.toString();
+    }
+
+    public String toStringFile2(){
+        return resource + "; " + user +"; "+ date.toString();
+    }
 }

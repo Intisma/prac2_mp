@@ -32,4 +32,6 @@ public class NodeQuery {
     public void setNextQueryRes(NodeQuery nextQueryRes) {
         this.nextQueryRes = nextQueryRes;
     }
+
+    public String toStringFile(){ return this.query.toStringFile(); }
 }

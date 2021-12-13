@@ -24,7 +24,7 @@ public class WriteData {
     public boolean write(ADTsetResources information, String file) {
         try {
             BufferedWriter result = new BufferedWriter(new FileWriter(file));
-            result.write(information.toString());
+            result.write(information.toStringFile());
             result.close();
             return true;
         } catch (IOException e) {

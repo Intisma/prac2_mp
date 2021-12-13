@@ -210,6 +210,10 @@ public class StaticSecondSetResources implements ADTsetResources {
      * @return String with the information
      */
     public String toStringFile() {
-        return "ismael";
+        StringBuilder result = new StringBuilder();
+        for (int index = 0; index < numResources; index++) {
+            result.append(resources[index].toStringFile());
+        }
+        return result.toString();
     }
 }
