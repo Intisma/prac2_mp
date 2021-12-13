@@ -159,6 +159,6 @@ public class Time {
      * @return String with the information
      */
     public String toString() {
-        return size + "," + timeAddQuery + "," + timeRemoveResource + "," + timeRemoveResourceDate + "," + timeUsersFromResource + "," + timeUsersFromResourceDate + "," + timeMostQueriedResource + "," + timeResourcesFromUser + "\n";
+        return size + "," + timeAddQuery + "," + timeRemoveResource + "," + timeRemoveResourceDate + "," + timeUsersFromResource + "," + timeUsersFromResourceDate + "," + timeUsersFromResourceDateRange + "," + timeMostQueriedResource + "," + timeResourcesFromUser + "," + timeUserConsultedResource + "\n";
     }
 }

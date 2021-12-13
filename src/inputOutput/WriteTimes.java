@@ -19,7 +19,7 @@ public class WriteTimes {
         try {
             file = "src/generatedInformation/" + file;
             BufferedWriter result = new BufferedWriter(new FileWriter(file));
-            result.write("size,add,removeResource,removeResourceDate,usersFromResource,usersFromResourceDate,mostQueried,resourceFromUser\n");
+            result.write("size,add,removeResource,removeResourceDate,usersFromResource,usersFromResourceDate,usersFromResourceDateRange,mostQueried,resourceFromUser,userConsultedResource\n");
             result.write(information.toString());
             result.close();
             return true;

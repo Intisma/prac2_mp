@@ -14,7 +14,7 @@ import staticInformation.Users;
 import java.util.Random;
 
 public class TimeMeasurer {
-    public static Time getTime(int size, boolean dynamic) {
+    public static Time getTime(int size, int type) {
         Random numGenerator = new Random();
         Queries queries = new Queries();
         Queries queries2 = new Queries();
@@ -28,8 +28,8 @@ public class TimeMeasurer {
         RandomDateGenerator dateGenerator = new RandomDateGenerator();
         Dates dates = dateGenerator.generateRandomDates(size / 50);
         RandomSetGenerator setGenerator = new RandomSetGenerator();
-        ADTsetResources set = setGenerator.generateSet(dynamic, users, resources, dates, size, queries);
-        ADTsetResources set2 = setGenerator.generateSet(dynamic, users, resources, dates, size, queries2);
+        ADTsetResources set = setGenerator.generateSet(type, users, resources, dates, size, queries);
+        ADTsetResources set2 = setGenerator.generateSet(type, users, resources, dates, size, queries2);
 
         // Generate new users, resources and dates to measure time to add new queries
         Users newUsers = userGenerator.generateRandomUsers(1000);
@@ -124,17 +124,17 @@ public class TimeMeasurer {
      * Method to study how an increasing size impacts the time
      *
      * @param repeats number of repeats
-     * @param dynamic boolean indicating if the set should be dynamic or static
+     * @param type    boolean indicating if the implementation of the set
      * @return list of times
      */
-    public static Times sizeEvolution(int maxSize, int repeats, boolean dynamic) {
+    public static Times sizeEvolution(int maxSize, int repeats, int type) {
         if (maxSize <= 5000 || maxSize >= ADTsetResources.size) maxSize = ADTsetResources.size - 5000;
         if (repeats < 1) repeats = 5;
         Times times = new Times(repeats);
         for (int size = 5000; size <= maxSize; size += 5000) {
             System.out.println("Measuring time for size: " + size);
             for (int rep = 0; rep < repeats; rep++) {
-                times.addTime(getTime(size, dynamic));
+                times.addTime(getTime(size, type));
             }
         }
         return times;
