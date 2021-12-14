@@ -6,6 +6,9 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Class that allows to write all the information from a set in a file
+ */
 public class WriteData {
 
     /**

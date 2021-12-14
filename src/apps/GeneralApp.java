@@ -35,7 +35,7 @@ public class GeneralApp {
             if (set != null) {
                 do {
                     showMenu();
-                    option = readInt("", 0, 9);
+                    option = readInt("", 0, 11);
                     switch (option) {
                         case 0 -> end = true;
                         case 1 -> System.out.println("\n" + set);
@@ -53,9 +53,11 @@ public class GeneralApp {
                         }
                         case 5 -> listUsersFromResource(set);
                         case 6 -> listUsersFromResourceAndDate(set);
-                        case 7 -> mostQueriedResource(set);
-                        case 8 -> listResourcesFromUser(set);
-                        case 9 -> writeToFile(set);
+                        case 7 -> listUsersFromResourceAndDateRange(set);
+                        case 8 -> mostQueriedResource(set);
+                        case 9 -> listResourcesFromUser(set);
+                        case 10 -> userHasConsultedResource(set);
+                        case 11 -> backup(set);
                         default -> System.out.println("This operation does not exist!");
 
                     }
@@ -80,15 +82,18 @@ public class GeneralApp {
      */
     public static void showMenu() {
         System.out.println("\n Options:");
-        System.out.println("\t1. Show the set's queries.");
-        System.out.println("\t2. Add a new query to the set.");
-        System.out.println("\t3. Remove all the queries from a resource.");
-        System.out.println("\t4. Delete all de queries from a resource of a specific date");
-        System.out.println("\t5. See a list of users that queried a resource.");
-        System.out.println("\t6. See a list of users of a resource on a specific date.");
-        System.out.println("\t7. The resource most queried by users.");
-        System.out.println("\t8. See a list of all the resources queried by a specific user.");
-        System.out.println("\t0. Exit.");
+        System.out.println("\t1.  Show the set's queries.");
+        System.out.println("\t2.  Add a new query to the set.");
+        System.out.println("\t3.  Remove all the queries from a resource.");
+        System.out.println("\t4.  Remove all the queries from a resource on a specific date");
+        System.out.println("\t5.  See a list of users that queried a resource.");
+        System.out.println("\t6.  See a list of users of a resource on a specific date.");
+        System.out.println("\t7.  See a list of users of a resource on a given date range.");
+        System.out.println("\t8.  The resource most queried by users.");
+        System.out.println("\t9.  See a list of all the resources queried by a specific user.");
+        System.out.println("\t10. See if a user has consulted a resource.");
+        System.out.println("\t11. Make a backup of the data.");
+        System.out.println("\t0.  Exit.");
         System.out.print("\n\t\t\tSelect an option,");
     }
 
@@ -157,7 +162,6 @@ public class GeneralApp {
      */
     public static String readString(String message) {
         String data;
-        boolean read;
         System.out.print(message);
         do {
             data = key.nextLine();
@@ -218,7 +222,7 @@ public class GeneralApp {
      * @param set to add the query to
      */
     public static void addQueries(ADTsetResources set) {
-        String resource = readString("\n\tIntroduce the resource name: ");
+        String resource = readString("\n\tIntroduce the resource's name: ");
         String user = readString("\tIntroduce the user's name: ");
         set.addQuery(new Query(resource, user, getDate()));
     }
@@ -229,9 +233,9 @@ public class GeneralApp {
      * @param set where to delete the resource
      */
     public static void removeQueriesFromResource(ADTsetResources set) {
-        String resource = readString("\nIntroduce the name of the resource: ");
+        String resource = readString("\n\tIntroduce the resource's name: ");
         set.removeQueriesFromResource(resource);
-        System.out.println("All the queries from " + resource + " deleted!");
+        System.out.println("\tAll the queries from " + resource + " deleted!");
     }
 
     /**
@@ -240,10 +244,10 @@ public class GeneralApp {
      * @param set where to delete
      */
     public static void removeQueriesFromResourceAndDate(ADTsetResources set) {
-        String resource = readString("\nIntroduce the name of the resource: ");
+        String resource = readString("\n\tIntroduce the resource's name: ");
         Date date = getDate();
         set.removeQueriesFromResourceDate(resource, date);
-        System.out.println("All the queries from " + resource + " at " + date + " were successfully deleted!");
+        System.out.println("\tAll the queries from " + resource + " at " + date + " were successfully deleted!");
     }
 
     /**
@@ -252,8 +256,8 @@ public class GeneralApp {
      * @param set to find
      */
     public static void listUsersFromResource(ADTsetResources set) {
-        String resource = readString("\nIntroduce the name of the resource: ");
-        System.out.println("The users that queried the " + resource + " were:\n");
+        String resource = readString("\n\tIntroduce the resource's name: ");
+        System.out.println("\tThe users that queried the " + resource + " were:\n");
         System.out.println(listToString(set.getUsersFromResource(resource)));
     }
 
@@ -263,10 +267,25 @@ public class GeneralApp {
      * @param set information
      */
     public static void listUsersFromResourceAndDate(ADTsetResources set) {
-        String resource = readString("\nIntroduce the name of the resource: ");
+        String resource = readString("\n\tIntroduce the resource's name: ");
         Date date = getDate();
-        System.out.println("The users that queried the " + resource + " the " + date + " were:\n");
+        System.out.println("\tThe users that queried the " + resource + " the " + date + " were:\n");
         System.out.println(listToString(set.getUsersFromResourceDate(resource, date)));
+    }
+
+    /**
+     * Shows a list with the users who queried a resource in a given date range
+     *
+     * @param set information
+     */
+    public static void listUsersFromResourceAndDateRange(ADTsetResources set) {
+        String resource = readString("\n\tIntroduce the resource's name: ");
+        System.out.println("\tIntroducing the start of the range ");
+        Date start = getDate();
+        System.out.println("\tIntroducing the end of the range ");
+        Date end = getDate();
+        System.out.println("\tThe users that queried the " + resource + " in the range of " + start + " to" + end + "were:\n");
+        System.out.println(listToString(set.getUsersFromResourceDateRange(resource, start, end)));
     }
 
     /**
@@ -275,7 +294,7 @@ public class GeneralApp {
      * @param set information
      */
     public static void mostQueriedResource(ADTsetResources set) {
-        System.out.println("The most queried resource is  " + set.getMostQueriedResource());
+        System.out.println("\n\tThe most queried resource is  " + set.getMostQueriedResource());
     }
 
     /**
@@ -284,20 +303,33 @@ public class GeneralApp {
      * @param set information
      */
     public static void listResourcesFromUser(ADTsetResources set) {
-        String user = readString("\tIntroduce the user's name: ");
-        System.out.println("The resources queried by " + user + " were:\n");
+        String user = readString("\n\tIntroduce the user's name: ");
+        System.out.println("\tThe resources queried by " + user + " were:\n");
         System.out.println(listToString(set.getResourcesFromUser(user)));
     }
 
     /**
-     * Write the structures in a file
+     * Shows if a given user has consulted a given resource
      *
-     * @param info: information to write in file
+     * @param set information
      */
-    public static void writeToFile(ADTsetResources info) {
-        WriteData write = new WriteData();
-        String file = readString("\nWrite the name of the file: ");
-        write.write(info, file);
+    public static void userHasConsultedResource(ADTsetResources set) {
+        String resource = readString("\n\tIntroduce the resource's name: ");
+        String user = readString("\tIntroduce the user's name: ");
+        if (set.userHasConsultedResource(resource, user))
+            System.out.println("\tThe user " + user + " has consulted the resource " + resource);
+        else System.out.println("\tThe user " + user + " has not consulted the resource " + resource);
+    }
+
+    /**
+     * Store the data in a backup file
+     *
+     * @param set with the information to write in file
+     */
+    public static void backup(ADTsetResources set) {
+        String file = readString("\n\tChoose the name of the file: ");
+        file = "src/apps/" + file;
+        WriteData.write(set, file);
     }
 }
 

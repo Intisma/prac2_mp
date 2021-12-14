@@ -10,6 +10,9 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+/**
+ * Class that allows to construct a set from the data stored in a file
+ */
 public class ReadData {
 
     /**
