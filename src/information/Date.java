@@ -163,5 +163,14 @@ public class Date {
         return (day + 0) + "/" + (month + 0) + "/" + year + "  " + (hour + 0) + ":" + (minute + 0) + ":" + (second + 0);
     }
 
+    /**
+     * Method toStringFile
+     *
+     * @return String with the class information to be stored in a file
+     */
+    public String toStringFile() {
+        return year + "," + (month + 0) + "," + (day + 0) + "," + (hour + 0) + "," + (minute + 0) + "," + (second + 0);
+    }
+
 
 }

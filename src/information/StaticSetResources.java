@@ -249,8 +249,7 @@ public class StaticSetResources implements ADTsetResources {
     public String toStringFile() {
         StringBuilder result = new StringBuilder();
         for (int index = 0; index < numElements; index++) {
-            result.append(list[index].toStringFile2());
-            result.append("\n");
+            result.append(list[index].toStringFile()).append('\n');
         }
         return result.toString();
     }

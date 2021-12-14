@@ -224,10 +224,10 @@ public class StaticSecondSetResources implements ADTsetResources {
      */
     @Override
     public String toStringFile() {
-        StringBuilder result = new StringBuilder();
+        StringBuilder total = new StringBuilder();
         for (int index = 0; index < numResources; index++) {
-            result.append(resources[index].toStringFile());
+            total.append(resources[index].toStringFile());
         }
-        return result.toString();
+        return total.toString();
     }
 }

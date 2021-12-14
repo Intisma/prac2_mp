@@ -191,10 +191,10 @@ public class ResourceQueries {
      * @return String with the information
      */
     public String toStringFile() {
-        StringBuilder result = new StringBuilder();
+        StringBuilder total = new StringBuilder();
         for (int index = 0; index < numQueries; index++) {
-            result.append(list[index].getUser()).append("; ").append(list[index].getDate()).append('\n');
+            total.append(resource).append(",").append(list[index].getUser()).append(",").append(list[index].getDate().toStringFile()).append('\n');
         }
-        return result.toString();
+        return total.toString();
     }
 }

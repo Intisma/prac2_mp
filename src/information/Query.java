@@ -80,10 +80,6 @@ public class Query {
     }
 
     public String toStringFile() {
-        return resource + "; " + date.toString();
-    }
-
-    public String toStringFile2() {
-        return resource + "; " + user + "; " + date.toString();
+        return resource + "," + user + "," + date.toStringFile();
     }
 }

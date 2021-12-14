@@ -9,22 +9,16 @@ import java.io.IOException;
 public class WriteData {
 
     /**
-     * Empty constructor
-     */
-    public WriteData() {
-    }
-
-    /**
-     * Write the data in a result file
+     * Write the data in a file
      *
-     * @param information to save in the file
-     * @param file        name of the file
-     * @return boolean to know if the writing gone correctly
+     * @param set  to save in the file
+     * @param file name of the file
+     * @return true if the writing went correctly, false if not
      */
-    public boolean write(ADTsetResources information, String file) {
+    public static boolean write(ADTsetResources set, String file) {
         try {
             BufferedWriter result = new BufferedWriter(new FileWriter(file));
-            result.write(information.toStringFile());
+            result.write(set.toStringFile());
             result.close();
             return true;
         } catch (IOException e) {

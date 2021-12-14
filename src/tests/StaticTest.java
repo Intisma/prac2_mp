@@ -4,13 +4,17 @@ import information.ADTsetResources;
 import information.Date;
 import information.Query;
 import information.StaticSecondSetResources;
+import inputOutput.ReadData;
+import inputOutput.WriteData;
 import timeMeasurer.Queries;
 
 public class StaticTest {
     public static void main(String[] args) {
+        ADTsetResources set = ReadData.read("src/apps/appData.csv", 0);
+        WriteData writer = new WriteData();
+        writer.write(set, "src/apps/appOut.csv");
 
-
-        Date date = new Date(1990, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
+        /*Date date = new Date(1990, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
         Date date2 = new Date(1992, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
         Date date3 = new Date(1994, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
         Date date4 = new Date(1999, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
