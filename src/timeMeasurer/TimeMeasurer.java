@@ -28,21 +28,17 @@ public class TimeMeasurer {
         Queries queries = new Queries();
         Queries queries2 = new Queries();
 
-        // Generate Sets
-        if (size < 100 || size > ADTsetResources.size) size = ADTsetResources.size;
-        RandomUserGenerator userGenerator = new RandomUserGenerator();
-        Users users = userGenerator.generateRandomUsers(size / 100);
-        RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
-        Resources resources = resourceGenerator.generateRandomResources(size / 10);
-        RandomDateGenerator dateGenerator = new RandomDateGenerator();
-        Dates dates = dateGenerator.generateRandomDates(size / 50);
+        // Generate sets keeping track of the added queries
         RandomSetGenerator setGenerator = new RandomSetGenerator();
-        ADTsetResources set = setGenerator.generateSet(type, users, resources, dates, size, queries);
-        ADTsetResources set2 = setGenerator.generateSet(type, users, resources, dates, size, queries2);
+        ADTsetResources set = setGenerator.generateSet(type, size, queries);
+        ADTsetResources set2 = setGenerator.generateSet(type, size, queries2);
 
         // Generate new users, resources and dates to measure time to add new queries
+        RandomUserGenerator userGenerator = new RandomUserGenerator();
         Users newUsers = userGenerator.generateRandomUsers(1000);
+        RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
         Resources newResources = resourceGenerator.generateRandomResources(1000);
+        RandomDateGenerator dateGenerator = new RandomDateGenerator();
         Dates newDates = dateGenerator.generateRandomDates(1000);
 
         long start, end;
@@ -77,7 +73,7 @@ public class TimeMeasurer {
         start = System.currentTimeMillis();
         for (int index = 0; index < 4000; index++) {
             int random = numGenerator.nextInt(queries.getNumQueries());
-            set.getUsersFromResourceDateRange(queries.getQueryAtIndex(random).getResource(), queries.getQueryAtIndex(random).getDate(), dates.getDateAtIndex(numGenerator.nextInt(dates.getNumDates())));
+            set.getUsersFromResourceDateRange(queries.getQueryAtIndex(random).getResource(), queries.getQueryAtIndex(random).getDate(), queries.getQueryAtIndex(numGenerator.nextInt(queries.getNumQueries())).getDate());
         }
         end = System.currentTimeMillis();
         long timeUsersFromResourceDateRange = end - start;

@@ -50,4 +50,45 @@ public class RandomSetGenerator {
         }
         return set;
     }
+
+    /**
+     * Set generator that generates its own set of user, resources and dates
+     *
+     * @param type    of implementation
+     * @param size    of the set
+     * @param queries to keep record of all the queries added to the set
+     * @return the constructed set
+     */
+    public ADTsetResources generateSet(int type, int size, Queries queries) {
+        // Generate Sets
+        if (size < 100 || size > ADTsetResources.size) size = ADTsetResources.size;
+        RandomUserGenerator userGenerator = new RandomUserGenerator();
+        Users users = userGenerator.generateRandomUsers(size / 100);
+        RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
+        Resources resources = resourceGenerator.generateRandomResources(size / 10);
+        RandomDateGenerator dateGenerator = new RandomDateGenerator();
+        Dates dates = dateGenerator.generateRandomDates(size / 50);
+        return this.generateSet(type, users, resources, dates, size, queries);
+    }
+
+    /**
+     * Set generator that generates its own set of user, resources and dates. It does not need a Queries for those
+     * cases in which we do not wish to keep track of the added queries
+     *
+     * @param type of implementation
+     * @param size of the set
+     * @return the constructed set
+     */
+    public ADTsetResources generateSet(int type, int size) {
+        // Generate Sets
+        Queries queries = new Queries();
+        if (size < 100 || size > ADTsetResources.size) size = ADTsetResources.size;
+        RandomUserGenerator userGenerator = new RandomUserGenerator();
+        Users users = userGenerator.generateRandomUsers(size / 100);
+        RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
+        Resources resources = resourceGenerator.generateRandomResources(size / 10);
+        RandomDateGenerator dateGenerator = new RandomDateGenerator();
+        Dates dates = dateGenerator.generateRandomDates(size / 50);
+        return this.generateSet(type, users, resources, dates, size, queries);
+    }
 }
