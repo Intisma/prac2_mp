@@ -29,7 +29,8 @@ public class StaticTest {
         set.addQuery(new Query("Casa", "Herminia", date));
         set.addQuery(new Query("Casa", "Terelu", date2));
         set.addQuery(new Query("Casa", "Caniche", date3));
-        set.addQuery(new Query("Aormigon", "Herminia", date2));
+        set.addQuery(new Query("Aormigon", "Herminia", date));
+        set.addQuery(new Query("Aormigon", "Herminia", date4));
         set.addQuery(new Query("Hormigon", "Terelu", date3));
         set.addQuery(new Query("Hormigon", "Caniche", date2));
         set.addQuery(new Query("Hormigon", "Embolicada", date2));

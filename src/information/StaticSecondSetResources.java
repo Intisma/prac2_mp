@@ -1,6 +1,6 @@
 package information;
 
-import staticInformation.ResourceAndQueries;
+import staticInformation.ResourceQueries;
 import staticInformation.UserQueries;
 
 /**
@@ -8,7 +8,7 @@ import staticInformation.UserQueries;
  */
 public class StaticSecondSetResources implements ADTsetResources {
     private final int size = 200000;
-    private final ResourceAndQueries[] resources = new ResourceAndQueries[size / 10];
+    private final ResourceQueries[] resources = new ResourceQueries[size / 10];
     private int numResources = 0;
 
     /**
@@ -43,22 +43,22 @@ public class StaticSecondSetResources implements ADTsetResources {
     public void addQuery(Query query) {
         int index;
         if (numResources == 0) {
-            resources[0] = new ResourceAndQueries(query);
+            resources[0] = new ResourceQueries(query);
             numResources++;
         } else if (numResources < size) {
             index = lowerBinarySearchResource(query.getResource(), 0, numResources - 1);
             if (index < numResources) {
                 if (resources[index].getResource().equals(query.getResource()))
-                    resources[index].addQuery(query);
+                    resources[index].addQuery(query.getUser(), query.getDate());
                 else {
                     for (int shiftIndex = numResources; shiftIndex > index; shiftIndex--) {
                         resources[shiftIndex] = resources[shiftIndex - 1];
                     }
-                    resources[index] = new ResourceAndQueries(query);
+                    resources[index] = new ResourceQueries(query);
                     numResources++;
                 }
             } else {
-                resources[index] = new ResourceAndQueries(query);
+                resources[index] = new ResourceQueries(query);
                 numResources++;
             }
         }
@@ -135,11 +135,11 @@ public class StaticSecondSetResources implements ADTsetResources {
     @Override
     public String getMostQueriedResource() {
         if (numResources > 0) {
-            int maxQueries = resources[0].getQueries().getNumQueries();
+            int maxQueries = resources[0].getNumQueries();
             String maxResource = resources[0].getResource();
             for (int index = 0; index < numResources; index++) {
-                if (maxQueries < resources[index].getQueries().getNumQueries()) {
-                    maxQueries = resources[index].getQueries().getNumQueries();
+                if (maxQueries < resources[index].getNumQueries()) {
+                    maxQueries = resources[index].getNumQueries();
                     maxResource = resources[index].getResource();
                 }
             }

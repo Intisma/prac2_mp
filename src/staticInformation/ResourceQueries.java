@@ -1,20 +1,34 @@
 package staticInformation;
 
 import information.Date;
+import information.Query;
 
 /**
  * List of resource queries of a given resource
  */
 public class ResourceQueries {
     public static final int maxQueries = 10000;
+    private final String resource;
     private final ResourceQuery[] list = new ResourceQuery[maxQueries];
     private int numQueries = 0;
 
     /**
      * Constructor
+     *
+     * @param query to add
      */
-    public ResourceQueries() {
+    public ResourceQueries(Query query) {
+        resource = query.getResource();
+        this.addQuery(query.getUser(), query.getDate());
+    }
 
+    /**
+     * Method to get the resource
+     *
+     * @return the resource
+     */
+    public String getResource() {
+        return resource;
     }
 
     /**
@@ -113,6 +127,12 @@ public class ResourceQueries {
         return numQueries;
     }
 
+    /**
+     * Method to check if a given user has consulted a resource
+     *
+     * @param user to check
+     * @return true if the user has consulted the resource, false if not
+     */
     public boolean isUser(String user) {
         for (int index = 0; index < numQueries; index++) {
             if (list[index].getUser().equals(user)) return true;
@@ -121,11 +141,15 @@ public class ResourceQueries {
     }
 
     /**
-     * Add to a list of resources of a user if the resource has been queried by him
+     * Add to a list of resources of a user if the resource has been queried by them
      */
-    public void getResourcesFromUser(UserQueries userQueries, String resource) {
-        for(int index=0; index<numQueries; index++){
-            if(list[index].getUser().equals(userQueries.user)) userQueries.addQuery(resource, list[index].getDate());
+    public void getResourcesFromUser(UserQueries userQueries) {
+        boolean found = false;
+        for (int index = 0; index < numQueries && !found; index++) {
+            if (list[index].getUser().equals(userQueries.user)) {
+                userQueries.addQuery(resource, list[index].getDate());
+                found = true;
+            }
         }
     }
 
@@ -154,12 +178,18 @@ public class ResourceQueries {
     @Override
     public String toString() {
         StringBuilder total = new StringBuilder();
+        total.append("Queries of the resource: ").append(resource).append("\n");
         for (int index = 0; index < numQueries; index++) {
             total.append("\tUser: ").append(list[index].getUser()).append(" | Date: ").append(list[index].getDate()).append('\n');
         }
         return total.toString();
     }
 
+    /**
+     * Method toString to pass String information in file format
+     *
+     * @return String with the information
+     */
     public String toStringFile() {
         StringBuilder result = new StringBuilder();
         for (int index = 0; index < numQueries; index++) {
