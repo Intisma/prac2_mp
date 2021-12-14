@@ -10,7 +10,11 @@ import timeMeasurer.Queries;
 
 public class StaticTest {
     public static void main(String[] args) {
-        ADTsetResources set = ReadData.read("src/apps/appData.csv", 0);
+        String[] frase = new String[2];
+        frase[0] = "Holis";
+        frase[1] = "Holas";
+        System.out.println(listToString(frase));
+        /*ADTsetResources set = ReadData.read("src/apps/appData.csv", 0);
         WriteData writer = new WriteData();
         writer.write(set, "src/apps/appOut.csv");
 
@@ -58,5 +62,21 @@ public class StaticTest {
             index++;
         }*/
 
+    }
+
+    /**
+     * Method to convert a list of String to a printable String
+     *
+     * @param data with the strings
+     * @return printable String
+     */
+    public static String listToString(String[] data) {
+        StringBuilder information = new StringBuilder("[ ");
+        for (int index = 0; index < data.length && data[index] != null; index++) {
+            information.append(data[index]).append(",  ");
+        }
+        information.delete(information.length()-3, information.length()-1);
+        information.append("]");
+        return information.toString();
     }
 }

@@ -8,9 +8,9 @@ import information.ADTsetResources;
 import information.Date;
 import information.Query;
 import staticInformation.Dates;
-import timeMeasurer.Queries;
 import staticInformation.Resources;
 import staticInformation.Users;
+import timeMeasurer.Queries;
 
 import java.util.Scanner;
 
@@ -56,7 +56,7 @@ public class GeneralTest {
         System.out.println("\n\t--------BASIC TESTS TO VERIFY THE CORRECT OPERATION OF ALL THE METHODS--------\n");
 
         System.out.println("****TEST 1: Get resources from user: " + users.getUserAtIndex(1) + " ****");
-        System.out.println("Name:" + users.getUserAtIndex(1) + "\nResources consulted:" + printStaticString(set.getResourcesFromUser(users.getUserAtIndex(1))));
+        System.out.println("Name:" + users.getUserAtIndex(1) + "\nResources consulted:" + listToString(set.getResourcesFromUser(users.getUserAtIndex(1))));
 
         System.out.println("\n****TEST 2: Show resource with most queries: ****");
         System.out.println(set.getMostQueriedResource());
@@ -77,7 +77,7 @@ public class GeneralTest {
         set.addQuery(new Query("t3.mp4", "Marc", date1));
 
         System.out.println("\n****TEST 3: Shows the users who consulted a resource ('mp.pdf') on a specific date ('1/10/2021') ****");
-        System.out.println("Resource: mp.pdf  Date:" + date + "\nUsers:" + printStaticString(set.getUsersFromResourceDate("mp.pdf", date)));
+        System.out.println("Resource: mp.pdf  Date:" + date + "\nUsers:" + listToString(set.getUsersFromResourceDate("mp.pdf", date)));
 
         System.out.println("\n****TEST 4: Deleting all the queries of 'mp.pdf' on 01/10/2021 - 4:59:32 ****");
         System.out.println(set);
@@ -97,10 +97,10 @@ public class GeneralTest {
         System.out.println("\n\t--------TESTS FOR USERS AND RESOURCES THAT DO NOT EXIST--------\n");
 
         System.out.println("****TEST 6: Get resources of user: Potato ***");
-        System.out.println("Name: Potato\nResources consulted:" + printStaticString(set.getResourcesFromUser("Potato")));
+        System.out.println("Name: Potato\nResources consulted:" + listToString(set.getResourcesFromUser("Potato")));
 
         System.out.println("\n****TEST 7: Shows the users who consulted a resource ('null') on a specific date ('1/10/2021') ****");
-        System.out.println("Resource: null  Date:" + date + "\nUsers:" + printStaticString(set.getUsersFromResourceDate("null", date)));
+        System.out.println("Resource: null  Date:" + date + "\nUsers:" + listToString(set.getUsersFromResourceDate("null", date)));
 
         System.out.println("\n****TEST 8: Delete all the queries of 'null' on 01/10/2021 - 4:59:32 ****");
         System.out.println(set);
@@ -118,7 +118,7 @@ public class GeneralTest {
         int i;
         for (i = 0; i < 5; i++) {
             System.out.println("- " + i + ": Get resources from user: " + users.getUserAtIndex(i));
-            System.out.println("Resources consulted: " + printStaticString(set.getResourcesFromUser(users.getUserAtIndex(i))));
+            System.out.println("Resources consulted: " + listToString(set.getResourcesFromUser(users.getUserAtIndex(i))));
         }
 
         System.out.println("\n\t\tACTUAL SET :");
@@ -140,11 +140,18 @@ public class GeneralTest {
     }
 
 
-    public static String printStaticString(String[] data) {
+    /**
+     * Method to convert a list of String to a printable String
+     *
+     * @param data with the strings
+     * @return printable String
+     */
+    public static String listToString(String[] data) {
         StringBuilder information = new StringBuilder("[ ");
         for (int index = 0; index < data.length && data[index] != null; index++) {
-            information.append(data[index]).append("  ");
+            information.append(data[index]).append(",  ");
         }
+        information.delete(information.length() - 3, information.length() - 1);
         information.append("]");
         return information.toString();
     }

@@ -10,13 +10,16 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Main application. It loads the queries saved in the file "appData.csv". After working with the app, all the changes
+ * will be saved in the file (only when changes have been produced).
+ */
 public class GeneralApp {
 
     static Scanner key = new Scanner(System.in);
 
     /**
-     * Main application. It loads the queries saved in the file "appData.csv". After working with the app, all the changes
-     * will be saved in the file (only when changes have been produced).
+     * Main to execute
      *
      * @param args not used
      */
@@ -41,17 +44,17 @@ public class GeneralApp {
                             changed = true;
                         }
                         case 3 -> {
-                            removeQueries(set);
+                            removeQueriesFromResource(set);
                             changed = true;
                         }
                         case 4 -> {
-                            removeQueriesByDate(set);
+                            removeQueriesFromResourceAndDate(set);
                             changed = true;
                         }
-                        case 5 -> listUsers(set);
-                        case 6 -> listUsersByDate(set);
-                        case 7 -> mostResource(set);
-                        case 8 -> listResources(set);
+                        case 5 -> listUsersFromResource(set);
+                        case 6 -> listUsersFromResourceAndDate(set);
+                        case 7 -> mostQueriedResource(set);
+                        case 8 -> listResourcesFromUser(set);
                         case 9 -> writeToFile(set);
                         default -> System.out.println("This operation does not exist!");
 
@@ -103,6 +106,22 @@ public class GeneralApp {
     }
 
     /**
+     * Method to convert a list of String to a printable String
+     *
+     * @param data with the strings
+     * @return printable String
+     */
+    public static String listToString(String[] data) {
+        StringBuilder information = new StringBuilder("[ ");
+        for (int index = 0; index < data.length && data[index] != null; index++) {
+            information.append(data[index]).append(",  ");
+        }
+        information.delete(information.length() - 3, information.length() - 1);
+        information.append("]");
+        return information.toString();
+    }
+
+    /**
      * Method to read an integer controlling InputMismatchException
      *
      * @param message to show
@@ -131,7 +150,7 @@ public class GeneralApp {
     }
 
     /**
-     * Read a string
+     * Read a string after showing the user a message
      *
      * @param message to show in terminal
      * @return the read string
@@ -209,98 +228,65 @@ public class GeneralApp {
      *
      * @param set where to delete the resource
      */
-    public static void removeQueries(ADTsetResources set) {
+    public static void removeQueriesFromResource(ADTsetResources set) {
         String resource = readString("\nIntroduce the name of the resource: ");
         set.removeQueriesFromResource(resource);
         System.out.println("All the queries from " + resource + " deleted!");
-        System.out.println(set);
-        pause();
     }
 
     /**
      * Removes all the queries from a resource of a specific date
      *
-     * @param info where to delete
+     * @param set where to delete
      */
-    public static void removeQueriesByDate(ADTsetResources info) {
-        int year;
-        char month, day, hour, minute, second;
+    public static void removeQueriesFromResourceAndDate(ADTsetResources set) {
         String resource = readString("\nIntroduce the name of the resource: ");
-        year = Integer.parseInt(readString("\nIntroduce the year: "));
-        month = (char) Integer.parseInt(readString("\nIntroduce the month: "));
-        day = (char) Integer.parseInt(readString("\nIntroduce the day: "));
-        hour = (char) Integer.parseInt(readString("\nIntroduce the hour: "));
-        minute = (char) Integer.parseInt(readString("\nIntroduce the minute: "));
-        second = (char) Integer.parseInt(readString("\nIntroduce the second: "));
-        Date date = new Date(year, month, day, hour, minute, second);
-        info.removeQueriesFromResourceDate(resource, date);
-        System.out.println("All the queries from " + resource + " from " + date + " were successfully deleted!");
-        System.out.println(info);
-        pause();
+        Date date = getDate();
+        set.removeQueriesFromResourceDate(resource, date);
+        System.out.println("All the queries from " + resource + " at " + date + " were successfully deleted!");
     }
 
     /**
      * List of users that queried a resource
      *
-     * @param info to find
+     * @param set to find
      */
-    public static void listUsers(ADTsetResources info) {
+    public static void listUsersFromResource(ADTsetResources set) {
         String resource = readString("\nIntroduce the name of the resource: ");
-        System.out.println("The users that queried the " + resource + " were:");
-        String[] result = info.getUsersFromResource(resource);
-        for (String s : result) {
-            System.out.println(s);
-        }
-        pause();
+        System.out.println("The users that queried the " + resource + " were:\n");
+        System.out.println(listToString(set.getUsersFromResource(resource)));
     }
 
     /**
      * Shows a list of users that queried a resource on a specific date
      *
-     * @param info information
+     * @param set information
      */
-    public static void listUsersByDate(ADTsetResources info) {
-        int year;
-        char month, day, hour, minute, second;
+    public static void listUsersFromResourceAndDate(ADTsetResources set) {
         String resource = readString("\nIntroduce the name of the resource: ");
-        year = Integer.parseInt(readString("\nIntroduce the year: "));
-        month = (char) Integer.parseInt(readString("\nIntroduce the month: "));
-        day = (char) Integer.parseInt(readString("\nIntroduce the day: "));
-        hour = (char) Integer.parseInt(readString("\nIntroduce the hour: "));
-        minute = (char) Integer.parseInt(readString("\nIntroduce the minute: "));
-        second = (char) Integer.parseInt(readString("\nIntroduce the second: "));
-        Date date = new Date(year, month, day, hour, minute, second);
-        System.out.println("The users that queried the " + resource + " the " + date + " :");
-        String[] result = info.getUsersFromResourceDate(resource, date);
-        for (String s : result) {
-            System.out.println(s);
-        }
-        pause();
+        Date date = getDate();
+        System.out.println("The users that queried the " + resource + " the " + date + " were:\n");
+        System.out.println(listToString(set.getUsersFromResourceDate(resource, date)));
     }
 
     /**
      * The most queried resource
      *
-     * @param info information
+     * @param set information
      */
-    public static void mostResource(ADTsetResources info) {
-        System.out.println("The most queried resource is  " + info.getMostQueriedResource());
-        pause();
+    public static void mostQueriedResource(ADTsetResources set) {
+        System.out.println("The most queried resource is  " + set.getMostQueriedResource());
     }
 
     /**
      * The resources queried by a user
      *
-     * @param info information
+     * @param set information
      */
-    public static void listResources(ADTsetResources info) {
-        String name = readString("\nIntroduce the alias of the user: ");
-        System.out.println("The resources queried by " + name + " were:");
-        String[] result = info.getResourcesFromUser(name);
-        for (String s : result) {
-            System.out.println(s);
-        }
-        pause();
+    public static void listResourcesFromUser(ADTsetResources set) {
+        String user = readString("\tIntroduce the user's name: ");
+        System.out.println("The resources queried by " + user + " were:\n");
+        System.out.println(listToString(set.getResourcesFromUser(user)));
     }
 
     /**
