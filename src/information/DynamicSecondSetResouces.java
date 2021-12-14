@@ -77,14 +77,17 @@ public class DynamicSecondSetResouces implements ADTsetResources {
                 aux = aux.getNextQueryUser();
             }
             q.setNextQueryUser(aux.getNextQueryUser());
+            q.setPrevQueryUser(aux);
             aux.setNextQueryUser(q);
         }
         if (foundR) {
-            NodeQuery aux2 = resource.getFirstRes();
+            NodeQuery aux2 = resource.getFirstQuery();
             while (aux2.getQuery().getDate().moreRecentThan(query.getDate()) && (aux2.getNextQueryRes() != null)) {
                 aux2 = aux2.getNextQueryRes();
             }
             q.setNextQueryRes(aux2.getNextQueryRes());
+            resource.setCont(resource.getCont() + 1);
+
             aux2.setNextQueryRes(q);
         }
 
@@ -97,27 +100,50 @@ public class DynamicSecondSetResouces implements ADTsetResources {
      */
     @Override
     public void removeQueriesFromResource(String resource) {
+        if (numRes == 0) return;
 
         NodeResource node = firstRes;
-        NodeQuery queryAux, query = null;
-        String userName;
-        boolean found= numRes == 1 && node.getResource().equals(resource);
-        //Tratar el caso que sea el primer resource
-        while((node.getNextRes() != null) && (!found)){
+        NodeQuery query = null, prev, next;
+        boolean found = false, foundUser=false;
+        //If the resource is the first one
+        if (node.getResource().equals(resource)) {
+            found = true;
+            query = node.getFirstQuery();
+        }
+        //Loop searching for resource
+        while ((node.getNextRes() != null) && (!found)) {
             if (node.getNextRes().getResource().equals(resource)) {
                 found = true;
-                query = node.getFirstRes();
+                query = node.getNextRes().getFirstQuery();
             }
             node = node.getNextRes();
         }
-        if (found){
-            while (query.getNextQueryRes() != null) {
-                query.setNextQueryUser(query.getNextQueryUser().getNextQueryUser());
+        //If the resource exists delete from user list
+        if (found) {
+
+            while (query != null) {
+                prev = query.getPrevQueryUser();
+                next = query.getNextQueryUser();
+                if (query.getNextQueryUser() == null) query.getPrevQueryUser().setNextQueryUser(null);
+                else query.getNextQueryUser().setPrevQueryUser(prev);
+                if(query.getPrevQueryUser() == null){
+                    query.getNextQueryUser().setPrevQueryUser(null);
+                    NodeUsers user = firstUser, aux = firstUser;
+                    while ((user.getNextUser() != null) && !foundUser){
+                        if(user.getUser().equals(query.getQuery().getUser())){
+                            foundUser = true;
+                            aux = user;
+                        }
+                        user = user.getNextUser();
+                    }
+                    aux.setFirstQuery(query.getNextQueryUser());
+                }
+                else query.getPrevQueryUser().setNextQueryUser(next);
                 query = query.getNextQueryRes();
             }
-            node.setFirstRes(null);
-        }
-        else System.out.println("Resource doesn't exists yet!");
+            node.setFirstQuery(null);
+            node.setCont(0);
+        } else System.out.println("Resource doesn't exists yet!");
 
     }
 
@@ -139,7 +165,29 @@ public class DynamicSecondSetResouces implements ADTsetResources {
      */
     @Override
     public String[] getUsersFromResource(String resource) {
-        return new String[0];
+        String[] usersResource = new String[numUsers];
+        boolean found = false;
+        NodeResource currentResource = firstRes;
+        if (currentResource != null) {
+            if (currentResource.getResource().equals(resource)) found = true;
+        }
+        if (currentResource.getNextRes() != null) {
+            do {
+                currentResource = currentResource.getNextRes();
+                if (currentResource.getResource().equals(resource)) found = true;
+            } while (currentResource.getNextRes() != null && !found);
+        }
+        //if resource exists
+        if (found) {
+            NodeQuery currentQuery = currentResource.getFirstQuery();
+            int i = 0;
+            while (currentQuery.getNextQueryRes() != null && i < numUsers) {
+                usersResource[i] = currentQuery.getQuery().getUser();
+                currentQuery = currentQuery.getNextQueryRes();
+                i++;
+            }
+        } else usersResource[0] = "None user consulted this recourse";
+        return usersResource;
     }
 
     /**
@@ -150,7 +198,31 @@ public class DynamicSecondSetResouces implements ADTsetResources {
      */
     @Override
     public String[] getUsersFromResourceDate(String resource, Date date) {
-        return new String[0];
+        String[] usersResource = new String[numUsers];
+        boolean found = false;
+        NodeResource currentResource = firstRes;
+        if (currentResource != null) {
+            if (currentResource.getResource().equals(resource)) found = true;
+        }
+        if (currentResource.getNextRes() != null) {
+            do {
+                currentResource = currentResource.getNextRes();
+                if (currentResource.getResource().equals(resource)) found = true;
+            } while (currentResource.getNextRes() != null && !found);
+        }
+        //if resource exists
+        if (found) {
+            NodeQuery currentQuery = currentResource.getFirstQuery();
+            int i = 0;
+            while (currentQuery.getNextQueryRes() != null && i < numUsers) {
+                if (currentQuery.getQuery().getDate().equals(date)) {
+                    usersResource[i] = currentQuery.getQuery().getUser();
+                    i++;
+                }
+                currentQuery = currentQuery.getNextQueryRes();
+            }
+        } else usersResource[0] = "None user consulted this recourse.";
+        return usersResource;
     }
 
     /**
@@ -158,7 +230,17 @@ public class DynamicSecondSetResouces implements ADTsetResources {
      */
     @Override
     public String getMostQueriedResource() {
-        return null;
+        if (numRes == 0) return null;
+        NodeResource mostResource;
+        NodeResource currentResource = firstRes;
+        mostResource = currentResource;
+        if (currentResource.getNextRes() != null) {
+            do {
+                currentResource = currentResource.getNextRes();
+                if (currentResource.getCont() > mostResource.getCont()) mostResource = currentResource;
+            } while (currentResource.getNextRes() != null);
+        }
+        return mostResource.getResource();
     }
 
     /**
@@ -168,8 +250,56 @@ public class DynamicSecondSetResouces implements ADTsetResources {
      */
     @Override
     public String[] getResourcesFromUser(String user) {
-        return new String[0];
+        int max = numUsers * numRes * 5;
+        String[] resourcesFromUser = new String[max];
+        boolean found = false;
+        NodeUsers currentUser = firstUser;
+        if (currentUser != null) {
+            if (currentUser.getUser().equals(user)) found = true;
+        }
+        if (currentUser.getNextUser() != null && !found) {
+            do {
+                currentUser = currentUser.getNextUser();
+                if (currentUser.getUser().equals(user)) found = true;
+            } while (currentUser.getNextUser() != null && !found);
+        }
+        if (found) {
+            NodeQuery currentQuery = currentUser.getFirstQuery();
+            int i = 0;
+            try {
+                while (currentQuery.getNextQueryRes() != null && i < max) {
+                    if (!belong(resourcesFromUser, currentQuery.getQuery().getResource())) {
+                        resourcesFromUser[i] = currentQuery.getQuery().getResource();
+                    }
+                    currentQuery = currentQuery.getNextQueryUser();
+                    i++;
+                }
+            } catch (NullPointerException exception) {
+                return resourcesFromUser;
+            }
+        } else resourcesFromUser[0] = "No resources consulted";
+        return resourcesFromUser;
     }
+
+    /**
+     * Check if the String data belongs to list String[]
+     *
+     * @param list: data list
+     * @param data: data to check if it is in the list
+     * @return boolean
+     */
+    public boolean belong(String[] list, String data) {
+        try {
+            for (String s : list)
+                if (s.equals(data)) {
+                    return true;
+                }
+            return false;
+        } catch (NullPointerException exception) {
+            return false;
+        }
+    }
+
 
     /**
      * Return a list with the user who queried a resource in a given date range
@@ -181,38 +311,34 @@ public class DynamicSecondSetResouces implements ADTsetResources {
      */
     @Override
     public String[] getUsersFromResourceDateRange(String resource, Date start, Date end) {
-        return new String[0];
-    }
-
-    /**
-     * Method to check if a user has consulted a resource
-     *
-     * @param resource to check
-     * @param user     to check
-     * @return true if the user has consulted the resource, false if not
-     */
-    @Override
-    public boolean userHasConsultedResource(String resource, String user) {
-        return false;
-    }
-
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        NodeQuery query;
-        NodeUsers user = firstUser;
-        result.append("Estructura Dinamica:");
-        for (int i = 0; i < numUsers; i++) {
-            result.append("\nUser: ").append(user.getUser());
-            query = user.getFirstQuery();
-            result.append("\nQueries: ");
-            while (query != null) {
-                result.append(query.getQuery().toString()).append("\n");
-                query = query.getNextQueryUser();
+        if (numRes == 0) return null;
+        boolean found = false;
+        String[] result = new String[numUsers];
+        if (firstRes == null) return result;
+        NodeResource currentResource = firstRes;
+        if (currentResource.getNextRes() != null) {
+            do {
+                //Loop to find the resource
+                if (currentResource.getResource().equals(resource)) {
+                    found = true;
+                }
+                currentResource = currentResource.getNextRes();
+            } while (currentResource.getNextRes() != null && !found);
+            //Loop to note the users who queried the currentResource in a given data range (inRange)
+            NodeQuery currentQuery = currentResource.getFirstQuery();
+            int j = 0;
+            for (int i = 0; i < currentResource.getCont(); i++) {
+                if (currentQuery.getQuery().getDate().inRange(start, end)) {
+                    if (!belong(result, currentQuery.getQuery().getUser())) {
+                        result[j] = currentQuery.getQuery().getUser();
+                    }
+                }
+                currentQuery = currentQuery.getNextQueryRes();
             }
-            user = user.getNextUser();
         }
-        return result.toString();
-    }
+        return result;
+    } //COMPROBAR FUNCIONNNNN
+
 
     /**
      * Return a String to write in the file
@@ -235,4 +361,58 @@ public class DynamicSecondSetResouces implements ADTsetResources {
         }
         return result.toString();
     }
+
+
+    /**
+     * Method to check if a user has consulted a resource
+     *
+     * @param resource to check
+     * @param user     to check
+     * @return true if the user has consulted the resource, false if not
+     */
+    @Override
+    public boolean userHasConsultedResource(String resource, String user) {
+        boolean found = false, foundResource = false;
+        if (firstUser == null) return false;    //in case there is no users
+        NodeUsers currentUser = firstUser;
+        if (currentUser.getUser().equals(user)) found = true;
+        if (currentUser.getNextUser() != null && !found) {
+            do {
+                currentUser = currentUser.getNextUser();
+                if (currentUser.getUser().equals(user)) found = true;
+            } while (currentUser.getNextUser() != null && !found);
+        }
+        if (found) {
+            NodeQuery currentQuery = currentUser.getFirstQuery();
+            try {
+                while (currentQuery.getNextQueryRes() != null && !foundResource) {
+                    if (currentQuery.getQuery().getResource().equals(resource)) foundResource = true;
+                    currentQuery = currentQuery.getNextQueryUser();
+                }
+            } catch (NullPointerException exception) {
+                return foundResource;
+            }
+        }
+        return foundResource;
+    } //COMPROBAR ESTA FUNCIONNNNNN
+
+
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        NodeQuery query;
+        NodeUsers user = firstUser;
+        result.append("Estructura Dinamica:");
+        for (int i = 0; i < numUsers; i++) {
+            result.append("\nUser: ").append(user.getUser());
+            query = user.getFirstQuery();
+            result.append("\nQueries: ");
+            while (query != null) {
+                result.append(query.getQuery().toString()).append("\n");
+                query = query.getNextQueryUser();
+            }
+            user = user.getNextUser();
+        }
+        return result.toString();
+    }
+
 }
