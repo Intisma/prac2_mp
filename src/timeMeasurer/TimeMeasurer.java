@@ -5,6 +5,7 @@ import dataGenerator.RandomResourceGenerator;
 import dataGenerator.RandomSetGenerator;
 import dataGenerator.RandomUserGenerator;
 import information.ADTsetResources;
+import information.Date;
 import information.Query;
 import staticInformation.Dates;
 import staticInformation.Resources;
@@ -60,20 +61,20 @@ public class TimeMeasurer {
         end = System.currentTimeMillis();
         long timeUsersFromResource = end - start;
 
-        // Time to get the users who queried 4000 resources on a specified date
+        // Time to get the users who queried 4000 resources on a specified date (we check the earliest date possible to have the worst case possible)
         start = System.currentTimeMillis();
         for (int index = 0; index < 4000; index++) {
             int random = numGenerator.nextInt(queries.getNumQueries());
-            set.getUsersFromResourceDate(queries.getQueryAtIndex(random).getResource(), queries.getQueryAtIndex(random).getDate());
+            set.getUsersFromResourceDate(queries.getQueryAtIndex(random).getResource(), new Date(1990, (char) 1, (char) 1, (char) 0, (char) 0, (char) 0));
         }
         end = System.currentTimeMillis();
         long timeUsersFromResourceDate = end - start;
 
-        //Time to get users from 4000 given date ranges
+        //Time to get users from 4000 given date ranges (we check the biggest date range possible to simulate the worst case)
         start = System.currentTimeMillis();
         for (int index = 0; index < 4000; index++) {
             int random = numGenerator.nextInt(queries.getNumQueries());
-            set.getUsersFromResourceDateRange(queries.getQueryAtIndex(random).getResource(), queries.getQueryAtIndex(random).getDate(), queries.getQueryAtIndex(numGenerator.nextInt(queries.getNumQueries())).getDate());
+            set.getUsersFromResourceDateRange(queries.getQueryAtIndex(random).getResource(), new Date(1990, (char) 1, (char) 1, (char) 0, (char) 0, (char) 0), new Date(2500, (char) 12, (char) 31, (char) 23, (char) 59, (char) 59));
         }
         end = System.currentTimeMillis();
         long timeUsersFromResourceDateRange = end - start;
@@ -99,7 +100,7 @@ public class TimeMeasurer {
         start = System.currentTimeMillis();
         for (int index = 0; index < 4000; index++) {
             int random = numGenerator.nextInt(queries.getNumQueries());
-            set.userHasConsultedResource(queries.getQueryAtIndex(random).getResource(), queries.getQueryAtIndex(random).getUser());
+            set.userHasConsultedResource(queries.getQueryAtIndex(random).getResource(), queries.getQueryAtIndex(numGenerator.nextInt(queries.getNumQueries())).getUser());
         }
         end = System.currentTimeMillis();
         long timeUserConsultedResource = end - start;
