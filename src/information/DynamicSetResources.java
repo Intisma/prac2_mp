@@ -180,17 +180,6 @@ public class DynamicSetResources implements ADTsetResources {
     }
 
     /**
-     * @return result
-     */
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-        for (String name : this.resources.keySet()) {
-            result.append(this.resources.get(name).toString()).append("\n");
-        }
-        return result.toString();
-    }
-
-    /**
      * Return a list with the user who queried a resource in a given date range
      *
      * @param resource to check
@@ -214,6 +203,26 @@ public class DynamicSetResources implements ADTsetResources {
         return false;
     }
 
+    /**
+     * Method toString that transforms the set information to a String
+     *
+     * @return String with the information
+     */
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (String name : this.resources.keySet()) {
+            result.append(this.resources.get(name).toString()).append("\n");
+        }
+        return result.toString();
+    }
+
+    /**
+     * Method to print the set's information in a file
+     *
+     * @return String with the information
+     */
+    @Override
     public String toStringFile() {
         StringBuilder result = new StringBuilder("\nHASHMAP USERS: \n");
         for (String name : this.users.keySet()) {

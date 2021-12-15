@@ -49,15 +49,6 @@ public class Query {
     }
 
     /**
-     * method toString
-     *
-     * @return String with the information of the class
-     */
-    public String toString() {
-        return "Query: Resource-" + resource + " | User-" + user + " | Date-" + date.toString();
-    }
-
-    /**
      * Method to compare 2 queries by their date
      *
      * @param query to compare
@@ -79,6 +70,20 @@ public class Query {
         return resource.equals(query.getResource()) && user.equals(query.getUser()) && date.equals(query.getDate());
     }
 
+    /**
+     * Method toString
+     *
+     * @return String with the information of the class
+     */
+    public String toString() {
+        return "QUERY: RESOURCE - " + resource + " | USER - " + user + " | DATE - " + date.toString();
+    }
+
+    /**
+     * Method to get a String that will be printed in a file
+     *
+     * @return String with the information
+     */
     public String toStringFile() {
         return resource + "," + user + "," + date.toStringFile();
     }

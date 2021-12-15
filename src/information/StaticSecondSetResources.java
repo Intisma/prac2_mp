@@ -18,7 +18,6 @@ public class StaticSecondSetResources implements ADTsetResources {
 
     }
 
-
     /**
      * Binary search to find the lowest index where a resource is located or where it should be inserted.
      *
@@ -186,21 +185,6 @@ public class StaticSecondSetResources implements ADTsetResources {
         return null;
     }
 
-
-    /**
-     * toString method to print the data
-     *
-     * @return String with the data
-     */
-    @Override
-    public String toString() {
-        StringBuilder total = new StringBuilder();
-        for (int index = 0; index < numResources; index++) {
-            total.append(resources[index].toString());
-        }
-        return total.toString();
-    }
-
     /**
      * Method to check if a user has consulted a resource
      *
@@ -215,6 +199,20 @@ public class StaticSecondSetResources implements ADTsetResources {
             return resources[index].isUser(user);
         }
         return false;
+    }
+
+    /**
+     * toString method to print the data
+     *
+     * @return String with the data
+     */
+    @Override
+    public String toString() {
+        StringBuilder total = new StringBuilder();
+        for (int index = 0; index < numResources; index++) {
+            total.append(resources[index].toString());
+        }
+        return total.toString();
     }
 
     /**

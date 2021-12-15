@@ -178,9 +178,8 @@ public class ResourceQueries {
     @Override
     public String toString() {
         StringBuilder total = new StringBuilder();
-        total.append("Queries of the resource: ").append(resource).append("\n");
         for (int index = 0; index < numQueries; index++) {
-            total.append("\tUser: ").append(list[index].getUser()).append(" | Date: ").append(list[index].getDate()).append('\n');
+            total.append("QUERY: RESOURCE - ").append(resource).append(" | USER - ").append(list[index].getUser()).append(" | DATE - ").append(list[index].getDate()).append('\n');
         }
         return total.toString();
     }

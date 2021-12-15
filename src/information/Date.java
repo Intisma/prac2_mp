@@ -159,8 +159,9 @@ public class Date {
      *
      * @return String with the class information
      */
+    @Override
     public String toString() {
-        return (day + 0) + "/" + (month + 0) + "/" + year + "  " + (hour + 0) + ":" + (minute + 0) + ":" + (second + 0);
+        return (day + 0) + "/" + (month + 0) + "/" + year + " | TIME - " + (hour + 0) + ":" + (minute + 0) + ":" + (second + 0);
     }
 
     /**
