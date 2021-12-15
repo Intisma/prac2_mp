@@ -33,7 +33,7 @@ public class GeneralTest {
         int type = -1;
         System.out.println("\nEnter a number to choose static or dynamic memory'");
         while (type < 0 || type > 3) {
-            System.out.println("\n\t0 --> 'STATIC MEMORY FIRST IMPLEMENTATION' | 1 --> 'STATIC MEMORY SECOND IMPLEMENTATION' | 2 --> 'DYNAMIC MEMORY FIRST IMPLEMENTATION' | 3 --> 'DYNAMIC MEMORY SECOND IMPLEMENTATION':  ");
+            System.out.print("\n\t0 --> 'STATIC MEMORY FIRST IMPLEMENTATION' | 1 --> 'STATIC MEMORY SECOND IMPLEMENTATION' | 2 --> 'DYNAMIC MEMORY FIRST IMPLEMENTATION' | 3 --> 'DYNAMIC MEMORY SECOND IMPLEMENTATION':  ");
             type = key.nextInt();
         }
         key.close();
@@ -92,7 +92,7 @@ public class GeneralTest {
         if (bool) System.out.println("Yes, this resource has been consulted");
         else System.out.println("No, this resource has not been consulted");
 
-        System.out.println("\n****TEST 5: Return a list with the users who queried the resource (t3.mp4) in a given date range. ****\n\tResource: t3.mp4\n\tStart: " +date + "\n\tEnd: " +date1);
+        System.out.println("\n****TEST 5: Return a list with the users who queried the resource (t3.mp4) in a given date range. ****\n\tResource: t3.mp4\n\tStart: " + date + "\n\tEnd: " + date1);
         System.out.println("USERS LIST: " + listToString(set.getUsersFromResourceDateRange("t3.mp4", date, date1)));
 
         System.out.println("\n****TEST 6: Deleting all the queries of 'mp.pdf' on 01/10/2021 - 4:59:32 ****");
@@ -163,13 +163,15 @@ public class GeneralTest {
      */
     public static String listToString(String[] data) {
         StringBuilder information = new StringBuilder("[ ");
-        for (int index = 0; index < data.length && data[index] != null; index++) {
-            information.append(data[index]).append(",  ");
+        if (data != null) {
+            for (int index = 0; index < data.length && data[index] != null; index++) {
+                information.append(data[index]).append(",  ");
+            }
+            if (information.length() > 3) {
+                information.delete(information.length() - 3, information.length() - 1);
+            }
+            information.append("]");
         }
-        if (information.length() > 3) {
-            information.delete(information.length() - 3, information.length() - 1);
-        }
-        information.append("]");
         return information.toString();
     }
 

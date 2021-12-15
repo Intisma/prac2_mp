@@ -24,7 +24,7 @@ public class RandomDateGenerator {
      * @return a class containing the generated dates
      */
     public Dates generateRandomDates(int size) {
-        if (size < 10 || size > Dates.maxDates) size = Dates.maxDates;
+        if (size < 1 || size > Dates.maxDates) size = Dates.maxDates;
         Dates dates = new Dates();
         char month;
         int maxDay;

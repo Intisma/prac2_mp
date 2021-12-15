@@ -215,9 +215,7 @@ public class StaticSetResources implements ADTsetResources {
     public boolean userHasConsultedResource(String resource, String user) {
         int index = lowerBinarySearchResource(resource, 0, numElements - 1);
         if (index < numElements) {
-            System.out.println("Index: "+index+" | num resources: "+numElements);
-            if(list[index]==null) System.out.println("Index: "+index);
-            while (list[index].getResource().equals(resource)) {
+            while (index < numElements && list[index].getResource().equals(resource)) {
                 if (list[index].getUser().equals(user)) {
                     return true;
                 }
@@ -236,7 +234,7 @@ public class StaticSetResources implements ADTsetResources {
     public String toString() {
         StringBuilder total = new StringBuilder();
         for (int index = 0; index < numElements; index++) {
-            total.append(index+" ").append(list[index].toString());
+            total.append(list[index].toString());
             total.append("\n");
         }
         return total.toString();

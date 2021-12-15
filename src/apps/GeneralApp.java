@@ -118,13 +118,15 @@ public class GeneralApp {
      */
     public static String listToString(String[] data) {
         StringBuilder information = new StringBuilder("[ ");
-        for (int index = 0; index < data.length && data[index] != null; index++) {
-            information.append(data[index]).append(",  ");
+        if (data != null) {
+            for (int index = 0; index < data.length && data[index] != null; index++) {
+                information.append(data[index]).append(",  ");
+            }
+            if (information.length() > 3) {
+                information.delete(information.length() - 3, information.length() - 1);
+            }
+            information.append("]");
         }
-        if (information.length() > 3) {
-            information.delete(information.length() - 3, information.length() - 1);
-        }
-        information.append("]");
         return information.toString();
     }
 
