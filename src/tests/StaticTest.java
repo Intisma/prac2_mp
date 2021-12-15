@@ -30,7 +30,7 @@ public class StaticTest {
         queries.addQuery(new Query("Casapera", "Herminia", date2));
         queries.addQuery(new Query("Casaverde", "Herminia", date3));
         queries.addQuery(new Query("Casapera", "Herminia", date));
-        System.out.println(queries);
+
 
         ADTsetResources set = new DynamicSecondSetResources();
         set.addQuery(new Query("Casa", "Herminia", date));

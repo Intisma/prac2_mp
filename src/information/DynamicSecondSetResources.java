@@ -71,12 +71,28 @@ public class DynamicSecondSetResources implements ADTsetResources {
         }
         if (foundU) {
             NodeQuery aux = user.getFirstQuery();
-            while (aux.getQuery().getDate().moreRecentThan(query.getDate()) && (aux.getNextQueryUser() != null)) {
-                aux = aux.getNextQueryUser();
+            NodeQuery auxPrev = null;
+            if(aux==null){
+                user.setFirstQuery(q);
+            }else{
+                while ((aux != null) && aux.getQuery().getDate().moreRecentThan(query.getDate())) {
+                    auxPrev = aux;
+                    aux = aux.getNextQueryUser();
+                }
+                if(aux==null){
+                    q.setPrevQueryUser(auxPrev);
+                    auxPrev.setNextQueryUser(q);
+                }else if(auxPrev==null){
+                    user.setFirstQuery(q);
+                    q.setNextQueryUser(aux);
+                    aux.setPrevQueryUser(q);
+                }else{
+                    q.setNextQueryUser(aux);
+                    q.setPrevQueryUser(auxPrev);
+                    aux.setPrevQueryUser(q);
+                    auxPrev.setNextQueryUser(q);
+                }
             }
-            q.setNextQueryUser(aux.getNextQueryUser());
-            q.setPrevQueryUser(aux);
-            aux.setNextQueryUser(q);
         }
         if (foundR) {
             NodeQuery aux2 = resource.getFirstQuery();
@@ -132,6 +148,9 @@ public class DynamicSecondSetResources implements ADTsetResources {
                 }
                 //hemos encontrado user
                 currentUser.setFirstQuery(currentQuery.getNextQueryUser());
+                if(currentQuery.getNextQueryUser()!=null){
+                    currentQuery.getNextQueryUser().setPrevQueryUser(null);
+                }
             } else {
                 currentQuery.getPrevQueryUser().setNextQueryUser(currentQuery.getNextQueryUser());
             }
@@ -139,8 +158,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
         }
         currentResource.setFirstQuery(null);
         currentResource.setCont(0);
-        firstRes = auxResource;
-        firstUser = auxUser;
     }
 
     /**
