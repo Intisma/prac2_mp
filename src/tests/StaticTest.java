@@ -5,6 +5,8 @@ import dataGenerator.RandomResourceGenerator;
 import dataGenerator.RandomSetGenerator;
 import dataGenerator.RandomUserGenerator;
 import information.ADTsetResources;
+import information.Date;
+import information.DynamicSecondSetResources;
 import information.Query;
 import staticInformation.Dates;
 import staticInformation.Resources;
@@ -15,7 +17,56 @@ import java.util.Random;
 
 public class StaticTest {
     public static void main(String[] args) {
-        Random numGenerator = new Random();
+        Date date = new Date(1990, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
+        Date date2 = new Date(1992, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
+        Date date3 = new Date(1994, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
+        Date date4 = new Date(1999, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
+        Date dateProba = new Date(1992, (char) 1, (char) 3, (char) 1, (char) 1, (char) 1);
+
+        Queries queries = new Queries();
+        queries.addQuery(new Query("Casa", "Herminia", date));
+        queries.addQuery(new Query("Casa", "Herminia", date));
+        queries.addQuery(new Query("Casalona", "Herminia", date));
+        queries.addQuery(new Query("Casapera", "Herminia", date2));
+        queries.addQuery(new Query("Casaverde", "Herminia", date3));
+        queries.addQuery(new Query("Casapera", "Herminia", date));
+        System.out.println(queries);
+
+        ADTsetResources set = new DynamicSecondSetResources();
+        set.addQuery(new Query("Casa", "Herminia", date));
+        set.addQuery(new Query("Casa", "Terelu", date2));
+        set.addQuery(new Query("Casa", "Caniche", date3));
+        set.addQuery(new Query("Aormigon", "Herminia", date));
+        set.addQuery(new Query("Aormigon", "Herminia", date4));
+        set.addQuery(new Query("Hormigon", "Terelu", date3));
+        set.addQuery(new Query("Hormigon", "Caniche", date2));
+        set.addQuery(new Query("Hormigon", "Embolicada", date2));
+        set.addQuery(new Query("Hormigon", "Herminia", date4));
+        System.out.println(set);
+
+        System.out.println("Hormigon------------------------------------------------------------");
+        set.removeQueriesFromResource("Hormigon");
+        System.out.println(set);
+        System.out.println("Aormigon------------------------------------------------------------");
+        set.removeQueriesFromResource("Aormigon");
+        System.out.println(set);
+        System.out.println("Casa------------------------------------------------------------");
+        set.removeQueriesFromResource("Casa");
+        System.out.println(set);
+        System.out.println("Casaverde------------------------------------------------------------");
+        set.removeQueriesFromResource("Casaverde");
+        System.out.println(set);
+        System.out.println("Casalona------------------------------------------------------------");
+        set.removeQueriesFromResource("Casalona");
+        System.out.println(set);
+        System.out.println("Casapera------------------------------------------------------------");
+        set.removeQueriesFromResource("Casapera");
+        System.out.println(set);
+        System.out.println("\nFIN");
+
+
+
+        /*Random numGenerator = new Random();
         // Generate sets keeping track of the added queries
         RandomSetGenerator setGenerator = new RandomSetGenerator();
         ADTsetResources set = setGenerator.generateSet(0, 5000, new Queries());
@@ -44,31 +95,7 @@ public class StaticTest {
         WriteData writer = new WriteData();
         writer.write(set, "src/apps/appOut.csv");
 
-        /*Date date = new Date(1990, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
-        Date date2 = new Date(1992, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
-        Date date3 = new Date(1994, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
-        Date date4 = new Date(1999, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
-        Date dateProba = new Date(1992, (char) 1, (char) 3, (char) 1, (char) 1, (char) 1);
-
-        Queries queries = new Queries();
-        queries.addQuery(new Query("Casa", "Herminia", date));
-        queries.addQuery(new Query("Casa", "Herminia", date));
-        queries.addQuery(new Query("Casalona", "Herminia", date));
-        queries.addQuery(new Query("Casapera", "Herminia", date2));
-        queries.addQuery(new Query("Casaverde", "Herminia", date3));
-        queries.addQuery(new Query("Casapera", "Herminia", date));
-        System.out.println(queries);
-
-        ADTsetResources set = new StaticSecondSetResources();
-        set.addQuery(new Query("Casa", "Herminia", date));
-        set.addQuery(new Query("Casa", "Terelu", date2));
-        set.addQuery(new Query("Casa", "Caniche", date3));
-        set.addQuery(new Query("Aormigon", "Herminia", date));
-        set.addQuery(new Query("Aormigon", "Herminia", date4));
-        set.addQuery(new Query("Hormigon", "Terelu", date3));
-        set.addQuery(new Query("Hormigon", "Caniche", date2));
-        set.addQuery(new Query("Hormigon", "Embolicada", date2));
-        set.addQuery(new Query("Hormigon", "Herminia", date4));
+        /*
         System.out.println(set);
         String[] resources = set.getResourcesFromUser("Herminia");
         for (int index = 0; resources[index] != null; index++) {

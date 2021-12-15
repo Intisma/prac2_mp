@@ -148,7 +148,7 @@ public class GeneralTest {
         System.out.println("\n\t\tACTUAL SET:");
         System.out.println(set);
 
-        System.out.println("****TEST 14: Find the most queried resource in a empty TAD****");
+        System.out.println("\n****TEST 14: Find the most queried resource in a empty TAD****");
         if (set.getMostQueriedResource() != null) System.out.println(set.getMostQueriedResource());
         else System.out.println("\tEmpty TAD");
 
