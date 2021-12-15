@@ -38,7 +38,7 @@ public class RandomSetGenerator {
         switch (type) {
             case 0 -> set = new StaticSetResources();
             case 2 -> set = new DynamicSetResources();
-            case 3 -> set = new DynamicSecondSetResouces();
+            case 3 -> set = new DynamicSecondSetResources();
             default -> set = new StaticSecondSetResources();
         }
 

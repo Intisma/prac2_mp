@@ -98,6 +98,7 @@ public class TimeMeasurer {
 
         // Time to check if a user has consulted a resource
         start = System.currentTimeMillis();
+        System.out.println(set);
         for (int index = 0; index < 4000; index++) {
             int random = numGenerator.nextInt(queries.getNumQueries());
             set.userHasConsultedResource(queries.getQueryAtIndex(random).getResource(), queries.getQueryAtIndex(numGenerator.nextInt(queries.getNumQueries())).getUser());

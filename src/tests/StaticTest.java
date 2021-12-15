@@ -1,8 +1,43 @@
 package tests;
 
+import dataGenerator.RandomDateGenerator;
+import dataGenerator.RandomResourceGenerator;
+import dataGenerator.RandomSetGenerator;
+import dataGenerator.RandomUserGenerator;
+import information.ADTsetResources;
+import information.Query;
+import staticInformation.Dates;
+import staticInformation.Resources;
+import staticInformation.Users;
+import timeMeasurer.Queries;
+
+import java.util.Random;
+
 public class StaticTest {
     public static void main(String[] args) {
-        String[] frase = new String[2];
+        Random numGenerator = new Random();
+        // Generate sets keeping track of the added queries
+        RandomSetGenerator setGenerator = new RandomSetGenerator();
+        ADTsetResources set = setGenerator.generateSet(0, 5000, new Queries());
+
+        // Generate new users, resources and dates to measure time to add new queries
+        RandomUserGenerator userGenerator = new RandomUserGenerator();
+        Users newUsers = userGenerator.generateRandomUsers(1000);
+        RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
+        Resources newResources = resourceGenerator.generateRandomResources(1000);
+        RandomDateGenerator dateGenerator = new RandomDateGenerator();
+        Dates newDates = dateGenerator.generateRandomDates(1000);
+
+        for (int index = 0; index < 4000; index++) {
+            set.addQuery(new Query(newResources.getResourceAtIndex(numGenerator.nextInt(newResources.getNumResources())), newUsers.getUserAtIndex(numGenerator.nextInt(newUsers.getNumUsers())), newDates.getDateAtIndex(numGenerator.nextInt(newDates.getNumDates()))));
+        }
+
+        System.out.println(set);
+
+        set.userHasConsultedResource("year.cache", "pepe");
+
+
+        /*String[] frase = new String[2];
         frase[0] = "Holis";
         System.out.println(listToString(frase));
         /*ADTsetResources set = ReadData.read("src/apps/appData.csv", 0);

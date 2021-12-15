@@ -20,7 +20,7 @@ public class TimeExecute {
         WriteTimes.write(times, "TimeResultsStatic.csv");
 
         // Generate times for the second static implementation
-        times = TimeMeasurer.sizeEvolution(100000, 10, 1);
+        times = TimeMeasurer.sizeEvolution(100000, 10, 0);
         WriteTimes.write(times, "TimeResultsStaticSecond.csv");
 
         // Generate times for the first dynamic implementation
