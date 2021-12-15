@@ -235,7 +235,9 @@ public class DynamicSetResources implements ADTsetResources {
     public String toString() {
         StringBuilder result = new StringBuilder();
         for (String name : this.resources.keySet()) {
-            result.append(this.resources.get(name).toString()).append("\n");
+            for(Query q: this.resources.get(name)){
+                result.append(q.toString()).append("\n");
+            }
         }
         return result.toString();
     }
@@ -247,13 +249,11 @@ public class DynamicSetResources implements ADTsetResources {
      */
     @Override
     public String toStringFile() {
-        StringBuilder result = new StringBuilder("\nHASHMAP USERS: \n");
-        for (String name : this.users.keySet()) {
-            result.append(name).append(":\n").append(this.users.get(name).toString()).append("\n");
-        }
-        result.append("\nHASHMAP RESOURCES\n");
+        StringBuilder result = new StringBuilder();
         for (String name : this.resources.keySet()) {
-            result.append(name).append(":\n").append(this.resources.get(name).toString()).append("\n");
+            for(Query q: this.resources.get(name)){
+                result.append(q.toStringFile()).append("\n");
+            }
         }
         return result.toString();
     }
