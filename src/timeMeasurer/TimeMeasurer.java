@@ -117,7 +117,7 @@ public class TimeMeasurer {
         start = System.currentTimeMillis();
         for (int index = 0; index < 4000; index++) {
             int random = numGenerator.nextInt(queries2.getNumQueries());
-            set2.getUsersFromResourceDate(queries2.getQueryAtIndex(random).getResource(), queries2.getQueryAtIndex(random).getDate());
+            set2.removeQueriesFromResourceDate(queries2.getQueryAtIndex(random).getResource(), queries2.getQueryAtIndex(random).getDate());
         }
         end = System.currentTimeMillis();
         long timeRemoveResourceDate = end - start;
