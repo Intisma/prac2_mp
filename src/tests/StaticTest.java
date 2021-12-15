@@ -1,18 +1,9 @@
 package tests;
 
-import information.ADTsetResources;
-import information.Date;
-import information.Query;
-import information.StaticSecondSetResources;
-import inputOutput.ReadData;
-import inputOutput.WriteData;
-import timeMeasurer.Queries;
-
 public class StaticTest {
     public static void main(String[] args) {
         String[] frase = new String[2];
         frase[0] = "Holis";
-        frase[1] = "Holas";
         System.out.println(listToString(frase));
         /*ADTsetResources set = ReadData.read("src/apps/appData.csv", 0);
         WriteData writer = new WriteData();
@@ -75,7 +66,9 @@ public class StaticTest {
         for (int index = 0; index < data.length && data[index] != null; index++) {
             information.append(data[index]).append(",  ");
         }
-        information.delete(information.length()-3, information.length()-1);
+        if (information.length() > 3) {
+            information.delete(information.length() - 3, information.length() - 1);
+        }
         information.append("]");
         return information.toString();
     }

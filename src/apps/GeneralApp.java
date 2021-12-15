@@ -121,7 +121,9 @@ public class GeneralApp {
         for (int index = 0; index < data.length && data[index] != null; index++) {
             information.append(data[index]).append(",  ");
         }
-        information.delete(information.length() - 3, information.length() - 1);
+        if (information.length() > 3) {
+            information.delete(information.length() - 3, information.length() - 1);
+        }
         information.append("]");
         return information.toString();
     }
