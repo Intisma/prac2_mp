@@ -76,16 +76,32 @@ public class GeneralTest {
         System.out.println("\t5. Marc  | t3.mp4 | 7/10/2021  12:39:22");
         set.addQuery(new Query("t3.mp4", "Marc", date1));
 
+        System.out.println("\nActual structure:");
+        System.out.println(set);
+
         System.out.println("\n****TEST 3: Shows the users who consulted a resource ('mp.pdf') on a specific date ('1/10/2021') ****");
         System.out.println("Resource: mp.pdf  Date:" + date + "\nUsers:" + listToString(set.getUsersFromResourceDate("mp.pdf", date)));
 
-        System.out.println("\n****TEST 4: Deleting all the queries of 'mp.pdf' on 01/10/2021 - 4:59:32 ****");
+        System.out.println("\n****TEST 4: Check if a user has queried a resource");
+        System.out.println("User: Marc  |  Resource: t3.mp4");
+        boolean bool = set.userHasConsultedResource("t3.mp4", "Marc");
+        if (bool) System.out.println("Yes, this resource has been consulted");
+        else System.out.println("No, this resource has not been consulted");
+        System.out.println("User: " + users.getUserAtIndex(1) + "  |  Resource: none.xls");
+        bool = set.userHasConsultedResource("none.xls", users.getUserAtIndex(1));
+        if (bool) System.out.println("Yes, this resource has been consulted");
+        else System.out.println("No, this resource has not been consulted");
+
+        System.out.println("\n****TEST 5: Return a list with the users who queried the resource (t3.mp4) in a given date range. ****\n\tResource: t3.mp4\n\tStart: " +date + "\n\tEnd: " +date1);
+        System.out.println("USERS LIST: " + listToString(set.getUsersFromResourceDateRange("t3.mp4", date, date1)));
+
+        System.out.println("\n****TEST 6: Deleting all the queries of 'mp.pdf' on 01/10/2021 - 4:59:32 ****");
         System.out.println(set);
         System.out.println("\t\tRemoving...\n");
         set.removeQueriesFromResourceDate("mp.pdf", date);
         System.out.println(set);
 
-        System.out.println("\n****TEST 5: Delete all the queries of different resources: ****");
+        System.out.println("\n****TEST 7: Delete all the queries of different resources: ****");
         System.out.println("\tDeleting all the queries of 't3.mp4'...");
         set.removeQueriesFromResource("t3.mp4");
         System.out.println(set);
@@ -96,25 +112,25 @@ public class GeneralTest {
 
         System.out.println("\n\t--------TESTS FOR USERS AND RESOURCES THAT DO NOT EXIST--------\n");
 
-        System.out.println("****TEST 6: Get resources of user: Potato ***");
+        System.out.println("****TEST 8: Get resources of user: Potato ***");
         System.out.println("Name: Potato\nResources consulted:" + listToString(set.getResourcesFromUser("Potato")));
 
-        System.out.println("\n****TEST 7: Shows the users who consulted a resource ('null') on a specific date ('1/10/2021') ****");
+        System.out.println("\n****TEST 9: Shows the users who consulted a resource ('null') on a specific date ('1/10/2021') ****");
         System.out.println("Resource: null  Date:" + date + "\nUsers:" + listToString(set.getUsersFromResourceDate("null", date)));
 
-        System.out.println("\n****TEST 8: Delete all the queries of 'null' on 01/10/2021 - 4:59:32 ****");
+        System.out.println("\n****TEST 10: Delete all the queries of 'null' on 01/10/2021 - 4:59:32 ****");
         System.out.println(set);
         System.out.println("\t\tRemoving...\n");
         set.removeQueriesFromResourceDate("null", date);
         System.out.println(set);
 
         System.out.println("\n\t------------OTHER TESTS------------\n");
-        System.out.println("\n****TEST 9: Delete all the queries of resource: 'null' ****");
+        System.out.println("\n****TEST 11: Delete all the queries of resource: 'null' ****");
         set.removeQueriesFromResource("null");
         System.out.println(set);
 
 
-        System.out.println("\n****TEST 10: Get resources from different users... ****");
+        System.out.println("\n****TEST 12: Get resources from different users... ****");
         int i;
         for (i = 0; i < 5; i++) {
             System.out.println("- " + i + ": Get resources from user: " + users.getUserAtIndex(i));
@@ -124,7 +140,7 @@ public class GeneralTest {
         System.out.println("\n\t\tACTUAL SET :");
         System.out.println(set);
 
-        System.out.println("\n****TEST 11: Delete all the queries of ALL resources...****");
+        System.out.println("\n****TEST 13: Delete all the queries of ALL resources...****");
         for (i = 0; i < 5; i++) {
             System.out.println("- " + i + ": Deleting all the queries of resource: " + set.getMostQueriedResource() + "...");
             set.removeQueriesFromResource(set.getMostQueriedResource());
@@ -132,10 +148,9 @@ public class GeneralTest {
         System.out.println("\n\t\tACTUAL SET:");
         System.out.println(set);
 
-        System.out.println("****TEST 12: Find the most queried resource in a empty TAD****");
+        System.out.println("****TEST 14: Find the most queried resource in a empty TAD****");
         if (set.getMostQueriedResource() != null) System.out.println(set.getMostQueriedResource());
         else System.out.println("\tEmpty TAD");
-
 
     }
 

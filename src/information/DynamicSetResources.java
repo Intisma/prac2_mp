@@ -129,7 +129,7 @@ public class DynamicSetResources implements ADTsetResources {
         ArrayList<String> usersResourceDate = new ArrayList<>();
         try {
             ArrayList<Query> listQueries = resources.get(resource);
-            for (Query listQuery : listQueries) {                               //DA ERROR PORQUE listQueries IS NULL
+            for (Query listQuery : listQueries) {
                 if (listQuery.getDate().equals(date)) {
                     if (!usersResourceDate.contains(listQuery.getUser())) {
                         usersResourceDate.add(listQuery.getUser());
@@ -180,7 +180,7 @@ public class DynamicSetResources implements ADTsetResources {
     }
 
     /**
-     * Return a list with the user who queried a resource in a given date range
+     * Return a list with the users who queried a resource in a given date range
      *
      * @param resource to check
      * @param start    date of the range
@@ -188,7 +188,20 @@ public class DynamicSetResources implements ADTsetResources {
      * @return String[] with the resources
      */
     public String[] getUsersFromResourceDateRange(String resource, Date start, Date end) {
-        return new String[1];
+        ArrayList<String> usersResourceDate = new ArrayList<>();
+        try {
+            ArrayList<Query> listQueries = resources.get(resource);
+            for (Query listQuery : listQueries) {
+                if (listQuery.getDate().inRange(start, end)) {
+                    if (!usersResourceDate.contains(listQuery.getUser())) {
+                        usersResourceDate.add(listQuery.getUser());
+                    }
+                }
+            }
+        } catch (NullPointerException excepcion) {
+            System.out.println("Resource doesn't exist yet");
+        }
+        return usersResourceDate.toArray(new String[0]);
     }
 
     /**
@@ -200,7 +213,17 @@ public class DynamicSetResources implements ADTsetResources {
      */
     @Override
     public boolean userHasConsultedResource(String resource, String user) {
-        return false;
+        boolean found = false;
+        int i=0;
+        try {
+            while (i < users.get(user).size() && !found) {
+                if (users.get(user).get(i).getResource().equals(resource)) found = true;
+                i++;
+            }
+        } catch (NullPointerException exception) {
+            System.out.println("This user doesn't exist yet");
+        }
+        return found;
     }
 
     /**
