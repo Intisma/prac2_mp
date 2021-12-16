@@ -135,14 +135,16 @@ public class TimeMeasurer {
      * @return list of times
      */
     public static Times sizeEvolution(int maxSize, int repeats, int type) {
+        int addSize = 1;
         if (maxSize <= 5000 || maxSize >= ADTsetResources.size) maxSize = ADTsetResources.size - 5000;
         if (repeats < 1) repeats = 5;
         Times times = new Times(repeats);
-        for (int size = 5000; size <= maxSize; size += 5000) {
+        for (int size = 2; size <= maxSize; size += addSize) {
             System.out.println("Measuring time for size: " + size);
             for (int rep = 0; rep < repeats; rep++) {
                 times.addTime(getTime(size, type));
             }
+            addSize*=2;
         }
         return times;
     }

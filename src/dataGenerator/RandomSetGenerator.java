@@ -61,13 +61,15 @@ public class RandomSetGenerator {
      */
     public ADTsetResources generateSet(int type, int size, Queries queries) {
         // Generate Sets
-        if (size < 100 || size > ADTsetResources.size) size = ADTsetResources.size;
+        int sizeComponents = size;
+        if(sizeComponents < 1000) sizeComponents = 1000;
+        if (size < 1 || size > ADTsetResources.size) size = ADTsetResources.size;
         RandomUserGenerator userGenerator = new RandomUserGenerator();
-        Users users = userGenerator.generateRandomUsers(size / 100);
+        Users users = userGenerator.generateRandomUsers(sizeComponents / 100);
         RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
-        Resources resources = resourceGenerator.generateRandomResources(size / 10);
+        Resources resources = resourceGenerator.generateRandomResources(sizeComponents / 10);
         RandomDateGenerator dateGenerator = new RandomDateGenerator();
-        Dates dates = dateGenerator.generateRandomDates(size / 50);
+        Dates dates = dateGenerator.generateRandomDates(sizeComponents / 50);
         return this.generateSet(type, users, resources, dates, size, queries);
     }
 
