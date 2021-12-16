@@ -101,7 +101,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
             }
             q.setNextQueryRes(aux2.getNextQueryRes());
             resource.setCont(resource.getCont() + 1);
-
             aux2.setNextQueryRes(q);
         }
     }
@@ -115,8 +114,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
     @Override
     public void removeQueriesFromResource(String resource) {
         if (numRes == 0) return;
-        NodeResource auxResource = firstRes;
-        NodeUsers auxUser = firstUser;
         NodeResource currentResource = firstRes;
         boolean found = false;
         if (currentResource != null) {
@@ -169,8 +166,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
     @Override
     public void removeQueriesFromResourceDate(String resource, Date date) {
         if (numRes == 0) return;
-        NodeResource auxResource = firstRes;
-        NodeUsers auxUser = firstUser;
         NodeResource currentResource = firstRes;
         boolean found = false;
         if (currentResource != null) {
@@ -217,8 +212,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
             auxPrevQuery = currentQuery;
             currentQuery = currentQuery.getNextQueryRes();
         }
-        firstRes = auxResource;
-        firstUser = auxUser;
     }
 
 
@@ -231,7 +224,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
     public String[] getUsersFromResource(String resource) {
         String[] usersResource = new String[numUsers];
         boolean found = false;
-        NodeResource aux = firstRes;
         NodeResource currentResource = firstRes;
         if (currentResource != null) {
             if (currentResource.getResource().equals(resource)) found = true;
@@ -252,7 +244,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
                 i++;
             }
         } else usersResource[0] = "None user consulted this recourse";
-        firstRes = aux;
         return usersResource;
     }
 
@@ -268,7 +259,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
         String[] usersResource = new String[numUsers];
         boolean found = false;
         NodeResource currentResource = firstRes;
-        NodeResource aux = firstRes;
         if (currentResource != null) {
             if (currentResource.getResource().equals(resource)) found = true;
         }
@@ -290,7 +280,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
                 currentQuery = currentQuery.getNextQueryRes();
             }
         } else usersResource[0] = "None user consulted this recourse.";
-        firstRes = aux;
         return usersResource;
     }
 
@@ -302,7 +291,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
     public String getMostQueriedResource() {
         if (numRes == 0) return null;
         NodeResource mostResource;
-        NodeResource aux = firstRes;
         NodeResource currentResource = firstRes;
         mostResource = currentResource;
         if (currentResource.getNextRes() != null) {
@@ -311,7 +299,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
                 if (currentResource.getCont() > mostResource.getCont()) mostResource = currentResource;
             } while (currentResource.getNextRes() != null);
         }
-        firstRes = aux;
         if (mostResource.getCont()==0) return "";
         return mostResource.getResource();
     }
@@ -327,7 +314,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
         int max = numUsers * numRes * 5;
         String[] resourcesFromUser = new String[max];
         boolean found = false;
-        NodeUsers aux = firstUser;
         NodeUsers currentUser = firstUser;
         if (currentUser != null) {
             if (currentUser.getUser().equals(user)) found = true;
@@ -349,7 +335,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
                 i++;
             }
         } else resourcesFromUser[0] = "No resources consulted";
-        firstUser = aux;
         return resourcesFromUser;
     }
 
@@ -368,7 +353,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
         boolean found = false;
         String[] result = new String[numUsers];
         if (firstRes == null) return result;
-        NodeResource aux = firstRes;
         NodeResource currentResource = firstRes;
         if (currentResource.getNextRes() != null) {
             do {
@@ -389,7 +373,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
                 currentQuery = currentQuery.getNextQueryRes();
             }
         }
-        firstRes = aux;
         return result;
     }
 
@@ -405,7 +388,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
     public boolean userHasConsultedResource(String resource, String user) {
         boolean found = false, foundResource = false;
         if (firstUser == null) return false;    //in case there is no users
-        NodeUsers aux = firstUser;
         NodeUsers currentUser = firstUser;
         if (currentUser.getUser().equals(user)) found = true;
         if (currentUser.getNextUser() != null && !found) {
@@ -425,7 +407,6 @@ public class DynamicSecondSetResources implements ADTsetResources {
                 return foundResource;
             }
         }
-        firstUser = aux;
         return foundResource;
     }
 
