@@ -12,6 +12,7 @@ import staticInformation.Resources;
 import staticInformation.Users;
 import timeMeasurer.Queries;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -33,11 +34,13 @@ public class GeneralTest {
         int type = -1;
         System.out.println("\nEnter a number to choose static or dynamic memory'");
         while (type < 0 || type > 3) {
-            System.out.print("\n\t0 --> 'STATIC MEMORY FIRST IMPLEMENTATION' | 1 --> 'STATIC MEMORY SECOND IMPLEMENTATION' | 2 --> 'DYNAMIC MEMORY FIRST IMPLEMENTATION' | 3 --> 'DYNAMIC MEMORY SECOND IMPLEMENTATION':  ");
-            type = key.nextInt();
+            System.out.print("""
+                    \t0 --> 'STATIC MEMORY FIRST IMPLEMENTATION'  | 1 --> 'STATIC MEMORY SECOND IMPLEMENTATION'\s
+                    \t2 --> 'DYNAMIC MEMORY FIRST IMPLEMENTATION' | 3 --> 'DYNAMIC MEMORY SECOND IMPLEMENTATION': \s""");
+            type = readInt("\n\tINTRODUCE ONE OPTION, ", 0, 3);
         }
         key.close();
-        ADTsetResources set = setGenerator.generateSet(type, users, resources, dates, 5, new Queries());
+        ADTsetResources set = setGenerator.generateSet(type, resources, users, dates, 5, new Queries());
         test(set, type, users);
         System.out.println("\n\n\t************END OF THE TEST************\n");
     }
@@ -62,19 +65,25 @@ public class GeneralTest {
         System.out.println(set.getMostQueriedResource());
 
         System.out.println("\n****Adding some users with queries from the same resource...");
-        System.out.println("\t1. Jordi | mp.pdf | 1/10/2021  4:59:32");
-        Date date = new Date(2021, (char) 10, (char) 1, (char) 4, (char) 59, (char) 32);
+        System.out.println("\t1. Jessica  | t3.mp4 | 6/10/2021  12:03:00");
+        Date date0 = new Date(2021, (char) 10, (char) 6, (char) 12, (char) 3, (char) 0);
+        set.addQuery(new Query("t3.mp4", "Jessica", date0));
+        System.out.println("\t2. Jordi | mp.pdf | 1/10/2020  4:59:32");
+        Date date = new Date(2020, (char) 10, (char) 1, (char) 4, (char) 59, (char) 32);
         set.addQuery(new Query("mp.pdf", "Jordi", date));
-        System.out.println("\t2. Marta | mp.pdf | 1/10/2021  4:59:32");
+        System.out.println("\t3. Marta | mp.pdf | 1/10/2021  4:59:32");
         set.addQuery(new Query("mp.pdf", "Marta", date));
-        System.out.println("\t3. Lucas | mp.pdf | 7/10/2021  12:39:22");
+        System.out.println("\t4. Lucas | mp.pdf | 7/10/2021  12:39:22");
         Date date1 = new Date(2021, (char) 10, (char) 7, (char) 12, (char) 39, (char) 22);
         set.addQuery(new Query("mp.pdf", "Lucas", date1));
-        System.out.println("\t4. Carla | t3.mp4 | 12/01/2003  18:07:03");
+        System.out.println("\t5. Carla | t3.mp4 | 12/01/2003  18:07:03");
         Date date2 = new Date(2003, (char) 1, (char) 12, (char) 18, (char) 7, (char) 3);
         set.addQuery(new Query("t3.mp4", "Carla", date2));
-        System.out.println("\t5. Marc  | t3.mp4 | 7/10/2021  12:39:22");
+        System.out.println("\t6. Marc  | t3.mp4 | 7/10/2021  12:39:22");
         set.addQuery(new Query("t3.mp4", "Marc", date1));
+        System.out.println("\t7. Jessica  | mp.pdf | 6/10/2021  12:03:00");
+        Date date3 = new Date(1999, (char) 1, (char) 2, (char) 0, (char) 0, (char) 0);
+        set.addQuery(new Query("mp.pdf", "Jessica", date3));
 
         System.out.println("\nActual structure:");
         System.out.println(set);
@@ -173,6 +182,35 @@ public class GeneralTest {
             information.append("]");
         }
         return information.toString();
+    }
+
+
+    /**
+     * Method to read an integer controlling InputMismatchException
+     *
+     * @param message to show
+     * @param min     minimum number
+     * @param max     maximum number
+     * @return the correct number
+     */
+    public static int readInt(String message, int min, int max) {
+        int result = 0;
+        boolean read = false;
+        do {
+            try {
+                System.out.print(message + "the number has to be greater or equal than " + min + " and smaller or equal than " + max + ": ");
+                result = key.nextInt();
+                read = true;
+            } catch (InputMismatchException e) {
+                System.out.println("It has to be an Integer");
+                key.nextLine();
+            } finally {
+                if (result > max || result < min) {
+                    read = false;
+                }
+            }
+        } while (!read);
+        return result;
     }
 
 }
