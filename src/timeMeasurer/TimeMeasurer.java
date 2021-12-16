@@ -36,44 +36,36 @@ public class TimeMeasurer {
 
         long start, end;
 
-        // Time to add 4000 queries to the data set
+        // Time to get the users who queried 20000 resources
         start = System.currentTimeMillis();
-        for (int index = 0; index < 4000; index++) {
-            set.addQuery(new Query(generatedResources.getResourceAtIndex(numGenerator.nextInt(generatedResources.getNumResources())), generatedUsers.getUserAtIndex(numGenerator.nextInt(generatedUsers.getNumUsers())), generatedDates.getDateAtIndex(numGenerator.nextInt(generatedDates.getNumDates()))));
-        }
-        end = System.currentTimeMillis();
-        long timeAddQuery = end - start;
-
-        // Time to get the users who queried 4000 resources
-        start = System.currentTimeMillis();
-        for (int index = 0; index < 4000; index++) {
+        for (int index = 0; index < 20000; index++) {
             int random = numGenerator.nextInt(queries.getNumQueries());
             set.getUsersFromResource(queries.getQueryAtIndex(random).getResource());
         }
         end = System.currentTimeMillis();
         long timeUsersFromResource = end - start;
 
-        // Time to get the users who queried 4000 resources on a specified date (we check the earliest date possible to have the worst case possible)
+        // Time to get the users who queried 20000 resources on a specified date (we check the earliest date possible to have the worst case possible)
         start = System.currentTimeMillis();
-        for (int index = 0; index < 4000; index++) {
+        for (int index = 0; index < 20000; index++) {
             int random = numGenerator.nextInt(queries.getNumQueries());
             set.getUsersFromResourceDate(queries.getQueryAtIndex(random).getResource(), new Date(1990, (char) 1, (char) 1, (char) 0, (char) 0, (char) 0));
         }
         end = System.currentTimeMillis();
         long timeUsersFromResourceDate = end - start;
 
-        //Time to get users from 4000 given date ranges (we check the biggest date range possible to simulate the worst case)
+        //Time to get users from 20000 given date ranges (we check the biggest date range possible to simulate the worst case)
         start = System.currentTimeMillis();
-        for (int index = 0; index < 4000; index++) {
+        for (int index = 0; index < 20000; index++) {
             int random = numGenerator.nextInt(queries.getNumQueries());
             set.getUsersFromResourceDateRange(queries.getQueryAtIndex(random).getResource(), new Date(1990, (char) 1, (char) 1, (char) 0, (char) 0, (char) 0), new Date(2500, (char) 12, (char) 31, (char) 23, (char) 59, (char) 59));
         }
         end = System.currentTimeMillis();
         long timeUsersFromResourceDateRange = end - start;
 
-        // Time to get 4000 times the resource queried most times
+        // Time to get 20000 times the resource queried most times
         start = System.currentTimeMillis();
-        for (int index = 0; index < 4000; index++) {
+        for (int index = 0; index < 20000; index++) {
             set.getMostQueriedResource();
         }
         end = System.currentTimeMillis();
@@ -88,14 +80,22 @@ public class TimeMeasurer {
         end = System.currentTimeMillis();
         long timeResourcesFromUser = end - start;
 
-        // Time to check if a user has consulted a resource
+        // Time to check 20000 times if a user has consulted a resource
         start = System.currentTimeMillis();
-        for (int index = 0; index < 4000; index++) {
+        for (int index = 0; index < 20000; index++) {
             int random = numGenerator.nextInt(queries.getNumQueries());
             set.userHasConsultedResource(queries.getQueryAtIndex(random).getResource(), queries.getQueryAtIndex(numGenerator.nextInt(queries.getNumQueries())).getUser());
         }
         end = System.currentTimeMillis();
         long timeUserConsultedResource = end - start;
+
+        // Time to add 4000 queries to the data set
+        start = System.currentTimeMillis();
+        for (int index = 0; index < 4000; index++) {
+            set.addQuery(new Query(generatedResources.getResourceAtIndex(numGenerator.nextInt(generatedResources.getNumResources())), generatedUsers.getUserAtIndex(numGenerator.nextInt(generatedUsers.getNumUsers())), generatedDates.getDateAtIndex(numGenerator.nextInt(generatedDates.getNumDates()))));
+        }
+        end = System.currentTimeMillis();
+        long timeAddQuery = end - start;
 
         //Time to remove queries of 4000 resources
         start = System.currentTimeMillis();
@@ -136,7 +136,7 @@ public class TimeMeasurer {
         Dates generatedDates = dateGenerator.generateRandomDates(20000);
 
         int addSize = 1;
-        if (maxSize <= 5000 || maxSize >= ADTsetResources.size) maxSize = ADTsetResources.size - 5000;
+        if (maxSize <= 3 || maxSize >= ADTsetResources.size) maxSize = ADTsetResources.size - 5000;
         if (repeats < 1) repeats = 5;
         Times times = new Times(repeats);
         for (int size = 2; size <= maxSize; size += addSize) {

@@ -52,28 +52,6 @@ public class RandomSetGenerator {
     }
 
     /**
-     * Set generator that generates its own set of user, resources and dates
-     *
-     * @param type    of implementation
-     * @param size    of the set
-     * @param queries to keep record of all the queries added to the set
-     * @return the constructed set
-     */
-    public ADTsetResources generateSet(int type, int size, Queries queries) {
-        // Generate Sets
-        int sizeComponents = size;
-        if(sizeComponents < 1000) sizeComponents = 1000;
-        if (size < 1 || size > ADTsetResources.size) size = ADTsetResources.size;
-        RandomUserGenerator userGenerator = new RandomUserGenerator();
-        Users users = userGenerator.generateRandomUsers(sizeComponents / 100);
-        RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
-        Resources resources = resourceGenerator.generateRandomResources(sizeComponents / 10);
-        RandomDateGenerator dateGenerator = new RandomDateGenerator();
-        Dates dates = dateGenerator.generateRandomDates(sizeComponents / 50);
-        return this.generateSet(type, users, resources, dates, size, queries);
-    }
-
-    /**
      * Set generator that generates its own set of user, resources and dates. It does not need a Queries for those
      * cases in which we do not wish to keep track of the added queries
      *
@@ -91,6 +69,6 @@ public class RandomSetGenerator {
         Resources resources = resourceGenerator.generateRandomResources(size / 10);
         RandomDateGenerator dateGenerator = new RandomDateGenerator();
         Dates dates = dateGenerator.generateRandomDates(size / 50);
-        return this.generateSet(type, users, resources, dates, size, queries);
+        return this.generateSet(type, resources, users, dates, size, queries);
     }
 }

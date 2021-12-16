@@ -16,11 +16,11 @@ public class TimeExecute {
         Times times;
 
         // Generate times for the first static implementation
-        times = TimeMeasurer.sizeEvolution(10000, 20, 0);
+        times = TimeMeasurer.sizeEvolution(131072, 5, 0);
         WriteTimes.write(times, "TimeResultsStatic.csv");
 
         // Generate times for the second static implementation
-        times = TimeMeasurer.sizeEvolution(10000, 20, 1);
+        times = TimeMeasurer.sizeEvolution(131072, 5, 1);
         WriteTimes.write(times, "TimeResultsStaticSecond.csv");
 
         // Generate times for the first dynamic implementation
