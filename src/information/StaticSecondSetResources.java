@@ -8,7 +8,7 @@ import staticInformation.UserQueries;
  */
 public class StaticSecondSetResources implements ADTsetResources {
     private final int size = 200000;
-    private final ResourceQueries[] resources = new ResourceQueries[size / 10];
+    private final ResourceQueries[] resources = new ResourceQueries[size];
     private int numResources = 0;
 
     /**
@@ -41,24 +41,26 @@ public class StaticSecondSetResources implements ADTsetResources {
     @Override
     public void addQuery(Query query) {
         int index;
-        if (numResources == 0) {
-            resources[0] = new ResourceQueries(query);
-            numResources++;
-        } else if (numResources < size) {
-            index = lowerBinarySearchResource(query.getResource(), 0, numResources - 1);
-            if (index < numResources) {
-                if (resources[index].getResource().equals(query.getResource()))
-                    resources[index].addQuery(query.getUser(), query.getDate());
-                else {
-                    for (int shiftIndex = numResources; shiftIndex > index; shiftIndex--) {
-                        resources[shiftIndex] = resources[shiftIndex - 1];
+        if (!(numResources == size)) {
+            if (numResources == 0) {
+                resources[0] = new ResourceQueries(query);
+                numResources++;
+            } else if (numResources < size) {
+                index = lowerBinarySearchResource(query.getResource(), 0, numResources - 1);
+                if (index < numResources) {
+                    if (resources[index].getResource().equals(query.getResource()))
+                        resources[index].addQuery(query.getUser(), query.getDate());
+                    else {
+                        for (int shiftIndex = numResources; shiftIndex > index; shiftIndex--) {
+                            resources[shiftIndex] = resources[shiftIndex - 1];
+                        }
+                        resources[index] = new ResourceQueries(query);
+                        numResources++;
                     }
+                } else {
                     resources[index] = new ResourceQueries(query);
                     numResources++;
                 }
-            } else {
-                resources[index] = new ResourceQueries(query);
-                numResources++;
             }
         }
     }

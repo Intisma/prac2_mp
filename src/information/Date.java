@@ -149,7 +149,7 @@ public class Date {
             else if (month == start.getMonth() && day >= start.getDay()) return true;
         } else if (year == end.getYear()) {
             if (month < end.getMonth()) return true;
-            else if (month == end.getMonth() && day <= start.getDay()) return true;
+            else if (month == end.getMonth() && day <= end.getDay()) return true;
         }
         return false;
     }

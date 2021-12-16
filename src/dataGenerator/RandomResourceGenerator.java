@@ -38,6 +38,17 @@ public class RandomResourceGenerator {
     }
 
     /**
+     * Method to add resources names from text file to resource ArrayList
+     */
+    public void setResourceSpanish() throws FileNotFoundException {
+        Scanner resourceReader = new Scanner(new File("./src/dataGenerator/ResourcesSpanish.txt"));
+        while (resourceReader.hasNext()) {
+            String firstName = resourceReader.nextLine();
+            resource.add(firstName);
+        }
+    }
+
+    /**
      * Method to add extensions names from text file to extension ArrayList
      */
     public void setExtension() throws FileNotFoundException {
@@ -56,6 +67,25 @@ public class RandomResourceGenerator {
         Resources resources = new Resources();
         try {
             this.setResource();
+            this.setExtension();
+
+            for (int i = 0; i < size; i++) {
+                resources.addResource(resource.get(resourceGenerator.nextInt(resource.size())) + "." + extension.get(resourceGenerator.nextInt(extension.size())));
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR: COULD NOT OPEN THE FILES, RESOURCES NOT GENERATED CORRECTLY");
+        }
+        return resources;
+    }
+
+    /**
+     * Method to generate random names attained from the text files
+     */
+    public Resources generateRandomResourcesSpanish(int size) {
+        if (size < 1 || size > Resources.maxResources) size = Resources.maxResources;
+        Resources resources = new Resources();
+        try {
+            this.setResourceSpanish();
             this.setExtension();
 
             for (int i = 0; i < size; i++) {

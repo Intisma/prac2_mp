@@ -4,10 +4,7 @@ import dataGenerator.RandomDateGenerator;
 import dataGenerator.RandomResourceGenerator;
 import dataGenerator.RandomSetGenerator;
 import dataGenerator.RandomUserGenerator;
-import information.ADTsetResources;
-import information.Date;
-import information.DynamicSecondSetResources;
-import information.Query;
+import information.*;
 import staticInformation.Dates;
 import staticInformation.Resources;
 import staticInformation.Users;
@@ -17,14 +14,18 @@ import java.util.Random;
 
 public class StaticTest {
     public static void main(String[] args) {
-        Date date = new Date(1990, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
+        Date start = new Date(2020, (char) 10, (char) 1, (char) 1, (char) 1, (char) 1);
+        Date end = new Date(2021, (char) 10, (char) 7, (char) 1, (char) 1, (char) 1);
+        Date fecha = new Date(2020, (char) 10, (char) 8, (char) 1, (char) 1, (char) 1);
+
+        Date date = new Date(1992, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
         Date date2 = new Date(1992, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
         Date date3 = new Date(1994, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
         Date date4 = new Date(1999, (char) 1, (char) 2, (char) 1, (char) 1, (char) 1);
         Date dateProba = new Date(1992, (char) 1, (char) 3, (char) 1, (char) 1, (char) 1);
 
         Queries queries = new Queries();
-        queries.addQuery(new Query("Casa", "Herminia", date));
+        queries.addQuery(new Query("Casa", "Herminia", fecha));
         queries.addQuery(new Query("Casa", "Herminia", date));
         queries.addQuery(new Query("Casalona", "Herminia", date));
         queries.addQuery(new Query("Casapera", "Herminia", date2));
@@ -32,8 +33,8 @@ public class StaticTest {
         queries.addQuery(new Query("Casapera", "Herminia", date));
 
 
-        ADTsetResources set = new DynamicSecondSetResources();
-        set.addQuery(new Query("Casa", "Herminia", date));
+        ADTsetResources set = new StaticSecondSetResources();
+        set.addQuery(new Query("Casa", "Herminia", fecha));
         set.addQuery(new Query("Casa", "Terelu", date2));
         set.addQuery(new Query("Casa", "Caniche", date3));
         set.addQuery(new Query("Aormigon", "Herminia", date));
@@ -44,24 +45,7 @@ public class StaticTest {
         set.addQuery(new Query("Hormigon", "Herminia", date4));
         System.out.println(set);
 
-        System.out.println("Hormigon------------------------------------------------------------");
-        set.removeQueriesFromResource("Hormigon");
-        System.out.println(set);
-        System.out.println("Aormigon------------------------------------------------------------");
-        set.removeQueriesFromResource("Aormigon");
-        System.out.println(set);
-        System.out.println("Casa------------------------------------------------------------");
-        set.removeQueriesFromResource("Casa");
-        System.out.println(set);
-        System.out.println("Casaverde------------------------------------------------------------");
-        set.removeQueriesFromResource("Casaverde");
-        System.out.println(set);
-        System.out.println("Casalona------------------------------------------------------------");
-        set.removeQueriesFromResource("Casalona");
-        System.out.println(set);
-        System.out.println("Casapera------------------------------------------------------------");
-        set.removeQueriesFromResource("Casapera");
-        System.out.println(set);
+        System.out.println(listToString(set.getUsersFromResourceDateRange("Casa", start, end)));
         System.out.println("\nFIN");
 
 

@@ -24,7 +24,7 @@ public class TimeMeasurer {
      * @param type of resource set
      * @return Time with all the times stored
      */
-    public static Time getTime(int size, int type, Resources generatedResources, Users generatedUsers, Dates generatedDates) {
+    public static Time getTime(int size, int type, Resources generatedResources, Users generatedUsers, Dates generatedDates, Resources generatedDifferentResources) {
         Random numGenerator = new Random();
         Queries queries = new Queries();
         Queries queries2 = new Queries();
@@ -92,7 +92,7 @@ public class TimeMeasurer {
         // Time to add 4000 queries to the data set
         start = System.currentTimeMillis();
         for (int index = 0; index < 4000; index++) {
-            set.addQuery(new Query(generatedResources.getResourceAtIndex(numGenerator.nextInt(generatedResources.getNumResources())), generatedUsers.getUserAtIndex(numGenerator.nextInt(generatedUsers.getNumUsers())), generatedDates.getDateAtIndex(numGenerator.nextInt(generatedDates.getNumDates()))));
+            set.addQuery(new Query(generatedDifferentResources.getResourceAtIndex(numGenerator.nextInt(generatedDifferentResources.getNumResources())), generatedUsers.getUserAtIndex(numGenerator.nextInt(generatedUsers.getNumUsers())), generatedDates.getDateAtIndex(numGenerator.nextInt(generatedDates.getNumDates()))));
         }
         end = System.currentTimeMillis();
         long timeAddQuery = end - start;
@@ -132,6 +132,8 @@ public class TimeMeasurer {
         Users generatedUsers = userGenerator.generateRandomUsers(20000);
         RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
         Resources generatedResources = resourceGenerator.generateRandomResources(20000);
+        RandomResourceGenerator differentResourceGenerator = new RandomResourceGenerator();
+        Resources generatedDifferentResources = differentResourceGenerator.generateRandomResourcesSpanish(20000);
         RandomDateGenerator dateGenerator = new RandomDateGenerator();
         Dates generatedDates = dateGenerator.generateRandomDates(20000);
 
@@ -142,7 +144,7 @@ public class TimeMeasurer {
         for (int size = 2; size <= maxSize; size += addSize) {
             System.out.println("Measuring time for size: " + size);
             for (int rep = 0; rep < repeats; rep++) {
-                times.addTime(getTime(size, type, generatedResources, generatedUsers, generatedDates));
+                times.addTime(getTime(size, type, generatedResources, generatedUsers, generatedDates, generatedDifferentResources));
             }
             addSize *= 2;
         }
