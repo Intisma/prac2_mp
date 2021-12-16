@@ -24,30 +24,22 @@ public class TimeMeasurer {
      * @param type of resource set
      * @return Time with all the times stored
      */
-    public static Time getTime(int size, int type) {
+    public static Time getTime(int size, int type, Resources generatedResources, Users generatedUsers, Dates generatedDates) {
         Random numGenerator = new Random();
         Queries queries = new Queries();
         Queries queries2 = new Queries();
 
         // Generate sets keeping track of the added queries
         RandomSetGenerator setGenerator = new RandomSetGenerator();
-        ADTsetResources set = setGenerator.generateSet(type, size, queries);
-        ADTsetResources set2 = setGenerator.generateSet(type, size, queries2);
-
-        // Generate new users, resources and dates to measure time to add new queries
-        RandomUserGenerator userGenerator = new RandomUserGenerator();
-        Users newUsers = userGenerator.generateRandomUsers(1000);
-        RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
-        Resources newResources = resourceGenerator.generateRandomResources(1000);
-        RandomDateGenerator dateGenerator = new RandomDateGenerator();
-        Dates newDates = dateGenerator.generateRandomDates(1000);
+        ADTsetResources set = setGenerator.generateSet(type, generatedResources, generatedUsers, generatedDates, size, queries);
+        ADTsetResources set2 = setGenerator.generateSet(type, generatedResources, generatedUsers, generatedDates, size, queries2);
 
         long start, end;
 
         // Time to add 4000 queries to the data set
         start = System.currentTimeMillis();
         for (int index = 0; index < 4000; index++) {
-            set.addQuery(new Query(newResources.getResourceAtIndex(numGenerator.nextInt(newResources.getNumResources())), newUsers.getUserAtIndex(numGenerator.nextInt(newUsers.getNumUsers())), newDates.getDateAtIndex(numGenerator.nextInt(newDates.getNumDates()))));
+            set.addQuery(new Query(generatedResources.getResourceAtIndex(numGenerator.nextInt(generatedResources.getNumResources())), generatedUsers.getUserAtIndex(numGenerator.nextInt(generatedUsers.getNumUsers())), generatedDates.getDateAtIndex(numGenerator.nextInt(generatedDates.getNumDates()))));
         }
         end = System.currentTimeMillis();
         long timeAddQuery = end - start;
@@ -135,6 +127,14 @@ public class TimeMeasurer {
      * @return list of times
      */
     public static Times sizeEvolution(int maxSize, int repeats, int type) {
+        // Generate new users, resources and dates to measure time to add new queries
+        RandomUserGenerator userGenerator = new RandomUserGenerator();
+        Users generatedUsers = userGenerator.generateRandomUsers(20000);
+        RandomResourceGenerator resourceGenerator = new RandomResourceGenerator();
+        Resources generatedResources = resourceGenerator.generateRandomResources(20000);
+        RandomDateGenerator dateGenerator = new RandomDateGenerator();
+        Dates generatedDates = dateGenerator.generateRandomDates(20000);
+
         int addSize = 1;
         if (maxSize <= 5000 || maxSize >= ADTsetResources.size) maxSize = ADTsetResources.size - 5000;
         if (repeats < 1) repeats = 5;
@@ -142,9 +142,9 @@ public class TimeMeasurer {
         for (int size = 2; size <= maxSize; size += addSize) {
             System.out.println("Measuring time for size: " + size);
             for (int rep = 0; rep < repeats; rep++) {
-                times.addTime(getTime(size, type));
+                times.addTime(getTime(size, type, generatedResources, generatedUsers, generatedDates));
             }
-            addSize*=2;
+            addSize *= 2;
         }
         return times;
     }

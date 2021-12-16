@@ -32,7 +32,7 @@ public class RandomSetGenerator {
      * @param queries   list to keep track of all the queries we add to the set
      * @return ADTsetResources generated
      */
-    public ADTsetResources generateSet(int type, Users users, Resources resources, Dates dates, int size, Queries queries) {
+    public ADTsetResources generateSet(int type, Resources resources, Users users, Dates dates, int size, Queries queries) {
         if (size < 1 || size > ADTsetResources.size) size = ADTsetResources.size;
         ADTsetResources set;
         switch (type) {
