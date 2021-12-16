@@ -24,11 +24,10 @@ public class TimeExecute {
         //WriteTimes.write(times, "TimeResultsStaticSecond.csv");
 
         // Generate times for the first dynamic implementation
-        times = TimeMeasurer.sizeEvolution(131072, 5, 2);
-        WriteTimes.write(times, "TimeResultsDynamic.csv");
-
         times = TimeMeasurer.sizeEvolution(131072, 5, 1);
         WriteTimes.write(times, "TimeResultsStaticSecond.csv");
+        times = TimeMeasurer.sizeEvolution(131072, 5, 2);
+        WriteTimes.write(times, "TimeResultsDynamic.csv");
 
         // Generate times for the second dynamic implementation
         //times = TimeMeasurer.sizeEvolution(100000, 10, 3);
