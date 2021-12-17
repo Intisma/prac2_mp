@@ -1,7 +1,10 @@
 package timeMeasurer;
 
 /**
- * Class to store all the values of the time measures. It is capable to perform some operations to facilitate the data analysis
+ * This class is in charge of storing the time measures of all the methods of the ADTsetResources for one size.
+ * Getter methods are implemented to access these times out of the class. The class counts with two operation methods
+ * that add and divide to Time objects. These exist to facilitate calculating the mean values of the Times class. The
+ * last toString method is used to get the structure information in String format ready to be printed to a file.
  */
 public class Time {
     private long size = 0;
@@ -16,17 +19,16 @@ public class Time {
     private long timeUserConsultedResource = 0;
 
     /**
-     * Constructor
-     *
-     * @param timeAddQuery                   to initialize
-     * @param timeRemoveResource             to initialize
-     * @param timeRemoveResourceDate         to initialize
-     * @param timeUsersFromResource          to initialize
-     * @param timeUsersFromResourceDate      to initialize
-     * @param timeUsersFromResourceDateRange to initialize
-     * @param timeMostQueriedResource        to initialize
-     * @param timeResourcesFromUser          to initialize
-     * @param timeUserConsultedResource      to initialize
+     * @param size                           to initialize the corresponding variable
+     * @param timeAddQuery                   to initialize the corresponding variable
+     * @param timeRemoveResource             to initialize the corresponding variable
+     * @param timeRemoveResourceDate         to initialize the corresponding variable
+     * @param timeUsersFromResource          to initialize the corresponding variable
+     * @param timeUsersFromResourceDate      to initialize the corresponding variable
+     * @param timeUsersFromResourceDateRange to initialize the corresponding variable
+     * @param timeMostQueriedResource        to initialize the corresponding variable
+     * @param timeResourcesFromUser          to initialize the corresponding variable
+     * @param timeUserConsultedResource      to initialize the corresponding variable
      */
     public Time(long size, long timeAddQuery, long timeRemoveResource, long timeRemoveResourceDate, long timeUsersFromResource, long timeUsersFromResourceDate, long timeUsersFromResourceDateRange, long timeMostQueriedResource, long timeResourcesFromUser, long timeUserConsultedResource) {
         this.size = size;
@@ -42,7 +44,7 @@ public class Time {
     }
 
     /**
-     * Constructor
+     * Empty constructor
      */
     public Time() {
 
@@ -58,91 +60,91 @@ public class Time {
     }
 
     /**
-     * Get this time
+     * Get the measured time to add a query
      *
-     * @return this time
+     * @return this timeAddQuery
      */
     public long getTimeAddQuery() {
         return timeAddQuery;
     }
 
     /**
-     * Get this time
+     * Get the measured time to remove queries from an introduced resource
      *
-     * @return this time
+     * @return this timeRemoveResource
      */
     public long getTimeRemoveResource() {
         return timeRemoveResource;
     }
 
     /**
-     * Get this time
+     * Get the measured time to remove queries from an introduced resource and date
      *
-     * @return this time
+     * @return this timeRemoveResourceDate
      */
     public long getTimeRemoveResourceDate() {
         return timeRemoveResourceDate;
     }
 
     /**
-     * Get this time
+     * Get the measured time to get the users from a resource
      *
-     * @return this time
-     */
-    public long getTimeUsersFromResourceDateRange() {
-        return timeUsersFromResourceDateRange;
-    }
-
-    /**
-     * Get this time
-     *
-     * @return this time
+     * @return this timeUsersFromResource
      */
     public long getTimeUsersFromResource() {
         return timeUsersFromResource;
     }
 
     /**
-     * Get this time
+     * Get the measured time to get the users from a resource in a given date
      *
-     * @return this time
+     * @return this timeUsersFromResourceDate
      */
     public long getTimeUsersFromResourceDate() {
         return timeUsersFromResourceDate;
     }
 
     /**
-     * Get this time
+     * Get the measured time to get the users from a resource in a given date range
      *
-     * @return this time
+     * @return this timeUsersFromResourceDateRange
+     */
+    public long getTimeUsersFromResourceDateRange() {
+        return timeUsersFromResourceDateRange;
+    }
+
+    /**
+     * Get the measured time to get the most queried resource
+     *
+     * @return this timeMostQueriedResource
      */
     public long getTimeMostQueriedResource() {
         return timeMostQueriedResource;
     }
 
     /**
-     * Get this time
+     * Get the measured time to get the resources consulted from a user
      *
-     * @return this time
+     * @return this timeResourcesFromUser
      */
     public long getTimeResourcesFromUser() {
         return timeResourcesFromUser;
     }
 
     /**
-     * Get this time
+     * Get the measured time to know if a given user has consulted a given resource
      *
-     * @return this time
+     * @return this timeUserConsultedResource
      */
     public long getTimeUserConsultedResource() {
         return timeUserConsultedResource;
     }
 
     /**
-     * Method to add two times
+     * Method to add the values of two Time objects. It adds every time with the other object complementary
      *
      * @param time to add
-     * @return new time with the added resources
+     * @return new Time object with the added resources
      */
     public Time add(Time time) {
         return new Time(size + time.getSize(), timeAddQuery + time.getTimeAddQuery(), timeRemoveResource + time.getTimeRemoveResource(), timeRemoveResourceDate + time.getTimeRemoveResourceDate(),
@@ -150,6 +152,12 @@ public class Time {
                 timeMostQueriedResource + time.getTimeMostQueriedResource(), timeResourcesFromUser + time.getTimeResourcesFromUser(), timeUserConsultedResource + time.getTimeUserConsultedResource());
     }
 
+    /**
+     * Method to divide the values of one Time object with an introduced long number
+     *
+     * @param number to act as the divider
+     * @return new Time object with the divided times results
+     */
     public Time divide(long number) {
         return new Time(size / number, timeAddQuery / number, timeRemoveResource / number, timeRemoveResourceDate / number,
                 timeUsersFromResource / number, timeUsersFromResourceDate / number, timeUsersFromResourceDateRange / number,
@@ -157,9 +165,9 @@ public class Time {
     }
 
     /**
-     * Get String with the info of the class to write in file
+     * This method transforms the data of the Time object to a String format ready to be printed to a file.
      *
-     * @return String with the information
+     * @return String with the information ready to be printed to a file
      */
     public String toString() {
         return size + "," + timeAddQuery + "," + timeRemoveResource + "," + timeRemoveResourceDate + "," + timeUsersFromResource + "," + timeUsersFromResourceDate + "," + timeUsersFromResourceDateRange + "," + timeMostQueriedResource + "," + timeResourcesFromUser + "," + timeUserConsultedResource + "\n";

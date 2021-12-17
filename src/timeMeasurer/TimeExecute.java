@@ -3,7 +3,8 @@ package timeMeasurer;
 import inputOutput.WriteTimes;
 
 /**
- * Class used to execute the code corresponding to the time measure
+ * This class is used to execute the code corresponding to the time measures. Once these measures are finished,
+ * the results are stored in a file. By default, the size values are 2048 to facilitate the execution.
  */
 public class TimeExecute {
     /**

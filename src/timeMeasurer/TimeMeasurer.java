@@ -14,15 +14,22 @@ import staticInformation.Users;
 import java.util.Random;
 
 /**
- * Class in charge of measuring time of all types of resource sets.
+ * This class is in charge of executing all the time measures. It contains two methods that make the measures
+ * automatically, allowing the user to select the maximum size of the structure to measure.
  */
 public class TimeMeasurer {
     /**
-     * Class to get the times corresponding a size and type of resource set
+     * This method is in charge of making the time measures. It will generate a random set with the given list of users,
+     * resources and dates. To make the time measures more representative, it tries to test the worst cases even though
+     * the randomness of the sets complicates it.
      *
-     * @param size to assign
-     * @param type of resource set
-     * @return Time with all the times stored
+     * @param size                        of the structure (number of queries to be added)
+     * @param type                        of the implementation desired by the user
+     * @param generatedResources          to create the queries
+     * @param generatedUsers              to create the queries
+     * @param generatedDates              to create the queries
+     * @param generatedDifferentResources to test the addQuery method (assuring we will not add repeated resources)
+     * @return Time object that stores all the measured times
      */
     public static Time getTime(int size, int type, Resources generatedResources, Users generatedUsers, Dates generatedDates, Resources generatedDifferentResources) {
         Random numGenerator = new Random();
@@ -120,11 +127,12 @@ public class TimeMeasurer {
 
     /**
      * Method to gather information on how an increasing size impacts the time cost of the different methods
-     * performed by the resources sets
+     * performed by the resources sets. The loop of the method starts at size two, and the value duplicates at
+     * every iteration to get representative time measures.
      *
-     * @param repeats number of repeats
-     * @param type    boolean indicating if the implementation of the set
-     * @return list of times
+     * @param repeats number of times the time measures are performed
+     * @param type    int indicating the type of implementation desired by the user
+     * @return list of generated times
      */
     public static Times sizeEvolution(int maxSize, int repeats, int type) {
         // Generate new users, resources and dates to measure time to add new queries

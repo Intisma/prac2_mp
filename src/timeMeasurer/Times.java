@@ -1,8 +1,10 @@
 package timeMeasurer;
 
 /**
- * Class in charge of keeping a list of times corresponding an execution. It calculates the mean values of all
- * the repeats.
+ * This class is in charge of keeping a list of times corresponding to an execution. The list is automatically ordered
+ * by structure size and will not contain duplicates (it checks if the same Time has been added two times). The method
+ * toString is used to get the data information in String format, ready to be printed in a file. In the cases where
+ * several repeats of the same size have been made the method calculates and stores the mean value.
  */
 public class Times {
     public static final int maxTimes = 10000;
@@ -12,15 +14,19 @@ public class Times {
 
     /**
      * Constructor
+     *
+     * @param repeats is the number of times the measures have been made for the same size. This variable is needed to
+     *                calculate the mean values in the toString method
      */
     public Times(int repeats) {
         this.repeats = repeats;
     }
 
     /**
-     * Method to add a new time to the list. The list is ordered and does not contain duplicates.
+     * This method adds a new Time to the list. It will control that there are no duplicates in the list and the list
+     * is ordered by structure size. The method uses binary search to know where to insert the next time of the list
      *
-     * @param time to add
+     * @param time that will be added to the list
      */
     public void addTime(Time time) {
         if (numTimes == 0) {
@@ -45,10 +51,10 @@ public class Times {
     }
 
     /**
-     * Method to found the position of a Time on the list. If not already in the list, finds the position to insert it.
+     * This method finds the index where a Time object should be inserted in the list
      *
-     * @param time to find
-     * @return index where the user is or where it should be inserted.
+     * @param time to find in the list
+     * @return index where the Time object it should be inserted.
      */
     public int binarySearch(Time time) {
         int start = 0, index, end = numTimes - 1;
@@ -62,9 +68,10 @@ public class Times {
     }
 
     /**
-     * Method to get the string with the information of the times
+     * This method transforms the data of the list to a String format ready to be printed to a file. It has to
+     * calculate the mean values of all the time measures from the same structure size with the help of the variable repeats
      *
-     * @return String with the information
+     * @return String with the list information ready to be printed to a file
      */
     public String toString() {
         StringBuilder total = new StringBuilder();

@@ -4,8 +4,9 @@ import information.ADTsetResources;
 import information.Query;
 
 /**
- * List of queries to facilitate the time measures. It stores the information of the queries added to a set, allowing
- * that methods like remove queries from resource, always have a resource that is inside the set.
+ * This class provides a list of queries to facilitate the time measures. It stores the information of the queries
+ * added to a set, allowing that methods like "removeQueriesResource" always have a resource inside. If the resource
+ * introduced to remove from the set is not stored, the cost of the operation is lower. The list is ordered by date
  */
 public class Queries {
     private final int size = ADTsetResources.size;
@@ -13,7 +14,7 @@ public class Queries {
     private int numQueries = 0;
 
     /**
-     * Constructor
+     * Empty constructor
      */
     public Queries() {
 
@@ -32,7 +33,7 @@ public class Queries {
      * Method to get the query at a given index
      *
      * @param index to search for the query
-     * @return the query or null if not found
+     * @return the query, or null if not found
      */
     public Query getQueryAtIndex(int index) {
         if (index < numQueries && index >= 0) {
@@ -42,7 +43,7 @@ public class Queries {
     }
 
     /**
-     * Method to found the position of a query on the list. If not already in the list, finds the position to insert it.
+     * Method to found the position of a query on the list. If not already in the list, finds the position to insert it
      *
      * @param query to find
      * @return index where the query is or where it should be inserted.
@@ -60,9 +61,10 @@ public class Queries {
     }
 
     /**
-     * Method to add a new query
+     * Method to add a new query controlling that the query is not already inside the list and keeping it
+     * ordered by date
      *
-     * @param query to add
+     * @param query to add to the list
      */
     public void addQuery(Query query) {
         if (numQueries == 0) {
@@ -87,7 +89,7 @@ public class Queries {
 
 
     /**
-     * Method toString
+     * Method toString used to test the correct functioning of the class
      *
      * @return String with the class information
      */
