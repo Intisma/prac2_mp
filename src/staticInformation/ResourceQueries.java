@@ -53,7 +53,7 @@ public class ResourceQueries {
     }
 
     /**
-     * Method to add a new query
+     * Method to add a new query keeping the list ordered by date
      *
      * @param user to add
      * @param date to add

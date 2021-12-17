@@ -3,7 +3,7 @@ package staticInformation;
 import information.Date;
 
 /**
- * List of dates that keeps the order. It does not contain duplicates
+ * List of dates that keeps the order. It does not contain duplicates. Useful to generate random dates.
  */
 public class Dates {
     public static final int maxDates = 100000;

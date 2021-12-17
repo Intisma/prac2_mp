@@ -1,7 +1,8 @@
 package staticInformation;
 
 /**
- * Class that facilitates the task of finding a list of users without having duplicates
+ * This class provides a list of users to facilitate method that return a list of String[] with the users that meet some
+ * conditions. It stores the name of the users in order and does not allow for duplicates.
  */
 public class Users {
     public static final int maxUsers = 10000;
@@ -9,16 +10,16 @@ public class Users {
     private int numUsers = 0;
 
     /**
-     * Constructor
+     * Empty constructor
      */
     public Users() {
 
     }
 
     /**
-     * Get the list of resources
+     * Method to get the list of users
      *
-     * @return a list of String with the users
+     * @return String[] with the list of users
      */
     public String[] getUsers() {
         return users;
@@ -37,7 +38,7 @@ public class Users {
      * Get the user at the given index
      *
      * @param index of the user to return
-     * @return the user or null if there isn't one at the index
+     * @return the user, or null if there isn't one at the index
      */
     public String getUserAtIndex(int index) {
         if (index < numUsers && index >= 0) {
@@ -47,9 +48,10 @@ public class Users {
     }
 
     /**
-     * Method to add a new user to the list. The list is ordered and does not contain duplicates.
+     * Method to add a new user controlling that the user is not already inside the list and keeping it
+     * ordered alphabetically
      *
-     * @param user to add
+     * @param user to add to the list
      */
     public void addUser(String user) {
         if (numUsers == 0) {
@@ -92,7 +94,7 @@ public class Users {
     }
 
     /**
-     * Method toString
+     * Method toString used to test the correct functioning of the class
      *
      * @return String with the class information
      */

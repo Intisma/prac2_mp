@@ -15,11 +15,19 @@ import timeMeasurer.Queries;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
+/**
+ * This class is in charge of testing all the ADTsetResource implementations. To select the type of implementation, the
+ * user has to introduce an integer via keyboard.  The class has 14 tests that print the result in the console.
+ */
 public class GeneralTest {
 
     static Scanner key = new Scanner(System.in);
 
+    /**
+     * Main of the class to execute the testing
+     *
+     * @param args not used
+     */
     public static void main(String[] args) {
 
         RandomUserGenerator userGenerator = new RandomUserGenerator();
@@ -46,6 +54,13 @@ public class GeneralTest {
     }
 
 
+    /**
+     * Static method in charge of performing all of the test
+     *
+     * @param set   to test
+     * @param type  of set desired by the user
+     * @param users that has been randomly generated to generate some random queries added to the set
+     */
     public static void test(ADTsetResources set, int type, Users users) {
         switch (type) {
             case 0 -> System.out.println("\n\t************STARTING THE TEST WITH FIRST IMPLEMENTATION OF STATIC STRUCTURE************\n");

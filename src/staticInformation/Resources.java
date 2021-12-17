@@ -9,7 +9,7 @@ public class Resources {
     private int numResources = 0;
 
     /**
-     * Constructor
+     * Empty constructor
      */
     public Resources() {
 
@@ -47,9 +47,9 @@ public class Resources {
     }
 
     /**
-     * Method to add a new resource to the list. The list is ordered and does not contain duplicates.
+     * Method to add a new resource to the list. The list is ordered alphabetically and does not contain duplicates.
      *
-     * @param resource to add
+     * @param resource to add to the list
      */
     public void addResource(String resource) {
         if (numResources == 0) {

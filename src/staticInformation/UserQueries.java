@@ -19,7 +19,7 @@ public class UserQueries {
     }
 
     /**
-     * Method to add a new query
+     * Method to add a new query. The list is ordered by date
      *
      * @param resource to add
      * @param date     to add
@@ -41,7 +41,7 @@ public class UserQueries {
     }
 
     /**
-     * Binary search to find the lowest index where a query is located or where it should be inserted.
+     * Binary search to find the lowest index where a "query" is located or where it should be inserted.
      *
      * @param date   to find
      * @param lower  index to find
@@ -57,7 +57,7 @@ public class UserQueries {
     }
 
     /**
-     * Method to get the resources who queried this resource
+     * Method to get the resources queried by the user
      *
      * @return users who queried this resource
      */
@@ -70,7 +70,7 @@ public class UserQueries {
     }
 
     /**
-     * Method toString
+     * Method toString used to test the correct functioning of the class
      *
      * @return String with the information
      */
