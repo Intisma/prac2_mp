@@ -4,6 +4,9 @@ import dynamicInformation.NodeQuery;
 import dynamicInformation.NodeResource;
 import dynamicInformation.NodeUsers;
 
+/**
+ * Second implementation of the dynamic resource set
+ */
 public class DynamicSecondSetResources implements ADTsetResources {
 
     private NodeResource firstRes;
@@ -13,6 +16,9 @@ public class DynamicSecondSetResources implements ADTsetResources {
     private int numUsers;
     private int numRes;
 
+    /**
+     * Constructor
+     */
     public DynamicSecondSetResources() {
         this.firstRes = null;
         this.firstUser = null;
@@ -450,9 +456,9 @@ public class DynamicSecondSetResources implements ADTsetResources {
 
     /**
      * Method to find a resource with a loop through the NodeResources of the DataStructure
-     * @param resource
+     * @param resource: name of the resource
      * @param currentResource: node from which to start the loop
-     * @return
+     * @return the resource
      */
     public NodeResource searchResource(String resource, NodeResource currentResource) {
         NodeResource selectResource = null;
@@ -473,9 +479,9 @@ public class DynamicSecondSetResources implements ADTsetResources {
     /**
      * Method to find a user with a loop through the NodeUsers of the DataStructure
      *
-     * @param user
+     * @param user: name of the user
      * @param currentUser: node from which to start the loop
-     * @return
+     * @return the user
      */
     public NodeUsers searchUser(String user, NodeUsers currentUser) {
         boolean found = false;

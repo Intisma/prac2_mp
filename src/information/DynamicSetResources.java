@@ -1,16 +1,20 @@
 package information;
 
 import dynamicInformation.ContResource;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * First implementation of the dynamic resource set
+ */
 public class DynamicSetResources implements ADTsetResources {
 
     private final HashMap<String, ArrayList<Query>> resources;
     private final HashMap<String, ArrayList<ContResource>> users;
 
+    /**
+     * Constructor
+     */
     public DynamicSetResources() {
         resources = new HashMap<>();
         users = new HashMap<>();
